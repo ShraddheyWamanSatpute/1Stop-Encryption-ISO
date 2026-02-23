@@ -1,0 +1,249 @@
+{
+  "nightcap_group": {
+    "total_venues": 45,
+    "total_brands": 12,
+    "cities": ["London", "Birmingham", "Cardiff", "Bristol", "Manchester", "Leeds", "Brighton", "Liverpool", "Newcastle", "Edinburgh"],
+    "restaurants": [
+      {
+        "brand": "The Cocktail Club",
+        "locations": [
+          {
+            "name": "The Cocktail Club Birmingham",
+            "address": "31 Temple Street, Birmingham, B2 5DB",
+            "phone": "+44 121 200 1911",
+            "opening_hours": {
+              "monday": "16:00-02:00",
+              "tuesday": "16:00-02:00", 
+              "wednesday": "16:00-02:00",
+              "thursday": "16:00-02:00",
+              "friday": "15:00-02:00",
+              "saturday": "12:00-02:00",
+              "sunday": "16:00-22:00"
+            },
+            "cuisine_type": "Cocktails & Bar Food",
+            "price_range": "££",
+            "capacity": 450,
+            "special_features": ["Happy Hour", "Bottomless Brunch", "Private Events", "Live Entertainment"],
+            "booking_available": true,
+            "city": "Birmingham"
+          },
+          {
+            "name": "The Cocktail Club Bristol",
+            "address": "37-39 Corn Street, Bristol, BS1 1HT",
+            "phone": "+44 117 925 0706",
+            "opening_hours": {
+              "monday": "16:00-01:00",
+              "tuesday": "16:00-01:00",
+              "wednesday": "16:00-01:00", 
+              "thursday": "16:00-02:00",
+              "friday": "15:00-02:00",
+              "saturday": "12:00-02:00",
+              "sunday": "16:00-22:00"
+            },
+            "cuisine_type": "Cocktails & Bar Food",
+            "price_range": "££",
+            "capacity": 350,
+            "special_features": ["Happy Hour", "Bottomless Brunch", "Private Events"],
+            "booking_available": true,
+            "city": "Bristol"
+          },
+          {
+            "name": "The Cocktail Club Cardiff",
+            "address": "Mill Lane, Cardiff, CF10 1FL",
+            "phone": "+44 29 2034 8934",
+            "opening_hours": {
+              "monday": "16:00-01:00",
+              "tuesday": "16:00-01:00",
+              "wednesday": "16:00-01:00",
+              "thursday": "16:00-02:00", 
+              "friday": "15:00-02:00",
+              "saturday": "12:00-02:00",
+              "sunday": "16:00-22:00"
+            },
+            "cuisine_type": "Cocktails & Bar Food",
+            "price_range": "££",
+            "capacity": 300,
+            "special_features": ["Happy Hour", "Bottomless Brunch", "Private Events"],
+            "booking_available": true,
+            "city": "Cardiff"
+          }
+        ]
+      },
+      {
+        "brand": "Dirty Martini",
+        "locations": [
+          {
+            "name": "Dirty Martini Covent Garden",
+            "address": "11-12 Russell Street, London, WC2B 5HZ",
+            "phone": "+44 20 7240 9250",
+            "opening_hours": {
+              "monday": "17:00-01:00",
+              "tuesday": "17:00-01:00",
+              "wednesday": "17:00-01:00",
+              "thursday": "17:00-02:00",
+              "friday": "17:00-02:00",
+              "saturday": "17:00-02:00",
+              "sunday": "17:00-00:00"
+            },
+            "cuisine_type": "Cocktails & Light Bites",
+            "price_range": "£££",
+            "capacity": 200,
+            "special_features": ["Premium Cocktails", "Late Night Bar", "Private Hire"],
+            "booking_available": true,
+            "city": "London"
+          },
+          {
+            "name": "Dirty Martini Birmingham",
+            "address": "7 Bennetts Hill, Birmingham, B2 5ST",
+            "phone": "+44 121 633 9250",
+            "opening_hours": {
+              "monday": "17:00-01:00",
+              "tuesday": "17:00-01:00",
+              "wednesday": "17:00-01:00",
+              "thursday": "17:00-02:00",
+              "friday": "17:00-02:00",
+              "saturday": "17:00-02:00",
+              "sunday": "17:00-00:00"
+            },
+            "cuisine_type": "Cocktails & Light Bites",
+            "price_range": "£££",
+            "capacity": 180,
+            "special_features": ["Premium Cocktails", "Late Night Bar", "Private Hire"],
+            "booking_available": true,
+            "city": "Birmingham"
+          },
+          {
+            "name": "Dirty Martini Cardiff",
+            "address": "The Hayes, Cardiff, CF10 1AH",
+            "phone": "+44 29 2022 9250",
+            "opening_hours": {
+              "monday": "17:00-01:00",
+              "tuesday": "17:00-01:00",
+              "wednesday": "17:00-01:00",
+              "thursday": "17:00-02:00",
+              "friday": "17:00-02:00",
+              "saturday": "17:00-02:00",
+              "sunday": "17:00-00:00"
+            },
+            "cuisine_type": "Cocktails & Light Bites",
+            "price_range": "£££",
+            "capacity": 160,
+            "special_features": ["Premium Cocktails", "Late Night Bar", "Private Hire"],
+            "booking_available": true,
+            "city": "Cardiff"
+          },
+          {
+            "name": "Dirty Martini Bristol",
+            "address": "Park Street, Bristol, BS1 5HX",
+            "phone": "+44 117 925 9250",
+            "opening_hours": {
+              "monday": "17:00-01:00",
+              "tuesday": "17:00-01:00",
+              "wednesday": "17:00-01:00",
+              "thursday": "17:00-02:00",
+              "friday": "17:00-02:00",
+              "saturday": "17:00-02:00",
+              "sunday": "17:00-00:00"
+            },
+            "cuisine_type": "Cocktails & Light Bites",
+            "price_range": "£££",
+            "capacity": 150,
+            "special_features": ["Premium Cocktails", "Late Night Bar", "Private Hire"],
+            "booking_available": true,
+            "city": "Bristol"
+          }
+        ]
+      },
+      {
+        "brand": "Tuttons",
+        "locations": [
+          {
+            "name": "Tuttons Covent Garden",
+            "address": "11-12 Russell Street, London, WC2B 5HZ",
+            "phone": "+44 20 7836 4141",
+            "opening_hours": {
+              "monday": "09:00-23:00",
+              "tuesday": "09:00-23:00",
+              "wednesday": "09:00-23:00",
+              "thursday": "09:00-00:00",
+              "friday": "09:00-00:00",
+              "saturday": "09:00-00:00",
+              "sunday": "09:00-23:00"
+            },
+            "cuisine_type": "British, Breakfast, Seafood, Grill",
+            "price_range": "££",
+            "capacity": 120,
+            "special_features": ["Outdoor Seating", "Private Dining Room", "All Day Dining", "Traditional British Cuisine"],
+            "booking_available": true,
+            "city": "London"
+          }
+        ]
+      },
+      {
+        "brand": "Blame Gloria",
+        "locations": [
+          {
+            "name": "Blame Gloria Covent Garden",
+            "address": "15-16 Henrietta Street, London, WC2E 8QH",
+            "phone": "+44 20 7379 1392",
+            "opening_hours": {
+              "monday": "17:00-01:00",
+              "tuesday": "17:00-01:00",
+              "wednesday": "17:00-01:00",
+              "thursday": "17:00-02:00",
+              "friday": "17:00-02:00",
+              "saturday": "15:00-02:00",
+              "sunday": "17:00-00:00"
+            },
+            "cuisine_type": "Cocktails & Small Plates",
+            "price_range": "££",
+            "capacity": 80,
+            "special_features": ["Bottomless Brunch", "Happy Hour", "Unique Victorian Toilet Conversion", "Instagram-worthy Interior"],
+            "booking_available": true,
+            "city": "London"
+          },
+          {
+            "name": "Blame Gloria Bristol",
+            "address": "Christmas Steps, Bristol, BS1 5BS",
+            "phone": "+44 117 925 1392",
+            "opening_hours": {
+              "monday": "17:00-01:00",
+              "tuesday": "17:00-01:00",
+              "wednesday": "17:00-01:00",
+              "thursday": "17:00-02:00",
+              "friday": "17:00-02:00",
+              "saturday": "15:00-02:00",
+              "sunday": "17:00-00:00"
+            },
+            "cuisine_type": "Cocktails & Small Plates",
+            "price_range": "££",
+            "capacity": 70,
+            "special_features": ["Bottomless Brunch", "Happy Hour", "Quirky Decor"],
+            "booking_available": true,
+            "city": "Bristol"
+          },
+          {
+            "name": "Blame Gloria Clapham",
+            "address": "45 Clapham High Street, London, SW4 7TG",
+            "phone": "+44 20 7622 1392",
+            "opening_hours": {
+              "monday": "17:00-01:00",
+              "tuesday": "17:00-01:00",
+              "wednesday": "17:00-01:00",
+              "thursday": "17:00-02:00",
+              "friday": "17:00-02:00",
+              "saturday": "15:00-02:00",
+              "sunday": "17:00-00:00"
+            },
+            "cuisine_type": "Cocktails & Small Plates",
+            "price_range": "££",
+            "capacity": 90,
+            "special_features": ["Bottomless Brunch", "Happy Hour", "Local Neighborhood Vibe"],
+            "booking_available": true,
+            "city": "London"
+          }
+        ]
+      }
+    ]
+  }
+}

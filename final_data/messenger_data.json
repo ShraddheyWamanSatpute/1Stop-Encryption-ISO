@@ -1,0 +1,576 @@
+{
+  "chats": {
+    "-OVchat001": {
+      "id": "-OVchat001",
+      "name": "General Discussion",
+      "type": "company",
+      "participants": ["ojjMG6VYLQapkFS1FdTxvbamb332", "user123", "user456", "user789"],
+      "createdAt": "2025-01-15T09:00:00.000Z",
+      "updatedAt": "2025-01-15T16:30:00.000Z",
+      "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "companyId": "-OVdAjij7W50BTb-z9G6",
+      "siteId": "-OVsite001",
+      "categoryId": "-OVcat001",
+      "description": "Company-wide general discussion channel",
+      "avatar": "https://example.com/avatars/general.png",
+      "isPrivate": false,
+      "isArchived": false,
+      "lastMessage": {
+        "id": "-OVmsg015",
+        "text": "Great work everyone on today's service!",
+        "timestamp": "2025-01-15T16:30:00.000Z",
+        "senderId": "ojjMG6VYLQapkFS1FdTxvbamb332",
+        "senderName": "John Manager"
+      },
+      "pinnedMessages": ["-OVmsg001", "-OVmsg005"],
+      "settings": {
+        "allowFileSharing": true,
+        "allowMentions": true,
+        "muteNotifications": false
+      }
+    },
+    "-OVchat002": {
+      "id": "-OVchat002",
+      "name": "Kitchen Team",
+      "type": "department",
+      "participants": ["user123", "user456", "user789", "user101"],
+      "createdAt": "2025-01-10T08:00:00.000Z",
+      "updatedAt": "2025-01-15T15:45:00.000Z",
+      "createdBy": "user123",
+      "companyId": "-OVdAjij7W50BTb-z9G6",
+      "siteId": "-OVsite001",
+      "departmentId": "-OVdept001",
+      "categoryId": "-OVcat002",
+      "description": "Kitchen staff coordination and updates",
+      "avatar": "https://example.com/avatars/kitchen.png",
+      "isPrivate": false,
+      "isArchived": false,
+      "lastMessage": {
+        "id": "-OVmsg020",
+        "text": "New menu items ready for tonight",
+        "timestamp": "2025-01-15T15:45:00.000Z",
+        "senderId": "user123",
+        "senderName": "Sarah Chef"
+      },
+      "pinnedMessages": ["-OVmsg010"],
+      "settings": {
+        "allowFileSharing": true,
+        "allowMentions": true,
+        "muteNotifications": false
+      }
+    },
+    "-OVchat003": {
+      "id": "-OVchat003",
+      "name": "Front of House",
+      "type": "department",
+      "participants": ["user456", "user789", "user202", "user303"],
+      "createdAt": "2025-01-12T10:00:00.000Z",
+      "updatedAt": "2025-01-15T17:00:00.000Z",
+      "createdBy": "user456",
+      "companyId": "-OVdAjij7W50BTb-z9G6",
+      "siteId": "-OVsite001",
+      "departmentId": "-OVdept002",
+      "categoryId": "-OVcat002",
+      "description": "Service team communication",
+      "avatar": "https://example.com/avatars/service.png",
+      "isPrivate": false,
+      "isArchived": false,
+      "lastMessage": {
+        "id": "-OVmsg025",
+        "text": "Table 12 needs special attention - VIP guest",
+        "timestamp": "2025-01-15T17:00:00.000Z",
+        "senderId": "user456",
+        "senderName": "Mike Server"
+      },
+      "pinnedMessages": [],
+      "settings": {
+        "allowFileSharing": true,
+        "allowMentions": true,
+        "muteNotifications": false
+      }
+    },
+    "-OVchat004": {
+      "id": "-OVchat004",
+      "name": "Management Team",
+      "type": "role",
+      "participants": ["ojjMG6VYLQapkFS1FdTxvbamb332", "user404", "user505"],
+      "createdAt": "2025-01-08T09:00:00.000Z",
+      "updatedAt": "2025-01-15T18:00:00.000Z",
+      "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "companyId": "-OVdAjij7W50BTb-z9G6",
+      "roleId": "-OVrole001",
+      "categoryId": "-OVcat003",
+      "description": "Management discussions and decisions",
+      "avatar": "https://example.com/avatars/management.png",
+      "isPrivate": true,
+      "isArchived": false,
+      "lastMessage": {
+        "id": "-OVmsg030",
+        "text": "Q1 performance review scheduled for next week",
+        "timestamp": "2025-01-15T18:00:00.000Z",
+        "senderId": "ojjMG6VYLQapkFS1FdTxvbamb332",
+        "senderName": "John Manager"
+      },
+      "pinnedMessages": ["-OVmsg028"],
+      "settings": {
+        "allowFileSharing": true,
+        "allowMentions": true,
+        "muteNotifications": false
+      }
+    },
+    "-OVchat005": {
+      "id": "-OVchat005",
+      "name": "Sarah & Mike",
+      "type": "direct",
+      "participants": ["user123", "user456"],
+      "createdAt": "2025-01-14T11:30:00.000Z",
+      "updatedAt": "2025-01-15T16:15:00.000Z",
+      "createdBy": "user123",
+      "companyId": "-OVdAjij7W50BTb-z9G6",
+      "description": "Direct message between Sarah and Mike",
+      "isPrivate": true,
+      "isArchived": false,
+      "lastMessage": {
+        "id": "-OVmsg035",
+        "text": "Can you help with the new dessert presentation?",
+        "timestamp": "2025-01-15T16:15:00.000Z",
+        "senderId": "user123",
+        "senderName": "Sarah Chef"
+      },
+      "pinnedMessages": [],
+      "settings": {
+        "allowFileSharing": true,
+        "allowMentions": true,
+        "muteNotifications": false
+      }
+    }
+  },
+  "messages": {
+    "-OVmsg001": {
+      "id": "-OVmsg001",
+      "chatId": "-OVchat001",
+      "text": "Welcome everyone to our new messaging system! Please use this for all team communications.",
+      "timestamp": "2025-01-15T09:00:00.000Z",
+      "date": "2025-01-15",
+      "time": "09:00",
+      "uid": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "senderId": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "firstName": "John",
+      "lastName": "Manager",
+      "status": "read",
+      "readBy": ["user123", "user456", "user789"],
+      "mentions": ["@everyone"],
+      "reactions": {
+        "👍": ["user123", "user456"],
+        "❤️": ["user789"]
+      },
+      "isPinned": true
+    },
+    "-OVmsg002": {
+      "id": "-OVmsg002",
+      "chatId": "-OVchat001",
+      "text": "Sounds great! This will make communication much easier.",
+      "timestamp": "2025-01-15T09:05:00.000Z",
+      "date": "2025-01-15",
+      "time": "09:05",
+      "uid": "user123",
+      "senderId": "user123",
+      "firstName": "Sarah",
+      "lastName": "Chef",
+      "status": "read",
+      "readBy": ["ojjMG6VYLQapkFS1FdTxvbamb332", "user456", "user789"],
+      "reactions": {
+        "👍": ["ojjMG6VYLQapkFS1FdTxvbamb332"]
+      }
+    },
+    "-OVmsg003": {
+      "id": "-OVmsg003",
+      "chatId": "-OVchat001",
+      "text": "Here's today's menu for reference",
+      "timestamp": "2025-01-15T10:30:00.000Z",
+      "date": "2025-01-15",
+      "time": "10:30",
+      "uid": "user456",
+      "senderId": "user456",
+      "firstName": "Mike",
+      "lastName": "Server",
+      "status": "read",
+      "readBy": ["ojjMG6VYLQapkFS1FdTxvbamb332", "user123", "user789"],
+      "attachments": [
+        {
+          "id": "-OVatt001",
+          "type": "document",
+          "url": "https://example.com/files/menu-jan15.pdf",
+          "name": "Daily Menu - Jan 15.pdf",
+          "size": 245760,
+          "mimeType": "application/pdf",
+          "metadata": {
+            "pages": 2,
+            "uploadedBy": "user456"
+          }
+        }
+      ]
+    },
+    "-OVmsg004": {
+      "id": "-OVmsg004",
+      "chatId": "-OVchat002",
+      "text": "Kitchen prep starts at 7 AM tomorrow. New recipe cards are ready.",
+      "timestamp": "2025-01-15T14:00:00.000Z",
+      "date": "2025-01-15",
+      "time": "14:00",
+      "uid": "user123",
+      "senderId": "user123",
+      "firstName": "Sarah",
+      "lastName": "Chef",
+      "status": "delivered",
+      "readBy": ["user456", "user789"],
+      "mentions": ["@user101"],
+      "reactions": {
+        "✅": ["user456", "user101"]
+      }
+    },
+    "-OVmsg005": {
+      "id": "-OVmsg005",
+      "chatId": "-OVchat001",
+      "text": "Reminder: Staff meeting at 3 PM in the main dining area",
+      "timestamp": "2025-01-15T13:00:00.000Z",
+      "date": "2025-01-15",
+      "time": "13:00",
+      "uid": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "senderId": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "firstName": "John",
+      "lastName": "Manager",
+      "status": "read",
+      "readBy": ["user123", "user456", "user789"],
+      "mentions": ["@everyone"],
+      "isPinned": true,
+      "reactions": {
+        "📅": ["user123", "user456", "user789"]
+      }
+    },
+    "-OVmsg006": {
+      "id": "-OVmsg006",
+      "chatId": "-OVchat003",
+      "text": "VIP reservation for table 8 at 7 PM - anniversary celebration",
+      "timestamp": "2025-01-15T15:30:00.000Z",
+      "date": "2025-01-15",
+      "time": "15:30",
+      "uid": "user456",
+      "senderId": "user456",
+      "firstName": "Mike",
+      "lastName": "Server",
+      "status": "read",
+      "readBy": ["user789", "user202", "user303"],
+      "reactions": {
+        "🎉": ["user202"],
+        "❤️": ["user303"]
+      }
+    },
+    "-OVmsg007": {
+      "id": "-OVmsg007",
+      "chatId": "-OVchat004",
+      "text": "Monthly sales figures look excellent. 15% increase from last month.",
+      "timestamp": "2025-01-15T16:00:00.000Z",
+      "date": "2025-01-15",
+      "time": "16:00",
+      "uid": "user404",
+      "senderId": "user404",
+      "firstName": "Emma",
+      "lastName": "Finance",
+      "status": "read",
+      "readBy": ["ojjMG6VYLQapkFS1FdTxvbamb332", "user505"],
+      "attachments": [
+        {
+          "id": "-OVatt002",
+          "type": "image",
+          "url": "https://example.com/files/sales-chart.png",
+          "name": "Sales Chart January.png",
+          "size": 156789,
+          "mimeType": "image/png",
+          "metadata": {
+            "width": 1200,
+            "height": 800,
+            "uploadedBy": "user404"
+          }
+        }
+      ]
+    },
+    "-OVmsg008": {
+      "id": "-OVmsg008",
+      "chatId": "-OVchat005",
+      "text": "Hey Mike, can you help me with the new dessert plating technique?",
+      "timestamp": "2025-01-15T16:10:00.000Z",
+      "date": "2025-01-15",
+      "time": "16:10",
+      "uid": "user123",
+      "senderId": "user123",
+      "firstName": "Sarah",
+      "lastName": "Chef",
+      "status": "read",
+      "readBy": ["user456"]
+    },
+    "-OVmsg009": {
+      "id": "-OVmsg009",
+      "chatId": "-OVchat005",
+      "text": "Of course! I'll be there in 5 minutes.",
+      "timestamp": "2025-01-15T16:12:00.000Z",
+      "date": "2025-01-15",
+      "time": "16:12",
+      "uid": "user456",
+      "senderId": "user456",
+      "firstName": "Mike",
+      "lastName": "Server",
+      "status": "read",
+      "readBy": ["user123"],
+      "replyTo": {
+        "id": "-OVmsg008",
+        "text": "Hey Mike, can you help me with the new dessert plating technique?"
+      }
+    },
+    "-OVmsg010": {
+      "id": "-OVmsg010",
+      "chatId": "-OVchat002",
+      "text": "Updated allergen information - please review before service",
+      "timestamp": "2025-01-15T11:00:00.000Z",
+      "date": "2025-01-15",
+      "time": "11:00",
+      "uid": "user123",
+      "senderId": "user123",
+      "firstName": "Sarah",
+      "lastName": "Chef",
+      "status": "read",
+      "readBy": ["user456", "user789", "user101"],
+      "isPinned": true,
+      "attachments": [
+        {
+          "id": "-OVatt003",
+          "type": "document",
+          "url": "https://example.com/files/allergen-info.pdf",
+          "name": "Allergen Information Update.pdf",
+          "size": 89456,
+          "mimeType": "application/pdf",
+          "metadata": {
+            "pages": 3,
+            "uploadedBy": "user123"
+          }
+        }
+      ]
+    }
+  },
+  "categories": {
+    "-OVcat001": {
+      "id": "-OVcat001",
+      "name": "General",
+      "companyId": "-OVdAjij7W50BTb-z9G6",
+      "description": "General company communications",
+      "color": "#2196F3",
+      "icon": "💬",
+      "order": 1,
+      "isDefault": true,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    "-OVcat002": {
+      "id": "-OVcat002",
+      "name": "Departments",
+      "companyId": "-OVdAjij7W50BTb-z9G6",
+      "description": "Department-specific channels",
+      "color": "#4CAF50",
+      "icon": "🏢",
+      "order": 2,
+      "isDefault": false,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    "-OVcat003": {
+      "id": "-OVcat003",
+      "name": "Management",
+      "companyId": "-OVdAjij7W50BTb-z9G6",
+      "description": "Management and leadership discussions",
+      "color": "#FF9800",
+      "icon": "👔",
+      "order": 3,
+      "isDefault": false,
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    }
+  },
+  "userStatuses": {
+    "ojjMG6VYLQapkFS1FdTxvbamb332": {
+      "uid": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "status": "online",
+      "lastActive": "2025-01-15T18:00:00.000Z",
+      "customStatus": "Managing the floor"
+    },
+    "user123": {
+      "uid": "user123",
+      "status": "online",
+      "lastActive": "2025-01-15T16:15:00.000Z",
+      "customStatus": "Prepping for dinner service"
+    },
+    "user456": {
+      "uid": "user456",
+      "status": "busy",
+      "lastActive": "2025-01-15T17:00:00.000Z",
+      "customStatus": "Serving customers"
+    },
+    "user789": {
+      "uid": "user789",
+      "status": "away",
+      "lastActive": "2025-01-15T15:30:00.000Z"
+    },
+    "user101": {
+      "uid": "user101",
+      "status": "offline",
+      "lastActive": "2025-01-15T14:00:00.000Z"
+    }
+  },
+  "users": {
+    "ojjMG6VYLQapkFS1FdTxvbamb332": {
+      "uid": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "firstName": "John",
+      "lastName": "Manager",
+      "email": "john.manager@pianoworks.com",
+      "avatar": "https://example.com/avatars/john.jpg",
+      "companyIds": ["-OVdAjij7W50BTb-z9G6"],
+      "departmentIds": ["management"],
+      "roleIds": ["manager"],
+      "isActive": true
+    },
+    "user123": {
+      "uid": "user123",
+      "firstName": "Sarah",
+      "lastName": "Chef",
+      "email": "sarah.chef@pianoworks.com",
+      "avatar": "https://example.com/avatars/sarah.jpg",
+      "companyIds": ["-OVdAjij7W50BTb-z9G6"],
+      "departmentIds": ["kitchen"],
+      "roleIds": ["chef"],
+      "isActive": true
+    },
+    "user456": {
+      "uid": "user456",
+      "firstName": "Mike",
+      "lastName": "Server",
+      "email": "mike.server@pianoworks.com",
+      "avatar": "https://example.com/avatars/mike.jpg",
+      "companyIds": ["-OVdAjij7W50BTb-z9G6"],
+      "departmentIds": ["service"],
+      "roleIds": ["server"],
+      "isActive": true
+    },
+    "user789": {
+      "uid": "user789",
+      "firstName": "Lisa",
+      "lastName": "Bartender",
+      "email": "lisa.bartender@pianoworks.com",
+      "avatar": "https://example.com/avatars/lisa.jpg",
+      "companyIds": ["-OVdAjij7W50BTb-z9G6"],
+      "departmentIds": ["bar"],
+      "roleIds": ["bartender"],
+      "isActive": true
+    },
+    "user101": {
+      "uid": "user101",
+      "firstName": "Tom",
+      "lastName": "Cook",
+      "email": "tom.cook@pianoworks.com",
+      "companyIds": ["-OVdAjij7W50BTb-z9G6"],
+      "departmentIds": ["kitchen"],
+      "roleIds": ["cook"],
+      "isActive": true
+    }
+  },
+  "contacts": {
+    "-OVcontact001": {
+      "id": "-OVcontact001",
+      "userId": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "contactUserId": "user123",
+      "type": "work",
+      "status": "accepted",
+      "nickname": "Head Chef",
+      "notes": "Great team player, excellent culinary skills",
+      "isFavorite": true,
+      "createdAt": "2025-01-10T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVcontact002": {
+      "id": "-OVcontact002",
+      "userId": "user123",
+      "contactUserId": "user456",
+      "type": "work",
+      "status": "accepted",
+      "nickname": "Service Lead",
+      "notes": "Always reliable for front of house coordination",
+      "isFavorite": false,
+      "createdAt": "2025-01-12T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    }
+  },
+  "contactInvitations": {
+    "-OVinvite001": {
+      "id": "-OVinvite001",
+      "fromUserId": "user789",
+      "toUserId": "user202",
+      "message": "Would love to connect and coordinate bar service with front of house",
+      "status": "pending",
+      "sentAt": "2025-01-15T10:00:00.000Z"
+    }
+  },
+  "notifications": {
+    "-OVnotif001": {
+      "id": "-OVnotif001",
+      "userId": "user123",
+      "chatId": "-OVchat001",
+      "messageId": "-OVmsg001",
+      "type": "mention",
+      "isRead": true,
+      "timestamp": "2025-01-15T09:00:00.000Z",
+      "senderName": "John Manager",
+      "messagePreview": "Welcome everyone to our new messaging system!"
+    },
+    "-OVnotif002": {
+      "id": "-OVnotif002",
+      "userId": "user456",
+      "chatId": "-OVchat002",
+      "messageId": "-OVmsg004",
+      "type": "mention",
+      "isRead": false,
+      "timestamp": "2025-01-15T14:00:00.000Z",
+      "senderName": "Sarah Chef",
+      "messagePreview": "Kitchen prep starts at 7 AM tomorrow..."
+    }
+  },
+  "chatSettings": {
+    "-OVchat001": {
+      "ojjMG6VYLQapkFS1FdTxvbamb332": {
+        "userId": "ojjMG6VYLQapkFS1FdTxvbamb332",
+        "chatId": "-OVchat001",
+        "isMuted": false,
+        "isStarred": true,
+        "isPinned": true,
+        "lastReadMessageId": "-OVmsg015",
+        "notificationLevel": "all"
+      },
+      "user123": {
+        "userId": "user123",
+        "chatId": "-OVchat001",
+        "isMuted": false,
+        "isStarred": false,
+        "isPinned": false,
+        "lastReadMessageId": "-OVmsg014",
+        "notificationLevel": "mentions"
+      }
+    }
+  },
+  "drafts": {
+    "-OVchat002": {
+      "user456": {
+        "chatId": "-OVchat002",
+        "userId": "user456",
+        "text": "Don't forget to check the new wine pairings for tonight's specials",
+        "lastUpdated": "2025-01-15T17:30:00.000Z"
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "types": [],
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@frontend/*": ["./src/frontend/*"],
+      "@styles/*": ["./src/frontend/styles/*"],
+      "@components/*": ["./src/frontend/components/*"],
+      "@pages/*": ["./src/frontend/pages/*"],
+      "@layouts/*": ["./src/frontend/layouts/*"],
+      "@utils/*": ["./src/frontend/utils/*"],
+      "@yourstop/*": ["./src/yourstop/frontend/src/*"],
+      "@/components/*": ["./src/yourstop/frontend/src/components/*"],
+      "@/lib/*": ["./src/yourstop/frontend/src/lib/*"],
+      "@/hooks/*": ["./src/yourstop/frontend/src/hooks/*"],
+      "@/app/*": ["./src/yourstop/frontend/src/app/*"],
+      "@/types/*": ["./src/yourstop/frontend/src/types/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/yourstop/backend/**/*", 
+    "src/yourstop/frontend/**/*",  // Exclude entire yourstop frontend - it has its own tsconfig
+    "node_modules/**/*",
+    "**/node_modules/**",
+    "dist/**",
+    "build/**"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

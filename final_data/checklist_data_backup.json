@@ -1,0 +1,381 @@
+{
+  "checklists": {
+    "-OVcheck001": {
+      "id": "-OVcheck001",
+      "title": "Daily Opening Checklist",
+      "description": "Complete all opening procedures before service begins",
+      "siteId": "-OVsite001",
+      "isGlobalAccess": false,
+      "assignedSites": ["-OVsite001"],
+      "schedule": {
+        "type": "daily",
+        "repeatDays": {
+          "monday": true,
+          "tuesday": true,
+          "wednesday": true,
+          "thursday": true,
+          "friday": true,
+          "saturday": true,
+          "sunday": true
+        },
+        "openingTime": "08:00",
+        "closingTime": "10:00",
+        "timezone": "Europe/London",
+        "startDate": 1704067200000,
+        "expireTime": 1704153600000,
+        "dueTime": 1704142800000
+      },
+      "status": "active",
+      "assignedTo": ["kitchen", "service", "management"],
+      "assignedToTeams": ["opening_team"],
+      "category": "Operations",
+      "tracking": {
+        "requireSignature": true,
+        "requirePhotos": false,
+        "requireNotes": false,
+        "requireLocation": true
+      },
+      "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "createdAt": 1704067200000,
+      "updatedAt": 1704067200000,
+      "sections": [
+        {
+          "id": "-OVsec001",
+          "title": "Kitchen Preparation",
+          "description": "Kitchen setup and safety checks",
+          "order": 1,
+          "sectionType": "standard",
+          "items": [
+            {
+              "id": "-OVitem001",
+              "text": "Check all equipment temperatures",
+              "title": "Equipment Temperature Check",
+              "description": "Verify all refrigeration and cooking equipment is at correct temperature",
+              "required": true,
+              "order": 1,
+              "type": "checkbox",
+              "validation": {
+                "required": true,
+                "requireExplanationWhenNo": true
+              }
+            },
+            {
+              "id": "-OVitem002",
+              "text": "Record freezer temperature",
+              "title": "Freezer Temperature",
+              "description": "Record the freezer temperature in Celsius",
+              "required": true,
+              "order": 2,
+              "type": "number",
+              "validation": {
+                "min": -20,
+                "max": -15,
+                "required": true,
+                "requireExplanationWhenOutOfRange": true
+              }
+            },
+            {
+              "id": "-OVitem003",
+              "text": "Take photo of prep area",
+              "title": "Prep Area Photo",
+              "description": "Document the cleanliness of prep areas",
+              "required": true,
+              "order": 3,
+              "type": "photo"
+            }
+          ]
+        },
+        {
+          "id": "-OVsec002",
+          "title": "Front of House",
+          "description": "Dining area and service preparation",
+          "order": 2,
+          "sectionType": "standard",
+          "items": [
+            {
+              "id": "-OVitem004",
+              "text": "Set up dining tables",
+              "title": "Table Setup",
+              "required": true,
+              "order": 1,
+              "type": "checkbox"
+            },
+            {
+              "id": "-OVitem005",
+              "text": "Check lighting and ambiance",
+              "title": "Ambiance Check",
+              "required": true,
+              "order": 2,
+              "type": "checkbox"
+            },
+            {
+              "id": "-OVitem006",
+              "text": "Notes on any issues",
+              "title": "Opening Notes",
+              "description": "Record any issues or observations",
+              "required": false,
+              "order": 3,
+              "type": "text"
+            }
+          ]
+        }
+      ]
+    },
+    "-OVcheck002": {
+      "id": "-OVcheck002",
+      "title": "Weekly Deep Clean",
+      "description": "Comprehensive cleaning checklist for weekly maintenance",
+      "siteId": "-OVsite001",
+      "isGlobalAccess": false,
+      "assignedSites": ["-OVsite001"],
+      "schedule": {
+        "type": "weekly",
+        "repeatDays": {
+          "monday": true,
+          "tuesday": false,
+          "wednesday": false,
+          "thursday": false,
+          "friday": false,
+          "saturday": false,
+          "sunday": false
+        },
+        "openingTime": "06:00",
+        "closingTime": "12:00",
+        "timezone": "Europe/London",
+        "startDate": 1704067200000
+      },
+      "status": "active",
+      "assignedTo": ["cleaning", "kitchen"],
+      "category": "Maintenance",
+      "tracking": {
+        "requireSignature": true,
+        "requirePhotos": true,
+        "requireNotes": true,
+        "requireLocation": false
+      },
+      "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "createdAt": 1704067200000,
+      "updatedAt": 1704067200000,
+      "sections": [
+        {
+          "id": "-OVsec003",
+          "title": "Deep Kitchen Clean",
+          "description": "Thorough kitchen cleaning procedures",
+          "order": 1,
+          "sectionType": "cleaning",
+          "items": [
+            {
+              "id": "-OVitem007",
+              "text": "Clean and sanitize all surfaces",
+              "required": true,
+              "order": 1,
+              "type": "checkbox"
+            },
+            {
+              "id": "-OVitem008",
+              "text": "Deep clean equipment",
+              "required": true,
+              "order": 2,
+              "type": "checkbox"
+            },
+            {
+              "id": "-OVitem009",
+              "text": "Photo of cleaned kitchen",
+              "required": true,
+              "order": 3,
+              "type": "photo"
+            }
+          ]
+        }
+      ]
+    },
+    "-OVcheck003": {
+      "id": "-OVcheck003",
+      "title": "Monthly Safety Inspection",
+      "description": "Monthly safety and compliance checks",
+      "siteId": "-OVsite001",
+      "isGlobalAccess": true,
+      "assignedSites": ["-OVsite001", "-OVsite002"],
+      "schedule": {
+        "type": "monthly",
+        "openingDay": "1",
+        "closingDay": "5",
+        "timezone": "Europe/London",
+        "startDate": 1704067200000
+      },
+      "status": "active",
+      "assignedTo": ["management", "safety_officer"],
+      "category": "Safety",
+      "tracking": {
+        "requireSignature": true,
+        "requirePhotos": true,
+        "requireNotes": true,
+        "requireLocation": true
+      },
+      "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "createdAt": 1704067200000,
+      "updatedAt": 1704067200000,
+      "sections": [
+        {
+          "id": "-OVsec004",
+          "title": "Fire Safety",
+          "description": "Fire safety equipment and procedures",
+          "order": 1,
+          "sectionType": "safety",
+          "items": [
+            {
+              "id": "-OVitem010",
+              "text": "Test fire alarms",
+              "required": true,
+              "order": 1,
+              "type": "checkbox"
+            },
+            {
+              "id": "-OVitem011",
+              "text": "Check fire extinguishers",
+              "required": true,
+              "order": 2,
+              "type": "checkbox"
+            },
+            {
+              "id": "-OVitem012",
+              "text": "Emergency exit inspection",
+              "required": true,
+              "order": 3,
+              "type": "checkbox"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "checklistCompletions": {
+    "-OVcomp001": {
+      "id": "-OVcomp001",
+      "checklistId": "-OVcheck001",
+      "completedBy": "user123",
+      "completedByName": "Sarah Chef",
+      "completedAt": 1704153600000,
+      "siteId": "-OVsite001",
+      "sections": [
+        {
+          "id": "-OVsec001",
+          "items": [
+            {
+              "id": "-OVitem001",
+              "value": true,
+              "notes": "All equipment running at correct temperatures"
+            },
+            {
+              "id": "-OVitem002",
+              "value": -18,
+              "notes": "Freezer temperature within acceptable range"
+            },
+            {
+              "id": "-OVitem003",
+              "value": true,
+              "attachments": ["https://example.com/photos/prep-area-jan15.jpg"]
+            }
+          ]
+        },
+        {
+          "id": "-OVsec002",
+          "items": [
+            {
+              "id": "-OVitem004",
+              "value": true
+            },
+            {
+              "id": "-OVitem005",
+              "value": true
+            },
+            {
+              "id": "-OVitem006",
+              "value": "All systems ready for service. New wine delivery arrived."
+            }
+          ]
+        }
+      ],
+      "status": "complete"
+    },
+    "-OVcomp002": {
+      "id": "-OVcomp002",
+      "checklistId": "-OVcheck002",
+      "completedBy": "user456",
+      "completedByName": "Mike Server",
+      "completedAt": 1704240000000,
+      "siteId": "-OVsite001",
+      "sections": [
+        {
+          "id": "-OVsec003",
+          "items": [
+            {
+              "id": "-OVitem007",
+              "value": true,
+              "notes": "All surfaces cleaned and sanitized with approved chemicals"
+            },
+            {
+              "id": "-OVitem008",
+              "value": true,
+              "notes": "Equipment deep cleaned including internal components"
+            },
+            {
+              "id": "-OVitem009",
+              "value": true,
+              "attachments": ["https://example.com/photos/kitchen-clean-week2.jpg"]
+            }
+          ]
+        }
+      ],
+      "status": "complete"
+    },
+    "-OVcomp003": {
+      "id": "-OVcomp003",
+      "checklistId": "-OVcheck001",
+      "completedBy": "user789",
+      "completedByName": "Lisa Bartender",
+      "completedAt": 1704067800000,
+      "siteId": "-OVsite001",
+      "sections": [
+        {
+          "id": "-OVsec001",
+          "items": [
+            {
+              "id": "-OVitem001",
+              "value": false,
+              "notes": "Walk-in cooler temperature slightly high - maintenance called"
+            },
+            {
+              "id": "-OVitem002",
+              "value": -16,
+              "notes": "Freezer temperature acceptable but monitoring"
+            },
+            {
+              "id": "-OVitem003",
+              "value": true,
+              "attachments": ["https://example.com/photos/prep-area-issue.jpg"]
+            }
+          ]
+        },
+        {
+          "id": "-OVsec002",
+          "items": [
+            {
+              "id": "-OVitem004",
+              "value": true
+            },
+            {
+              "id": "-OVitem005",
+              "value": true
+            },
+            {
+              "id": "-OVitem006",
+              "value": "Cooler issue noted - maintenance scheduled for this afternoon"
+            }
+          ]
+        }
+      ],
+      "status": "incomplete"
+    }
+  }
+}

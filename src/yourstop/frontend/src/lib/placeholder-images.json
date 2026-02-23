@@ -1,0 +1,22 @@
+{
+  "placeholderImages": [
+    {
+      "id": "1",
+      "description": "Elegant dining room of a modern European restaurant.",
+      "imageUrl": "https://picsum.photos/seed/gildedspoon/600/400",
+      "imageHint": "elegant dining"
+    },
+    {
+      "id": "2",
+      "description": "Vibrant interior of a contemporary Indian restaurant.",
+      "imageUrl": "https://picsum.photos/seed/urbanspice/600/400",
+      "imageHint": "indian restaurant"
+    },
+    {
+      "id": "3",
+      "description": "Cozy and rustic interior of a classic Italian trattoria.",
+      "imageUrl": "https://picsum.photos/seed/latrattoria/600/400",
+      "imageHint": "italian trattoria"
+    }
+  ]
+}

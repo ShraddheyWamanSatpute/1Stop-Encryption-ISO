@@ -1,0 +1,28 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "companies": {
+      "$companyId": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        "sites": {
+          "$siteId": {
+            ".read": "auth != null",
+            ".write": "auth != null",
+            "data": {
+              ".read": "auth != null",
+              ".write": "auth != null"
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      "$userId": {
+        ".read": "auth != null && auth.uid == $userId",
+        ".write": "auth != null && auth.uid == $userId"
+      }
+    }
+  }
+}

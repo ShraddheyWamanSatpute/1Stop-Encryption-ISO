@@ -1,0 +1,83 @@
+{
+  "name": "bookmytable-backend",
+  "version": "1.0.0",
+  "description": "Backend services for BookMyTable restaurant booking platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "dev:ai": "tsx watch ai/dev.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
+    "typecheck": "tsc --noEmit",
+    "setup": "node setup-env.js",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "tsx scripts/seed.ts",
+    "db:studio": "prisma studio",
+    "genkit:dev": "genkit start -- tsx ai/dev.ts",
+    "genkit:watch": "genkit start -- tsx --watch ai/dev.ts"
+  },
+  "keywords": [
+    "restaurant",
+    "booking",
+    "backend",
+    "api",
+    "firebase",
+    "typescript",
+    "genkit"
+  ],
+  "author": "Shraddhey Satpute",
+  "license": "MIT",
+  "dependencies": {
+    "@genkit-ai/googleai": "^1.14.1",
+    "@prisma/client": "^6.16.2",
+    "@types/express": "^5.0.3",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.1.5",
+    "firebase": "^11.10.0",
+    "genkit": "^1.14.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^6.16.2",
+    "resend": "^3.2.0",
+    "sendgrid": "^5.2.3",
+    "stripe": "^14.25.0",
+    "winston": "^3.17.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/jest": "^29.5.8",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^20",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "eslint": "^8.54.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "tsx": "^4.6.0",
+    "typescript": "^5.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShraddheyWamanSatpute/BookMyTable.git",
+    "directory": "backend"
+  },
+  "bugs": {
+    "url": "https://github.com/ShraddheyWamanSatpute/BookMyTable/issues"
+  },
+  "homepage": "https://github.com/ShraddheyWamanSatpute/BookMyTable#readme"
+}

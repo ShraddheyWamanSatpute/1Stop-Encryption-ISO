@@ -1,0 +1,622 @@
+{
+  "accounts": {
+    "-OVacc001": {
+      "id": "-OVacc001",
+      "name": "Cash at Bank - Main Account",
+      "code": "1001",
+      "type": "asset",
+      "subType": "current_asset",
+      "category": "Bank Accounts",
+      "balance": 45780.50,
+      "description": "Primary business bank account",
+      "isArchived": false,
+      "isSystemAccount": true,
+      "currency": "GBP",
+      "bankAccountDetails": {
+        "accountNumber": "12345678",
+        "sortCode": "12-34-56",
+        "iban": "GB29 NWBK 1234 5678 9012 34",
+        "swiftCode": "NWBKGB2L"
+      },
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc002": {
+      "id": "-OVacc002",
+      "name": "Accounts Receivable",
+      "code": "1200",
+      "type": "asset",
+      "subType": "current_asset",
+      "category": "Receivables",
+      "balance": 12450.75,
+      "description": "Outstanding customer invoices",
+      "isArchived": false,
+      "isSystemAccount": true,
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc003": {
+      "id": "-OVacc003",
+      "name": "Food & Beverage Inventory",
+      "code": "1300",
+      "type": "asset",
+      "subType": "current_asset",
+      "category": "Inventory",
+      "balance": 8750.25,
+      "description": "Restaurant inventory valuation",
+      "isArchived": false,
+      "isSystemAccount": false,
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc004": {
+      "id": "-OVacc004",
+      "name": "Kitchen Equipment",
+      "code": "1500",
+      "type": "asset",
+      "subType": "fixed_asset",
+      "category": "Equipment",
+      "balance": 125000.00,
+      "description": "Kitchen equipment and fixtures",
+      "isArchived": false,
+      "isSystemAccount": false,
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc005": {
+      "id": "-OVacc005",
+      "name": "Accounts Payable",
+      "code": "2001",
+      "type": "liability",
+      "subType": "current_liability",
+      "category": "Payables",
+      "balance": 6750.80,
+      "description": "Outstanding supplier bills",
+      "isArchived": false,
+      "isSystemAccount": true,
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc006": {
+      "id": "-OVacc006",
+      "name": "VAT Payable",
+      "code": "2200",
+      "type": "liability",
+      "subType": "current_liability",
+      "category": "Tax Liabilities",
+      "balance": 3250.40,
+      "description": "VAT owed to HMRC",
+      "isArchived": false,
+      "isSystemAccount": true,
+      "taxCode": "VAT20",
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc007": {
+      "id": "-OVacc007",
+      "name": "Food & Beverage Sales",
+      "code": "4001",
+      "type": "revenue",
+      "subType": "revenue",
+      "category": "Sales Revenue",
+      "balance": 185750.90,
+      "description": "Restaurant sales revenue",
+      "isArchived": false,
+      "isSystemAccount": false,
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc008": {
+      "id": "-OVacc008",
+      "name": "Cost of Goods Sold",
+      "code": "5001",
+      "type": "expense",
+      "subType": "cost_of_goods_sold",
+      "category": "Direct Costs",
+      "balance": 55725.30,
+      "description": "Direct cost of food and beverages",
+      "isArchived": false,
+      "isSystemAccount": false,
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc009": {
+      "id": "-OVacc009",
+      "name": "Staff Wages",
+      "code": "6001",
+      "type": "expense",
+      "subType": "expense",
+      "category": "Payroll",
+      "balance": 42500.75,
+      "description": "Employee wages and salaries",
+      "isArchived": false,
+      "isSystemAccount": false,
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVacc010": {
+      "id": "-OVacc010",
+      "name": "Rent Expense",
+      "code": "6100",
+      "type": "expense",
+      "subType": "expense",
+      "category": "Occupancy",
+      "balance": 18000.00,
+      "description": "Monthly rent payments",
+      "isArchived": false,
+      "isSystemAccount": false,
+      "currency": "GBP",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    }
+  },
+  "invoices": {
+    "-OVinv001": {
+      "id": "-OVinv001",
+      "invoiceNumber": "INV-2025-001",
+      "customerId": "-OVcust001",
+      "customerName": "Corporate Events Ltd",
+      "customerEmail": "billing@corporateevents.co.uk",
+      "customerAddress": {
+        "street": "123 Business Park",
+        "city": "London",
+        "state": "England",
+        "postalCode": "SW1A 1AA",
+        "country": "United Kingdom"
+      },
+      "lineItems": [
+        {
+          "id": "-OVli001",
+          "description": "Private dining event for 50 guests",
+          "quantity": 1,
+          "unitPrice": 2500.00,
+          "taxRate": 0.20,
+          "taxAmount": 500.00,
+          "lineTotal": 3000.00,
+          "accountId": "-OVacc007"
+        }
+      ],
+      "subtotal": 2500.00,
+      "taxAmount": 500.00,
+      "totalAmount": 3000.00,
+      "currency": "GBP",
+      "status": "sent",
+      "dueDate": "2025-02-14",
+      "issueDate": "2025-01-15",
+      "description": "Private dining event catering",
+      "terms": "Payment due within 30 days",
+      "reference": "EVENT-2025-001",
+      "paymentTerms": 30,
+      "createdAt": "2025-01-15T09:00:00.000Z",
+      "updatedAt": "2025-01-15T09:00:00.000Z",
+      "sentAt": "2025-01-15T09:30:00.000Z",
+      "remindersSent": 0
+    },
+    "-OVinv002": {
+      "id": "-OVinv002",
+      "invoiceNumber": "INV-2025-002",
+      "customerId": "-OVcust002",
+      "customerName": "Wedding Planners Co",
+      "customerEmail": "accounts@weddingplanners.co.uk",
+      "lineItems": [
+        {
+          "id": "-OVli002",
+          "description": "Wedding reception catering - 120 guests",
+          "quantity": 1,
+          "unitPrice": 6000.00,
+          "taxRate": 0.20,
+          "taxAmount": 1200.00,
+          "lineTotal": 7200.00,
+          "accountId": "-OVacc007"
+        },
+        {
+          "id": "-OVli003",
+          "description": "Premium bar service",
+          "quantity": 1,
+          "unitPrice": 1500.00,
+          "taxRate": 0.20,
+          "taxAmount": 300.00,
+          "lineTotal": 1800.00,
+          "accountId": "-OVacc007"
+        }
+      ],
+      "subtotal": 7500.00,
+      "taxAmount": 1500.00,
+      "totalAmount": 9000.00,
+      "currency": "GBP",
+      "status": "paid",
+      "dueDate": "2025-02-10",
+      "issueDate": "2025-01-10",
+      "paidDate": "2025-01-12",
+      "description": "Wedding reception catering and bar service",
+      "terms": "Payment due within 30 days",
+      "reference": "WEDDING-2025-001",
+      "paymentTerms": 30,
+      "createdAt": "2025-01-10T10:00:00.000Z",
+      "updatedAt": "2025-01-12T14:30:00.000Z",
+      "sentAt": "2025-01-10T11:00:00.000Z",
+      "viewedAt": "2025-01-10T15:30:00.000Z",
+      "remindersSent": 0
+    }
+  },
+  "bills": {
+    "-OVbill001": {
+      "id": "-OVbill001",
+      "billNumber": "BILL-2025-001",
+      "supplierId": "-OVsupp001",
+      "supplierName": "Fresh Foods Wholesale",
+      "supplierEmail": "accounts@freshfoods.co.uk",
+      "supplierAddress": {
+        "street": "456 Market Street",
+        "city": "London",
+        "state": "England",
+        "postalCode": "E1 6AN",
+        "country": "United Kingdom"
+      },
+      "lineItems": [
+        {
+          "id": "-OVbli001",
+          "description": "Fresh vegetables - weekly delivery",
+          "quantity": 1,
+          "unitPrice": 450.00,
+          "taxRate": 0.00,
+          "taxAmount": 0.00,
+          "lineTotal": 450.00,
+          "accountId": "-OVacc008"
+        },
+        {
+          "id": "-OVbli002",
+          "description": "Premium meat selection",
+          "quantity": 1,
+          "unitPrice": 750.00,
+          "taxRate": 0.00,
+          "taxAmount": 0.00,
+          "lineTotal": 750.00,
+          "accountId": "-OVacc008"
+        }
+      ],
+      "subtotal": 1200.00,
+      "taxAmount": 0.00,
+      "totalAmount": 1200.00,
+      "currency": "GBP",
+      "status": "approved",
+      "dueDate": "2025-02-14",
+      "receiveDate": "2025-01-15",
+      "description": "Weekly food supplies",
+      "reference": "PO-2025-001",
+      "purchaseOrderNumber": "PO-2025-001",
+      "approvedBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "approvedAt": "2025-01-15T11:00:00.000Z",
+      "createdAt": "2025-01-15T10:00:00.000Z",
+      "updatedAt": "2025-01-15T11:00:00.000Z"
+    },
+    "-OVbill002": {
+      "id": "-OVbill002",
+      "billNumber": "BILL-2025-002",
+      "supplierId": "-OVsupp002",
+      "supplierName": "Wine & Spirits Ltd",
+      "supplierEmail": "billing@wineandspirits.co.uk",
+      "lineItems": [
+        {
+          "id": "-OVbli003",
+          "description": "Premium wine selection",
+          "quantity": 24,
+          "unitPrice": 25.00,
+          "taxRate": 0.20,
+          "taxAmount": 120.00,
+          "lineTotal": 720.00,
+          "accountId": "-OVacc008"
+        }
+      ],
+      "subtotal": 600.00,
+      "taxAmount": 120.00,
+      "totalAmount": 720.00,
+      "currency": "GBP",
+      "status": "paid",
+      "dueDate": "2025-02-01",
+      "receiveDate": "2025-01-08",
+      "paidDate": "2025-01-10",
+      "description": "Wine inventory restock",
+      "reference": "WS-2025-001",
+      "paymentMethod": "bank_transfer",
+      "createdAt": "2025-01-08T09:00:00.000Z",
+      "updatedAt": "2025-01-10T16:00:00.000Z"
+    }
+  },
+  "contacts": {
+    "-OVcust001": {
+      "id": "-OVcust001",
+      "name": "Corporate Events Ltd",
+      "type": "customer",
+      "companyName": "Corporate Events Ltd",
+      "contactPerson": "Sarah Johnson",
+      "email": "billing@corporateevents.co.uk",
+      "phone": "+44 20 7123 4567",
+      "address": {
+        "street": "123 Business Park",
+        "city": "London",
+        "state": "England",
+        "postalCode": "SW1A 1AA",
+        "country": "United Kingdom"
+      },
+      "paymentTerms": 30,
+      "creditLimit": 10000.00,
+      "currency": "GBP",
+      "isActive": true,
+      "totalInvoiced": 15000.00,
+      "totalPaid": 12000.00,
+      "outstandingBalance": 3000.00,
+      "lastTransactionDate": "2025-01-15",
+      "createdAt": "2024-06-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVcust002": {
+      "id": "-OVcust002",
+      "name": "Wedding Planners Co",
+      "type": "customer",
+      "companyName": "Wedding Planners Co",
+      "contactPerson": "Emma Wilson",
+      "email": "accounts@weddingplanners.co.uk",
+      "phone": "+44 20 7987 6543",
+      "paymentTerms": 30,
+      "creditLimit": 15000.00,
+      "currency": "GBP",
+      "isActive": true,
+      "totalInvoiced": 25000.00,
+      "totalPaid": 25000.00,
+      "outstandingBalance": 0.00,
+      "lastTransactionDate": "2025-01-12",
+      "createdAt": "2024-03-15T00:00:00.000Z",
+      "updatedAt": "2025-01-12T00:00:00.000Z"
+    },
+    "-OVsupp001": {
+      "id": "-OVsupp001",
+      "name": "Fresh Foods Wholesale",
+      "type": "supplier",
+      "companyName": "Fresh Foods Wholesale Ltd",
+      "contactPerson": "David Brown",
+      "email": "accounts@freshfoods.co.uk",
+      "phone": "+44 20 7456 7890",
+      "address": {
+        "street": "456 Market Street",
+        "city": "London",
+        "state": "England",
+        "postalCode": "E1 6AN",
+        "country": "United Kingdom"
+      },
+      "paymentTerms": 30,
+      "currency": "GBP",
+      "isActive": true,
+      "totalInvoiced": 45000.00,
+      "totalPaid": 42000.00,
+      "outstandingBalance": 3000.00,
+      "lastTransactionDate": "2025-01-15",
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-15T00:00:00.000Z"
+    },
+    "-OVsupp002": {
+      "id": "-OVsupp002",
+      "name": "Wine & Spirits Ltd",
+      "type": "supplier",
+      "companyName": "Wine & Spirits Ltd",
+      "contactPerson": "Michael Green",
+      "email": "billing@wineandspirits.co.uk",
+      "phone": "+44 20 7321 9876",
+      "paymentTerms": 14,
+      "currency": "GBP",
+      "isActive": true,
+      "totalInvoiced": 12000.00,
+      "totalPaid": 12000.00,
+      "outstandingBalance": 0.00,
+      "lastTransactionDate": "2025-01-10",
+      "createdAt": "2024-02-01T00:00:00.000Z",
+      "updatedAt": "2025-01-10T00:00:00.000Z"
+    }
+  },
+  "bankAccounts": {
+    "-OVbank001": {
+      "id": "-OVbank001",
+      "name": "Main Business Account",
+      "bank": "NatWest",
+      "accountNumber": "12345678",
+      "type": "checking",
+      "balance": 45780.50,
+      "currency": "GBP",
+      "status": "active",
+      "lastSync": "2025-01-15T18:00:00.000Z"
+    },
+    "-OVbank002": {
+      "id": "-OVbank002",
+      "name": "Savings Account",
+      "bank": "NatWest",
+      "accountNumber": "87654321",
+      "type": "savings",
+      "balance": 25000.00,
+      "currency": "GBP",
+      "status": "active",
+      "lastSync": "2025-01-15T18:00:00.000Z"
+    }
+  },
+  "expenses": {
+    "-OVexp001": {
+      "id": "-OVexp001",
+      "employee": "John Manager",
+      "description": "Client dinner at competitor restaurant - market research",
+      "amount": 125.50,
+      "category": "Business Entertainment",
+      "status": "approved",
+      "submitDate": "2025-01-14",
+      "receiptAttached": true,
+      "department": "Management"
+    },
+    "-OVexp002": {
+      "id": "-OVexp002",
+      "employee": "Sarah Chef",
+      "description": "Culinary conference attendance",
+      "amount": 450.00,
+      "category": "Training & Development",
+      "status": "reimbursed",
+      "submitDate": "2025-01-10",
+      "receiptAttached": true,
+      "department": "Kitchen"
+    }
+  },
+  "budgets": {
+    "-OVbudget001": {
+      "id": "-OVbudget001",
+      "category": "Food Costs",
+      "budgeted": 15000.00,
+      "actual": 12750.30,
+      "remaining": 2249.70,
+      "period": "2025-01",
+      "status": "on-track",
+      "percentage": 85.0
+    },
+    "-OVbudget002": {
+      "id": "-OVbudget002",
+      "category": "Staff Costs",
+      "budgeted": 18000.00,
+      "actual": 17250.75,
+      "remaining": 749.25,
+      "period": "2025-01",
+      "status": "near-limit",
+      "percentage": 95.8
+    },
+    "-OVbudget003": {
+      "id": "-OVbudget003",
+      "category": "Marketing",
+      "budgeted": 3000.00,
+      "actual": 1850.00,
+      "remaining": 1150.00,
+      "period": "2025-01",
+      "status": "under-budget",
+      "percentage": 61.7
+    }
+  },
+  "transactions": {
+    "-OVtrans001": {
+      "id": "-OVtrans001",
+      "transactionNumber": "TXN-2025-001",
+      "date": "2025-01-15",
+      "description": "Customer payment - Wedding Planners Co",
+      "type": "receipt",
+      "status": "completed",
+      "entries": [
+        {
+          "accountId": "-OVacc001",
+          "amount": 9000.00,
+          "type": "debit",
+          "description": "Payment received"
+        },
+        {
+          "accountId": "-OVacc002",
+          "amount": 9000.00,
+          "type": "credit",
+          "description": "Invoice payment"
+        }
+      ],
+      "totalAmount": 9000.00,
+      "currency": "GBP",
+      "sourceDocument": {
+        "type": "invoice",
+        "id": "-OVinv002"
+      },
+      "bankAccountId": "-OVbank001",
+      "contactId": "-OVcust002",
+      "isReconciled": true,
+      "reconciledAt": "2025-01-15T16:00:00.000Z",
+      "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "createdAt": "2025-01-15T14:30:00.000Z",
+      "updatedAt": "2025-01-15T16:00:00.000Z"
+    }
+  },
+  "payments": {
+    "-OVpay001": {
+      "id": "-OVpay001",
+      "paymentNumber": "PAY-2025-001",
+      "type": "supplier_payment",
+      "amount": 720.00,
+      "currency": "GBP",
+      "paymentDate": "2025-01-10",
+      "paymentMethod": "bank_transfer",
+      "reference": "Wine payment",
+      "bankAccountId": "-OVbank001",
+      "contactId": "-OVsupp002",
+      "allocations": [
+        {
+          "documentType": "bill",
+          "documentId": "-OVbill002",
+          "amount": 720.00
+        }
+      ],
+      "status": "completed",
+      "createdAt": "2025-01-10T16:00:00.000Z",
+      "updatedAt": "2025-01-10T16:00:00.000Z"
+    }
+  },
+  "taxRates": {
+    "-OVtax001": {
+      "id": "-OVtax001",
+      "name": "Standard VAT",
+      "rate": 0.20,
+      "type": "VAT",
+      "isActive": true
+    },
+    "-OVtax002": {
+      "id": "-OVtax002",
+      "name": "Zero VAT",
+      "rate": 0.00,
+      "type": "VAT",
+      "isActive": true
+    }
+  },
+  "paymentTerms": {
+    "-OVterm001": {
+      "id": "-OVterm001",
+      "name": "Net 30",
+      "days": 30
+    },
+    "-OVterm002": {
+      "id": "-OVterm002",
+      "name": "Net 14",
+      "days": 14
+    }
+  },
+  "currencies": {
+    "GBP": {
+      "code": "GBP",
+      "name": "British Pound",
+      "symbol": "£",
+      "rate": 1.0,
+      "isBase": true,
+      "lastUpdated": "2025-01-15T00:00:00.000Z",
+      "status": "active"
+    },
+    "EUR": {
+      "code": "EUR",
+      "name": "Euro",
+      "symbol": "€",
+      "rate": 1.18,
+      "isBase": false,
+      "lastUpdated": "2025-01-15T00:00:00.000Z",
+      "status": "active"
+    },
+    "USD": {
+      "code": "USD",
+      "name": "US Dollar",
+      "symbol": "$",
+      "rate": 1.27,
+      "isBase": false,
+      "lastUpdated": "2025-01-15T00:00:00.000Z",
+      "status": "active"
+    }
+  }
+}

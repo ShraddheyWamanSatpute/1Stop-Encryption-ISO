@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # Main 1Stop App
+  main-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.main
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./dist:/app/dist
+    networks:
+      - app-network
+
+  # YourStop Customer App
+  yourstop:
+    build:
+      context: ./src/yourstop/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_CUSTOMER_FIREBASE_PROJECT_ID=${CUSTOMER_FIREBASE_PROJECT_ID}
+      - NEXT_PUBLIC_CUSTOMER_FIREBASE_API_KEY=${CUSTOMER_FIREBASE_API_KEY}
+    networks:
+      - app-network
+
+  # Nginx Reverse Proxy (Optional - for combined deployment)
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - main-app
+      - yourstop
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+

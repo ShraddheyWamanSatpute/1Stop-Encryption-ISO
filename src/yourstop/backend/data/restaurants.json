@@ -1,0 +1,38 @@
+{
+  "restaurants": [
+    {
+      "id": "rest_1",
+      "name": "The London Grill",
+      "cuisine": "Modern British",
+      "address": "123 High Street, London SW1A 1AA",
+      "phone": "+44 20 7123 4567",
+      "email": "info@thelondongrill.co.uk",
+      "website": "https://thelondongrill.co.uk",
+      "rating": 4.5,
+      "reviewCount": 245,
+      "priceRange": "£££",
+      "description": "A contemporary British restaurant serving seasonal dishes with a modern twist.",
+      "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400",
+      "location": {
+        "latitude": 51.5074,
+        "longitude": -0.1278,
+        "postcode": "SW1A 1AA",
+        "area": "Westminster"
+      },
+      "operatingHours": {
+        "monday": { "open": "12:00", "close": "22:00", "isClosed": false },
+        "tuesday": { "open": "12:00", "close": "22:00", "isClosed": false },
+        "wednesday": { "open": "12:00", "close": "22:00", "isClosed": false },
+        "thursday": { "open": "12:00", "close": "22:00", "isClosed": false },
+        "friday": { "open": "12:00", "close": "23:00", "isClosed": false },
+        "saturday": { "open": "12:00", "close": "23:00", "isClosed": false },
+        "sunday": { "open": "12:00", "close": "21:00", "isClosed": false }
+      },
+      "capacity": 50,
+      "features": ["Outdoor Seating", "Private Dining", "Wine Bar"],
+      "amenities": ["WiFi", "Parking", "Wheelchair Accessible"],
+      "isOpen": true,
+      "lastUpdated": "2024-01-15T10:00:00Z"
+    }
+  ]
+}

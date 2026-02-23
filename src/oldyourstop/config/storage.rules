@@ -1,0 +1,33 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Users can upload and read their own profile pictures
+    match /users/{userId}/profile/{fileName} {
+      allow read, write: if request.auth != null && request.auth.uid == userId
+        && fileName.matches('.*\\.(jpg|jpeg|png|gif|webp)$')
+        && request.resource.size < 5 * 1024 * 1024; // 5MB limit
+    }
+    
+    // Users can upload and read their own age verification documents
+    match /users/{userId}/verification/{fileName} {
+      allow read, write: if request.auth != null && request.auth.uid == userId
+        && fileName.matches('.*\\.(jpg|jpeg|png|pdf)$')
+        && request.resource.size < 10 * 1024 * 1024; // 10MB limit
+    }
+    
+    // Restaurant images - anyone can read, only admins can write
+    match /restaurants/{restaurantId}/{fileName} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+        request.auth.token.admin == true
+        && fileName.matches('.*\\.(jpg|jpeg|png|gif|webp)$')
+        && request.resource.size < 10 * 1024 * 1024; // 10MB limit
+    }
+    
+    // General uploads for authenticated users
+    match /uploads/{userId}/{fileName} {
+      allow read, write: if request.auth != null && request.auth.uid == userId
+        && request.resource.size < 20 * 1024 * 1024; // 20MB limit
+    }
+  }
+}

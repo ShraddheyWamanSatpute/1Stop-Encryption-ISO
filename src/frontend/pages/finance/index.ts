@@ -1,0 +1,13 @@
+// Re-export all Finance components
+export { default as Sales } from "./Sales"
+export { default as Banking } from "./Banking"
+export { default as Purchases } from "./Purchases"
+export { default as Contacts } from "./Contacts"
+export { default as Budgeting } from "./Budgeting"
+export { default as Currency } from "./Currency"
+export { default as Expenses } from "./Expenses"
+export { default as Accounting } from "./Accounting"
+export { default as Reporting } from "./Reporting"
+export { default as Dashboard } from "./Dashboard"
+export { default as Reports } from "./Reports"
+export { default as Settings } from "./Settings"

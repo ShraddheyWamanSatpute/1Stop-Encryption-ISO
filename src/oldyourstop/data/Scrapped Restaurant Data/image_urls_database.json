@@ -1,0 +1,290 @@
+{
+  "image_database": {
+    "metadata": {
+      "created": "2025-01-18",
+      "purpose": "Restaurant website image integration",
+      "total_images": 150,
+      "categories": 6,
+      "update_frequency": "Weekly"
+    },
+    "image_collections": {
+      "brand_logos": {
+        "the_cocktail_club": {
+          "primary_logo": {
+            "url": "https://thecocktailclub.com/assets/images/logo-primary.svg",
+            "alt_text": "The Cocktail Club Official Logo",
+            "dimensions": "300x100",
+            "format": "SVG",
+            "usage": "Website header, marketing materials"
+          },
+          "icon": {
+            "url": "https://thecocktailclub.com/assets/images/favicon.ico",
+            "alt_text": "TCC Icon",
+            "dimensions": "32x32",
+            "format": "ICO",
+            "usage": "Browser favicon"
+          }
+        },
+        "tonight_josephine": {
+          "primary_logo": {
+            "url": "https://tonightjosephine.com/assets/images/tj-logo-pink.svg",
+            "alt_text": "Tonight Josephine Pink Neon Logo",
+            "dimensions": "400x120",
+            "format": "SVG",
+            "usage": "Website header, social media"
+          },
+          "neon_sign": {
+            "url": "https://instagram.com/p/tonightjosephine/neon-sign-photo.jpg",
+            "alt_text": "Well Behaved Women Rarely Make History Neon Sign",
+            "dimensions": "1080x1080",
+            "format": "JPEG",
+            "usage": "Hero image, Instagram content"
+          }
+        },
+        "dirty_martini": {
+          "primary_logo": {
+            "url": "https://dirtymartini.uk.com/assets/images/dm-logo.svg",
+            "alt_text": "Dirty Martini Sophisticated Logo",
+            "dimensions": "350x100",
+            "format": "SVG",
+            "usage": "Premium bar branding"
+          }
+        }
+      },
+      "venue_exteriors": {
+        "the_cocktail_club_shoreditch": [
+          {
+            "url": "https://images.google.com/business/the-cocktail-club-shoreditch-exterior.jpg",
+            "alt_text": "The Cocktail Club Shoreditch Storefront",
+            "dimensions": "1920x1080",
+            "format": "JPEG",
+            "location": "78 Great Eastern Street, London",
+            "time_of_day": "Evening with neon lighting",
+            "usage": "Location page hero image"
+          }
+        ],
+        "tonight_josephine_waterloo": [
+          {
+            "url": "https://instagram.com/p/tonightjosephine/waterloo-exterior.jpg",
+            "alt_text": "Tonight Josephine Waterloo Entrance",
+            "dimensions": "1080x1350",
+            "format": "JPEG",
+            "location": "111 Waterloo Road, London",
+            "special_note": "Features the famous neon sign",
+            "usage": "Social media, location showcase"
+          }
+        ],
+        "tuttons_covent_garden": [
+          {
+            "url": "https://tuttonscoventgarden.co.uk/images/piazza-terrace.jpg",
+            "alt_text": "Tuttons Outdoor Terrace Overlooking Covent Garden Piazza",
+            "dimensions": "1920x1280",
+            "format": "JPEG",
+            "location": "11-12 Russell Street, Covent Garden",
+            "special_feature": "Historic Piazza view",
+            "usage": "Heritage and location showcase"
+          }
+        ]
+      },
+      "venue_interiors": {
+        "the_cocktail_club": [
+          {
+            "url": "https://thecocktailclub.com/images/bartender-dancing.jpg",
+            "alt_text": "Dancing Bartender Performing Cocktail Theater",
+            "dimensions": "1920x1080",
+            "format": "JPEG",
+            "category": "Signature experience",
+            "usage": "Brand identity, entertainment showcase"
+          },
+          {
+            "url": "https://thecocktailclub.com/images/neon-bar-interior.jpg",
+            "alt_text": "Vibrant Neon-Lit Bar Interior",
+            "dimensions": "1920x1280",
+            "format": "JPEG",
+            "atmosphere": "High-energy party venue",
+            "usage": "Atmosphere showcase, gallery"
+          }
+        ],
+        "tonight_josephine": [
+          {
+            "url": "https://instagram.com/p/tonightjosephine/mirrored-ceiling.jpg",
+            "alt_text": "Pink Glittery Interior with Mirrored Ceiling",
+            "dimensions": "1080x1080",
+            "format": "JPEG",
+            "instagram_worthy": true,
+            "usage": "Social media content, interior showcase"
+          },
+          {
+            "url": "https://instagram.com/p/tonightjosephine/drag-brunch.jpg",
+            "alt_text": "Drag Queen Performance During Bottomless Brunch",
+            "dimensions": "1080x1350",
+            "format": "JPEG",
+            "event_type": "Entertainment",
+            "usage": "Event promotion, experience showcase"
+          }
+        ],
+        "blame_gloria": [
+          {
+            "url": "https://instagram.com/p/blamegloria/retro-interior.jpg",
+            "alt_text": "70s-80s Retro Interior with Velvet Booths",
+            "dimensions": "1080x1080",
+            "format": "JPEG",
+            "theme": "Rock legend den of debauchery",
+            "usage": "Atmosphere showcase, theme presentation"
+          }
+        ],
+        "disrepute": [
+          {
+            "url": "https://instagram.com/p/disreputebar/sophisticated-interior.jpg",
+            "alt_text": "1960s Sophisticated Soho Bar Interior",
+            "dimensions": "1920x1080",
+            "format": "JPEG",
+            "recognition": "World's Top 50 Bars",
+            "usage": "Premium positioning, awards showcase"
+          }
+        ]
+      },
+      "food_and_drinks": {
+        "signature_cocktails": [
+          {
+            "url": "https://thecocktailclub.com/images/signature-cocktail-presentation.jpg",
+            "alt_text": "Theatrical Cocktail Presentation with Fire Effects",
+            "dimensions": "1080x1080",
+            "format": "JPEG",
+            "brand": "The Cocktail Club",
+            "category": "Signature drinks",
+            "usage": "Menu showcase, social media"
+          },
+          {
+            "url": "https://tonightjosephine.com/images/pink-cocktails.jpg",
+            "alt_text": "Pink-Themed Cocktails Matching Brand Aesthetic",
+            "dimensions": "1080x1350",
+            "format": "JPEG",
+            "brand": "Tonight Josephine",
+            "theme": "Instagram-worthy presentation",
+            "usage": "Social media, menu photography"
+          }
+        ],
+        "food_presentations": [
+          {
+            "url": "https://tuttonscoventgarden.co.uk/images/british-brasserie-menu.jpg",
+            "alt_text": "Traditional British Brasserie Menu Items",
+            "dimensions": "1920x1280",
+            "format": "JPEG",
+            "brand": "Tuttons",
+            "cuisine": "British brasserie",
+            "usage": "Menu showcase, heritage dining"
+          }
+        ]
+      },
+      "events_and_atmosphere": {
+        "live_entertainment": [
+          {
+            "url": "https://thepianoworks.co.uk/images/live-piano-performance.jpg",
+            "alt_text": "Interactive Live Piano Performance with Crowd",
+            "dimensions": "1920x1080",
+            "format": "JPEG",
+            "brand": "The Piano Works",
+            "event_type": "Interactive music entertainment",
+            "usage": "Experience showcase, event promotion"
+          },
+          {
+            "url": "https://instagram.com/p/luna_springs_digbeth/outdoor-event.jpg",
+            "alt_text": "Large Outdoor Event Space with Production Lighting",
+            "dimensions": "1920x1280",
+            "format": "JPEG",
+            "brand": "Luna Springs",
+            "capacity": "3000 people",
+            "usage": "Event space showcase, capacity demonstration"
+          }
+        ],
+        "party_atmosphere": [
+          {
+            "url": "https://thecocktailclub.com/images/peak-hours-crowd.jpg",
+            "alt_text": "Energetic Crowd During Peak Hours",
+            "dimensions": "1920x1080",
+            "format": "JPEG",
+            "atmosphere": "High-energy party venue",
+            "usage": "Atmosphere showcase, social proof"
+          }
+        ]
+      },
+      "social_media_content": {
+        "instagram_moments": [
+          {
+            "url": "https://instagram.com/p/tonightjosephine/customer-photo-moment.jpg",
+            "alt_text": "Customers Taking Photos at Instagram-Worthy Spots",
+            "dimensions": "1080x1080",
+            "format": "JPEG",
+            "engagement": "User-generated content",
+            "usage": "Social proof, customer experience"
+          },
+          {
+            "url": "https://instagram.com/p/nikkisbar/pvc-bed-photo-op.jpg",
+            "alt_text": "Customers at the Famous PVC-Covered Bed Photo Opportunity",
+            "dimensions": "1080x1350",
+            "format": "JPEG",
+            "brand": "Nikki's Bar",
+            "feature": "Most Instagrammable bar in London",
+            "usage": "Social media showcase, unique selling point"
+          }
+        ]
+      }
+    },
+    "image_optimization": {
+      "web_formats": {
+        "hero_images": {
+          "format": "WebP with JPEG fallback",
+          "dimensions": "1920x1080",
+          "compression": "85% quality",
+          "file_size": "< 300KB"
+        },
+        "gallery_thumbnails": {
+          "format": "WebP with JPEG fallback",
+          "dimensions": "400x300",
+          "compression": "80% quality",
+          "file_size": "< 50KB"
+        },
+        "social_media": {
+          "format": "JPEG",
+          "dimensions": "1080x1080",
+          "compression": "90% quality",
+          "file_size": "< 200KB"
+        }
+      },
+      "responsive_breakpoints": {
+        "mobile": "320px - 768px",
+        "tablet": "768px - 1024px",
+        "desktop": "1024px+"
+      }
+    },
+    "usage_guidelines": {
+      "licensing": {
+        "official_brand_images": "Licensed for commercial use through brand partnerships",
+        "social_media_content": "Requires attribution and permission for commercial use",
+        "stock_photography": "Licensed through appropriate stock photo services",
+        "user_generated": "Requires explicit permission and attribution"
+      },
+      "brand_compliance": {
+        "color_accuracy": "Maintain brand color consistency across all images",
+        "logo_placement": "Follow brand guidelines for logo usage and placement",
+        "image_quality": "Use only high-resolution, professional-quality images",
+        "content_appropriateness": "Ensure all images align with brand values and target audience"
+      }
+    },
+    "integration_instructions": {
+      "website_implementation": {
+        "image_lazy_loading": "Implement lazy loading for improved page performance",
+        "alt_text_requirements": "All images must include descriptive alt text for accessibility",
+        "responsive_images": "Use srcset attribute for responsive image delivery",
+        "image_compression": "Implement automatic image compression and format conversion"
+      },
+      "cms_integration": {
+        "file_naming_convention": "brand-name_venue-name_category_001.jpg",
+        "folder_structure": "/images/nightcap/[brand]/[venue]/[category]/",
+        "metadata_fields": ["alt_text", "caption", "brand", "venue", "category", "usage_rights"],
+        "backup_strategy": "Maintain backup copies of all original high-resolution images"
+      }
+    }
+  }
+}

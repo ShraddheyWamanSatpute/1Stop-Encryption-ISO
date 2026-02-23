@@ -1,0 +1,44 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "runners": ["axe", "htmlcs"],
+    "timeout": 60000,
+    "wait": 1000,
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+    },
+    "ignore": [
+      "WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail"
+    ]
+  },
+  "urls": [
+    {
+      "url": "http://localhost:3000/",
+      "screenCapture": "./pa11y-results/home.png"
+    },
+    {
+      "url": "http://localhost:3000/login",
+      "screenCapture": "./pa11y-results/login.png"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "screenCapture": "./pa11y-results/dashboard.png"
+    },
+    {
+      "url": "http://localhost:3000/payroll",
+      "screenCapture": "./pa11y-results/payroll.png"
+    },
+    {
+      "url": "http://localhost:3000/employees",
+      "screenCapture": "./pa11y-results/employees.png"
+    },
+    {
+      "url": "http://localhost:3000/hmrc",
+      "screenCapture": "./pa11y-results/hmrc.png"
+    },
+    {
+      "url": "http://localhost:3000/settings",
+      "screenCapture": "./pa11y-results/settings.png"
+    }
+  ]
+}

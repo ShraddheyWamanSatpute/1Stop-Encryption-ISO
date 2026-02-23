@@ -1,0 +1,687 @@
+{
+  "users": {
+    "ojjMG6VYLQapkFS1FdTxvbamb332": {
+      "avatar": "",
+      "companies": {
+        "-OVcompany001": {
+          "companyID": "-OVcompany001",
+          "companyName": "Premium Hospitality Group",
+          "department": "Management",
+          "isDefault": true,
+          "joinedAt": 1757404958718,
+          "role": "owner"
+        }
+      },
+      "companyID": {
+        "-OVcompany001": true
+      },
+      "createdAt": 1757318558718,
+      "currentCompanyID": "",
+      "email": "shawnpotera00@gmail.com",
+      "firstName": "Shawn",
+      "lastName": "Potera",
+      "phone": "+44 20 7946 0958",
+      "settings": {
+        "personal": {
+          "avatar": "",
+          "email": "shawnpotera00@gmail.com",
+          "firstName": "Shawn",
+          "lastName": "Potera",
+          "phone": "+44 20 7946 0958"
+        },
+        "preferences": {
+          "emailPreferences": {
+            "lowStock": true,
+            "marketing": false,
+            "orderUpdates": true,
+            "systemNotifications": true
+          },
+          "language": "en",
+          "notifications": {
+            "email": true,
+            "push": true,
+            "sms": false
+          },
+          "theme": "light"
+        }
+      },
+      "uid": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "updatedAt": 1757318558718
+    }
+  },
+  "companies": {
+    "-OVcompany001": {
+      "companyID": "-OVcompany001",
+      "companyName": "Premium Hospitality Group",
+      "legalName": "Premium Hospitality Group Ltd",
+      "address": {
+        "street": "123 Business Center",
+        "city": "London",
+        "state": "England",
+        "zipCode": "SW1A 1AA",
+        "country": "United Kingdom"
+      },
+      "phone": "+44 20 1234 5678",
+      "email": "info@premiumhospitality.com",
+      "website": "www.premiumhospitality.com",
+      "description": "Leading hospitality group operating premium venues across London",
+      "industry": "Hospitality & Food Service",
+      "isActive": true,
+      "createdAt": 1757404958718,
+      "updatedAt": 1757404958718,
+      "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "sites": {
+        "-OVsite001": {
+          "siteID": "-OVsite001",
+          "name": "Piano Works",
+          "description": "Piano Works - Live Music Restaurant & Bar",
+          "location": "West End, London",
+          "address": {
+            "street": "113-117 Farringdon Road",
+            "city": "London",
+            "state": "England",
+            "zipCode": "EC1R 3BX",
+            "country": "United Kingdom"
+          },
+          "phone": "+44 20 7490 4192",
+          "email": "westend@pianoworks.com",
+          "isActive": true,
+          "createdAt": 1757404958718,
+          "updatedAt": 1757404958718,
+          "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+          "teams": {},
+          "dataManagement": {
+            "accessibleModules": {
+              "bookings": "site",
+              "stock": "site",
+              "hr": "site",
+              "pos": "site",
+              "finance": "site",
+              "analytics": "site"
+            }
+          },
+          "subsites": {
+            "-OVsubsite001": {
+              "subsiteID": "-OVsubsite001",
+              "name": "West End",
+              "description": "West End venue - Live Music Restaurant & Bar location",
+              "location": "West End, London",
+              "address": {
+                "street": "113-117 Farringdon Road",
+                "city": "London",
+                "state": "England",
+                "zipCode": "EC1R 3BX",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 7490 4192",
+              "email": "westend@pianoworks.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite002": {
+              "subsiteID": "-OVsubsite002",
+              "name": "Canary Wharf",
+              "description": "Canary Wharf venue - Live Music Restaurant & Bar location",
+              "location": "Canary Wharf, London",
+              "address": {
+                "street": "221 Canary Wharf Road",
+                "city": "London",
+                "state": "England",
+                "zipCode": "E14 5AB",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 4567 8901",
+              "email": "canarywharf@pianoworks.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite003": {
+              "subsiteID": "-OVsubsite003",
+              "name": "King's Cross",
+              "description": "King's Cross venue - Live Music Restaurant & Bar location",
+              "location": "King's Cross, London",
+              "address": {
+                "street": "456 King's Cross Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "N1C 4AG",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 8901 2345",
+              "email": "kingscross@pianoworks.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            }
+          }
+        },
+        "-OVsite002": {
+          "siteID": "-OVsite002",
+          "name": "The Ivy Collection",
+          "description": "The Ivy Collection - Premium British Brasserie",
+          "location": "Central London",
+          "address": {
+            "street": "1-5 West Street",
+            "city": "London",
+            "state": "England",
+            "zipCode": "WC2H 9NQ",
+            "country": "United Kingdom"
+          },
+          "phone": "+44 20 7836 4751",
+          "email": "info@theivycollection.com",
+          "isActive": true,
+          "createdAt": 1757404958718,
+          "updatedAt": 1757404958718,
+          "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+          "teams": {},
+          "dataManagement": {
+            "accessibleModules": {
+              "bookings": "site",
+              "stock": "site",
+              "hr": "site",
+              "pos": "site",
+              "finance": "site",
+              "analytics": "site"
+            }
+          },
+          "subsites": {
+            "-OVsubsite004": {
+              "subsiteID": "-OVsubsite004",
+              "name": "Covent Garden",
+              "description": "Covent Garden venue - Premium British Brasserie location",
+              "location": "Covent Garden, London",
+              "address": {
+                "street": "1-5 West Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "WC2H 9NQ",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 7836 4751",
+              "email": "coventgarden@theivycollection.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite005": {
+              "subsiteID": "-OVsubsite005",
+              "name": "Chelsea",
+              "description": "Chelsea venue - Premium British Brasserie location",
+              "location": "Chelsea, London",
+              "address": {
+                "street": "197 King's Road",
+                "city": "London",
+                "state": "England",
+                "zipCode": "SW3 5ED",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 3301 0166",
+              "email": "chelsea@theivycollection.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite006": {
+              "subsiteID": "-OVsubsite006",
+              "name": "Marylebone",
+              "description": "Marylebone venue - Premium British Brasserie location",
+              "location": "Marylebone, London",
+              "address": {
+                "street": "96 Marylebone Lane",
+                "city": "London",
+                "state": "England",
+                "zipCode": "W1U 2QA",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 3301 0202",
+              "email": "marylebone@theivycollection.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            }
+          }
+        },
+        "-OVsite003": {
+          "siteID": "-OVsite003",
+          "name": "Dishoom",
+          "description": "Dishoom - Bombay Café",
+          "location": "London",
+          "address": {
+            "street": "12 Upper St. Martin's Lane",
+            "city": "London",
+            "state": "England",
+            "zipCode": "WC2H 9FB",
+            "country": "United Kingdom"
+          },
+          "phone": "+44 20 7420 9320",
+          "email": "info@dishoom.com",
+          "isActive": true,
+          "createdAt": 1757404958718,
+          "updatedAt": 1757404958718,
+          "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+          "teams": {},
+          "dataManagement": {
+            "accessibleModules": {
+              "bookings": "site",
+              "stock": "site",
+              "hr": "site",
+              "pos": "site",
+              "finance": "site",
+              "analytics": "site"
+            }
+          },
+          "subsites": {
+            "-OVsubsite007": {
+              "subsiteID": "-OVsubsite007",
+              "name": "Shoreditch",
+              "description": "Shoreditch venue - Bombay Café location",
+              "location": "Shoreditch, London",
+              "address": {
+                "street": "7 Boundary Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "E2 7JE",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 7420 9324",
+              "email": "shoreditch@dishoom.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite008": {
+              "subsiteID": "-OVsubsite008",
+              "name": "Covent Garden",
+              "description": "Covent Garden venue - Bombay Café location",
+              "location": "Covent Garden, London",
+              "address": {
+                "street": "12 Upper St. Martin's Lane",
+                "city": "London",
+                "state": "England",
+                "zipCode": "WC2H 9FB",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 7420 9320",
+              "email": "coventgarden@dishoom.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite009": {
+              "subsiteID": "-OVsubsite009",
+              "name": "King's Cross",
+              "description": "King's Cross venue - Bombay Café location",
+              "location": "King's Cross, London",
+              "address": {
+                "street": "5 Stable Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "N1C 4AB",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 3947 5420",
+              "email": "kingscross@dishoom.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            }
+          }
+        },
+        "-OVsite004": {
+          "siteID": "-OVsite004",
+          "name": "Hawksmoor",
+          "description": "Hawksmoor - Premium Steakhouse",
+          "location": "London",
+          "address": {
+            "street": "157 Commercial Street",
+            "city": "London",
+            "state": "England",
+            "zipCode": "E1 6BJ",
+            "country": "United Kingdom"
+          },
+          "phone": "+44 20 7247 7392",
+          "email": "info@thehawksmoor.com",
+          "isActive": true,
+          "createdAt": 1757404958718,
+          "updatedAt": 1757404958718,
+          "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+          "teams": {},
+          "dataManagement": {
+            "accessibleModules": {
+              "bookings": "site",
+              "stock": "site",
+              "hr": "site",
+              "pos": "site",
+              "finance": "site",
+              "analytics": "site"
+            }
+          },
+          "subsites": {
+            "-OVsubsite010": {
+              "subsiteID": "-OVsubsite010",
+              "name": "Seven Dials",
+              "description": "Seven Dials venue - Premium Steakhouse location",
+              "location": "Seven Dials, London",
+              "address": {
+                "street": "11 Langley Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "WC2H 9JG",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 7420 9390",
+              "email": "sevendials@thehawksmoor.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite011": {
+              "subsiteID": "-OVsubsite011",
+              "name": "Spitalfields",
+              "description": "Spitalfields venue - Premium Steakhouse location",
+              "location": "Spitalfields, London",
+              "address": {
+                "street": "157 Commercial Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "E1 6BJ",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 7247 7392",
+              "email": "spitalfields@thehawksmoor.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite012": {
+              "subsiteID": "-OVsubsite012",
+              "name": "Guildhall",
+              "description": "Guildhall venue - Premium Steakhouse location",
+              "location": "Guildhall, London",
+              "address": {
+                "street": "10-12 Basinghall Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "EC2V 5BQ",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 7397 8120",
+              "email": "guildhall@thehawksmoor.com",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            }
+          }
+        },
+        "-OVsite005": {
+          "siteID": "-OVsite005",
+          "name": "Sketch",
+          "description": "Sketch - Contemporary Restaurant",
+          "location": "London",
+          "address": {
+            "street": "9 Conduit Street",
+            "city": "London",
+            "state": "England",
+            "zipCode": "W1S 2XG",
+            "country": "United Kingdom"
+          },
+          "phone": "+44 20 7659 4500",
+          "email": "info@sketch.london",
+          "isActive": true,
+          "createdAt": 1757404958718,
+          "updatedAt": 1757404958718,
+          "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+          "teams": {},
+          "dataManagement": {
+            "accessibleModules": {
+              "bookings": "site",
+              "stock": "site",
+              "hr": "site",
+              "pos": "site",
+              "finance": "site",
+              "analytics": "site"
+            }
+          },
+          "subsites": {
+            "-OVsubsite013": {
+              "subsiteID": "-OVsubsite013",
+              "name": "Mayfair",
+              "description": "Mayfair venue - Contemporary Restaurant location",
+              "location": "Mayfair, London",
+              "address": {
+                "street": "9 Conduit Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "W1S 2XG",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 7659 4500",
+              "email": "mayfair@sketch.london",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite014": {
+              "subsiteID": "-OVsubsite014",
+              "name": "Fitzrovia",
+              "description": "Fitzrovia venue - Contemporary Restaurant location",
+              "location": "Fitzrovia, London",
+              "address": {
+                "street": "225 Fitzrovia Street",
+                "city": "London",
+                "state": "England",
+                "zipCode": "EC4A 9XX",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 5936 5880",
+              "email": "fitzrovia@sketch.london",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            },
+            "-OVsubsite015": {
+              "subsiteID": "-OVsubsite015",
+              "name": "Notting Hill",
+              "description": "Notting Hill venue - Contemporary Restaurant location",
+              "location": "Notting Hill, London",
+              "address": {
+                "street": "334 Notting Hill Road",
+                "city": "London",
+                "state": "England",
+                "zipCode": "EC3A 9XX",
+                "country": "United Kingdom"
+              },
+              "phone": "+44 20 3420 3866",
+              "email": "nottinghill@sketch.london",
+              "isActive": true,
+              "createdAt": 1757404958718,
+              "updatedAt": 1757404958718,
+              "createdBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+              "teams": {},
+              "data": {
+                "bookings": {},
+                "stock": {},
+                "pos": {},
+                "hr": {},
+                "finance": {},
+                "messenger": {},
+                "checklists": {},
+                "settings": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // MAIN APP COLLECTIONS (Not accessible by customers)
+    // ============================================
+    
+    // Main app users - NOT accessible by customer auth
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      // Note: Customer auth uses 'customers' collection, not 'users'
+    }
+    
+    // Main app bookings - NOT accessible by customer auth
+    match /bookings/{bookingId} {
+      allow read, write: if request.auth != null && 
+        (resource.data.userId == request.auth.uid || 
+         request.auth.uid == resource.data.userId);
+      // Note: Customer auth uses 'customerBookings' collection, not 'bookings'
+    }
+    
+    // Main app favorites - NOT accessible by customer auth
+    match /favorites/{favoriteId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      // Note: Customer auth uses 'customerFavorites' collection, not 'favorites'
+    }
+    
+    // Main app payment methods
+    match /paymentMethods/{paymentMethodId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Main app age verification
+    match /ageVerifications/{verificationId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Main app reviews
+    match /reviews/{reviewId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Main app notifications
+    match /notifications/{notificationId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // ============================================
+    // CUSTOMER COLLECTIONS (Separate from main app)
+    // ============================================
+    
+    // Customer user profiles
+    match /customers/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+    }
+    
+    // Customer bookings
+    match /customerBookings/{bookingId} {
+      allow read: if request.auth != null && 
+        (resource.data.userId == request.auth.uid || 
+         !exists(/databases/$(database)/documents/customerBookings/$(bookingId)));
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Customer favorites
+    match /customerFavorites/{favoriteId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Customer reviews
+    match /customerReviews/{reviewId} {
+      allow read: if true; // Public reviews
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Customer payments
+    match /customerPayments/{paymentId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Customer notifications
+    match /customerNotifications/{notificationId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+    }
+    
+    // ============================================
+    // PUBLIC COLLECTIONS (Shared by both)
+    // ============================================
+    
+    // Restaurants - public read, admin write
+    match /restaurants/{restaurantId} {
+      allow read: if true; // Public data - accessible by both main app and customers
+      allow write: if request.auth != null && 
+        request.auth.token.admin == true;
+    }
+    
+    // Restaurant reviews - public read, authenticated write
+    match /restaurantReviews/{reviewId} {
+      allow read: if true; // Public data
+      allow write: if request.auth != null;
+    }
+    
+    // ============================================
+    // ADMIN COLLECTIONS
+    // ============================================
+    
+    // Admin-only collections
+    match /admin/{document=**} {
+      allow read, write: if request.auth != null && 
+        request.auth.token.admin == true;
+    }
+  }
+}

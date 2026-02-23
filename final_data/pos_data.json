@@ -1,0 +1,468 @@
+{
+  "transactions": {
+    "-OVtrans001": {
+      "id": "-OVtrans001",
+      "transactionNumber": "TXN-20250120-001",
+      "siteId": "-OVsite001",
+      "subsiteId": "-OVsubsite001",
+      "tableId": "-OVtable001",
+      "serverId": "-OVemp002",
+      "serverName": "Mike Server",
+      "customerId": "-OVcust001",
+      "customerName": "John Smith",
+      "transactionType": "dine_in",
+      "status": "completed",
+      "orderTime": 1704067200000,
+      "completedTime": 1704070800000,
+      "items": [
+        {
+          "productId": "-OVprod001",
+          "productName": "Margherita Pizza",
+          "category": "Mains",
+          "quantity": 2,
+          "unitPrice": 14.95,
+          "totalPrice": 29.90,
+          "modifiers": [
+            {
+              "name": "Extra Cheese",
+              "price": 2.00
+            }
+          ],
+          "notes": "Well done"
+        },
+        {
+          "productId": "-OVprod015",
+          "productName": "House Red Wine",
+          "category": "Beverages",
+          "quantity": 1,
+          "unitPrice": 6.50,
+          "totalPrice": 6.50,
+          "modifiers": [],
+          "notes": ""
+        }
+      ],
+      "subtotal": 36.40,
+      "discounts": [
+        {
+          "type": "percentage",
+          "name": "Happy Hour",
+          "value": 10,
+          "amount": 3.64
+        }
+      ],
+      "discountTotal": 3.64,
+      "taxRate": 20.0,
+      "taxAmount": 6.55,
+      "serviceCharge": 3.28,
+      "totalAmount": 42.59,
+      "paymentMethod": "card",
+      "paymentStatus": "paid",
+      "tips": 5.00,
+      "currency": "GBP",
+      "receiptNumber": "RCP-20250120-001",
+      "createdAt": 1704067200000,
+      "updatedAt": 1704070800000
+    },
+    "-OVtrans002": {
+      "id": "-OVtrans002",
+      "transactionNumber": "TXN-20250120-002",
+      "siteId": "-OVsite001",
+      "subsiteId": "-OVsubsite001",
+      "tableId": "-OVtable003",
+      "serverId": "-OVemp002",
+      "serverName": "Mike Server",
+      "customerId": null,
+      "customerName": "Walk-in Customer",
+      "transactionType": "dine_in",
+      "status": "completed",
+      "orderTime": 1704071400000,
+      "completedTime": 1704075000000,
+      "items": [
+        {
+          "productId": "-OVprod003",
+          "productName": "Fish & Chips",
+          "category": "Mains",
+          "quantity": 1,
+          "unitPrice": 16.95,
+          "totalPrice": 16.95,
+          "modifiers": [
+            {
+              "name": "Mushy Peas",
+              "price": 2.50
+            }
+          ],
+          "notes": "No tartare sauce"
+        },
+        {
+          "productId": "-OVprod012",
+          "productName": "Pint of Bitter",
+          "category": "Beverages",
+          "quantity": 2,
+          "unitPrice": 5.20,
+          "totalPrice": 10.40,
+          "modifiers": [],
+          "notes": ""
+        }
+      ],
+      "subtotal": 27.35,
+      "discounts": [],
+      "discountTotal": 0.00,
+      "taxRate": 20.0,
+      "taxAmount": 5.47,
+      "serviceCharge": 2.74,
+      "totalAmount": 35.56,
+      "paymentMethod": "cash",
+      "paymentStatus": "paid",
+      "tips": 4.44,
+      "currency": "GBP",
+      "receiptNumber": "RCP-20250120-002",
+      "createdAt": 1704071400000,
+      "updatedAt": 1704075000000
+    }
+  },
+  "products": {
+    "-OVprod001": {
+      "id": "-OVprod001",
+      "name": "Margherita Pizza",
+      "description": "Classic pizza with tomato sauce, mozzarella, and fresh basil",
+      "category": "Mains",
+      "subcategory": "Pizza",
+      "price": 14.95,
+      "cost": 4.50,
+      "sku": "PIZZA-MARG-001",
+      "barcode": "1234567890123",
+      "isActive": true,
+      "isAvailable": true,
+      "preparationTime": 15,
+      "allergens": ["Gluten", "Dairy"],
+      "nutritionalInfo": {
+        "calories": 850,
+        "protein": 35,
+        "carbs": 95,
+        "fat": 32
+      },
+      "modifiers": [
+        {
+          "name": "Extra Cheese",
+          "price": 2.00
+        },
+        {
+          "name": "Extra Pepperoni",
+          "price": 2.50
+        }
+      ],
+      "siteId": "-OVsite001",
+      "createdAt": 1673740800000,
+      "updatedAt": 1704067200000
+    },
+    "-OVprod002": {
+      "id": "-OVprod002",
+      "name": "Caesar Salad",
+      "description": "Crisp romaine lettuce with Caesar dressing, croutons, and parmesan",
+      "category": "Starters",
+      "subcategory": "Salads",
+      "price": 9.95,
+      "cost": 2.80,
+      "sku": "SALAD-CAES-001",
+      "barcode": "1234567890124",
+      "isActive": true,
+      "isAvailable": true,
+      "preparationTime": 8,
+      "allergens": ["Gluten", "Dairy", "Eggs"],
+      "nutritionalInfo": {
+        "calories": 320,
+        "protein": 12,
+        "carbs": 18,
+        "fat": 24
+      },
+      "modifiers": [
+        {
+          "name": "Add Chicken",
+          "price": 4.00
+        },
+        {
+          "name": "Add Bacon",
+          "price": 3.00
+        }
+      ],
+      "siteId": "-OVsite001",
+      "createdAt": 1673740800000,
+      "updatedAt": 1704067200000
+    },
+    "-OVprod003": {
+      "id": "-OVprod003",
+      "name": "Fish & Chips",
+      "description": "Beer-battered cod with hand-cut chips and mushy peas",
+      "category": "Mains",
+      "subcategory": "British Classics",
+      "price": 16.95,
+      "cost": 6.20,
+      "sku": "MAIN-FISH-001",
+      "barcode": "1234567890125",
+      "isActive": true,
+      "isAvailable": true,
+      "preparationTime": 20,
+      "allergens": ["Fish", "Gluten"],
+      "nutritionalInfo": {
+        "calories": 1200,
+        "protein": 45,
+        "carbs": 120,
+        "fat": 55
+      },
+      "modifiers": [
+        {
+          "name": "Mushy Peas",
+          "price": 2.50
+        },
+        {
+          "name": "Curry Sauce",
+          "price": 2.00
+        }
+      ],
+      "siteId": "-OVsite001",
+      "createdAt": 1673740800000,
+      "updatedAt": 1704067200000
+    },
+    "-OVprod012": {
+      "id": "-OVprod012",
+      "name": "Pint of Bitter",
+      "description": "Traditional English bitter ale",
+      "category": "Beverages",
+      "subcategory": "Beer",
+      "price": 5.20,
+      "cost": 1.80,
+      "sku": "BEV-BEER-001",
+      "barcode": "1234567890136",
+      "isActive": true,
+      "isAvailable": true,
+      "preparationTime": 2,
+      "allergens": ["Gluten"],
+      "nutritionalInfo": {
+        "calories": 180,
+        "protein": 2,
+        "carbs": 12,
+        "fat": 0
+      },
+      "modifiers": [],
+      "siteId": "-OVsite001",
+      "createdAt": 1673740800000,
+      "updatedAt": 1704067200000
+    },
+    "-OVprod015": {
+      "id": "-OVprod015",
+      "name": "House Red Wine",
+      "description": "175ml glass of house red wine",
+      "category": "Beverages",
+      "subcategory": "Wine",
+      "price": 6.50,
+      "cost": 2.20,
+      "sku": "BEV-WINE-001",
+      "barcode": "1234567890139",
+      "isActive": true,
+      "isAvailable": true,
+      "preparationTime": 1,
+      "allergens": ["Sulphites"],
+      "nutritionalInfo": {
+        "calories": 125,
+        "protein": 0,
+        "carbs": 4,
+        "fat": 0
+      },
+      "modifiers": [],
+      "siteId": "-OVsite001",
+      "createdAt": 1673740800000,
+      "updatedAt": 1704067200000
+    }
+  },
+  "payments": {
+    "-OVpay001": {
+      "id": "-OVpay001",
+      "transactionId": "-OVtrans001",
+      "paymentMethod": "card",
+      "cardType": "visa",
+      "amount": 42.59,
+      "currency": "GBP",
+      "status": "completed",
+      "authorizationCode": "AUTH123456",
+      "merchantId": "MERCH789",
+      "terminalId": "TERM001",
+      "batchNumber": "BATCH001",
+      "receiptNumber": "RCP-20250120-001",
+      "processedAt": 1704070800000,
+      "tips": 5.00,
+      "refundAmount": 0.00,
+      "createdAt": 1704070800000,
+      "updatedAt": 1704070800000
+    },
+    "-OVpay002": {
+      "id": "-OVpay002",
+      "transactionId": "-OVtrans002",
+      "paymentMethod": "cash",
+      "cardType": null,
+      "amount": 35.56,
+      "currency": "GBP",
+      "status": "completed",
+      "authorizationCode": null,
+      "merchantId": null,
+      "terminalId": "TILL001",
+      "batchNumber": null,
+      "receiptNumber": "RCP-20250120-002",
+      "processedAt": 1704075000000,
+      "tips": 4.44,
+      "cashTendered": 45.00,
+      "changeGiven": 5.00,
+      "refundAmount": 0.00,
+      "createdAt": 1704075000000,
+      "updatedAt": 1704075000000
+    }
+  },
+  "receipts": {
+    "-OVrcp001": {
+      "id": "-OVrcp001",
+      "receiptNumber": "RCP-20250120-001",
+      "transactionId": "-OVtrans001",
+      "siteId": "-OVsite001",
+      "siteName": "Piano Works West End",
+      "address": {
+        "street": "113-117 Farringdon Road",
+        "city": "London",
+        "postcode": "EC1R 3BX",
+        "country": "United Kingdom"
+      },
+      "phone": "+44 20 7490 7411",
+      "vatNumber": "GB123456789",
+      "customerName": "John Smith",
+      "serverName": "Mike Server",
+      "tableNumber": "Table 1",
+      "orderTime": 1704067200000,
+      "items": [
+        {
+          "name": "Margherita Pizza",
+          "quantity": 2,
+          "unitPrice": 14.95,
+          "totalPrice": 29.90,
+          "modifiers": ["Extra Cheese (+£2.00)"]
+        },
+        {
+          "name": "House Red Wine",
+          "quantity": 1,
+          "unitPrice": 6.50,
+          "totalPrice": 6.50,
+          "modifiers": []
+        }
+      ],
+      "subtotal": 36.40,
+      "discounts": [
+        {
+          "name": "Happy Hour (10%)",
+          "amount": -3.64
+        }
+      ],
+      "netAmount": 32.76,
+      "vatAmount": 6.55,
+      "serviceCharge": 3.28,
+      "totalAmount": 42.59,
+      "paymentMethod": "Card",
+      "tips": 5.00,
+      "footerMessage": "Thank you for dining with us!",
+      "createdAt": 1704070800000
+    }
+  },
+  "dailySales": {
+    "-OVds001": {
+      "id": "-OVds001",
+      "date": "2025-01-20",
+      "siteId": "-OVsite001",
+      "subsiteId": "-OVsubsite001",
+      "totalTransactions": 45,
+      "totalRevenue": 1250.75,
+      "totalTips": 187.50,
+      "averageTransactionValue": 27.79,
+      "paymentBreakdown": {
+        "card": 875.25,
+        "cash": 375.50
+      },
+      "categoryBreakdown": {
+        "Mains": 650.30,
+        "Starters": 180.45,
+        "Beverages": 320.75,
+        "Desserts": 99.25
+      },
+      "hourlyBreakdown": [
+        { "hour": 12, "transactions": 3, "revenue": 85.50 },
+        { "hour": 13, "transactions": 8, "revenue": 220.75 },
+        { "hour": 14, "transactions": 6, "revenue": 165.25 },
+        { "hour": 18, "transactions": 12, "revenue": 335.80 },
+        { "hour": 19, "transactions": 16, "revenue": 443.45 }
+      ],
+      "topProducts": [
+        { "productId": "-OVprod001", "name": "Margherita Pizza", "quantity": 12, "revenue": 179.40 },
+        { "productId": "-OVprod003", "name": "Fish & Chips", "quantity": 8, "revenue": 135.60 },
+        { "productId": "-OVprod012", "name": "Pint of Bitter", "quantity": 25, "revenue": 130.00 }
+      ],
+      "createdAt": 1704067200000,
+      "updatedAt": 1704153600000
+    }
+  },
+  "discounts": {
+    "-OVdisc001": {
+      "id": "-OVdisc001",
+      "name": "Happy Hour",
+      "description": "10% off all food items between 3-6 PM",
+      "type": "percentage",
+      "value": 10,
+      "applicableItems": ["Mains", "Starters"],
+      "startTime": "15:00",
+      "endTime": "18:00",
+      "validDays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "startDate": "2025-01-01",
+      "endDate": "2025-03-31",
+      "isActive": true,
+      "usageCount": 156,
+      "maxUsage": null,
+      "siteId": "-OVsite001",
+      "createdAt": 1704067200000,
+      "updatedAt": 1704067200000
+    },
+    "-OVdisc002": {
+      "id": "-OVdisc002",
+      "name": "Student Discount",
+      "description": "15% off total bill with valid student ID",
+      "type": "percentage",
+      "value": 15,
+      "applicableItems": ["All"],
+      "startTime": null,
+      "endTime": null,
+      "validDays": ["All"],
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "isActive": true,
+      "usageCount": 89,
+      "maxUsage": null,
+      "requiresVerification": true,
+      "siteId": "-OVsite001",
+      "createdAt": 1704067200000,
+      "updatedAt": 1704067200000
+    }
+  },
+  "refunds": {
+    "-OVref001": {
+      "id": "-OVref001",
+      "originalTransactionId": "-OVtrans001",
+      "refundNumber": "REF-20250120-001",
+      "amount": 14.95,
+      "reason": "Item not as described",
+      "refundType": "partial",
+      "paymentMethod": "card",
+      "status": "completed",
+      "processedBy": "-OVemp002",
+      "processedByName": "Mike Server",
+      "authorizedBy": "ojjMG6VYLQapkFS1FdTxvbamb332",
+      "authorizedByName": "Shawn Potera",
+      "processedAt": 1704074400000,
+      "notes": "Customer complaint about pizza quality",
+      "createdAt": 1704074400000,
+      "updatedAt": 1704074400000
+    }
+  }
+}

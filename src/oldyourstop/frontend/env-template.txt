@@ -1,0 +1,40 @@
+# BookMyTable - API Keys Configuration Template
+# Copy this content to .env.local and add your actual API keys
+
+# Google Places API - For restaurant locations and basic info
+# Get from: https://console.cloud.google.com/apis/credentials
+GOOGLE_PLACES_API_KEY=your_google_places_api_key_here
+
+# Yelp API - For restaurant reviews and ratings
+# Get from: https://www.yelp.com/developers/documentation/v3/authentication
+YELP_API_KEY=your_yelp_api_key_here
+
+# OpenTable API - For restaurant availability and bookings
+# Apply for: https://platform.opentable.com/api-docs
+OPENTABLE_API_KEY=your_opentable_api_key_here
+
+# Resy API - For restaurant reservations
+# Contact: https://resy.com/about/contact
+RESY_API_KEY=your_resy_api_key_here
+
+# Toast POS API - For menu data and pricing
+# Partner with: https://pos.toasttab.com/partners
+TOAST_API_KEY=your_toast_api_key_here
+
+# Square API - For restaurant POS integration
+# Get from: https://developer.squareup.com/
+SQUARE_API_KEY=your_square_api_key_here
+
+# TripAdvisor API - For reviews and ratings
+# Apply for: https://developer-tripadvisor.com/content-api/
+TRIPADVISOR_API_KEY=your_tripadvisor_api_key_here
+
+# Foursquare API - For location data and check-ins
+# Get from: https://developer.foursquare.com/
+FOURSQUARE_API_KEY=your_foursquare_api_key_here
+
+# Optional: Additional configuration
+# API_RATE_LIMIT_PER_MINUTE=100
+# CACHE_TTL_MINUTES=5
+# DEFAULT_LOCATION_LAT=51.5074
+# DEFAULT_LOCATION_LNG=-0.1278

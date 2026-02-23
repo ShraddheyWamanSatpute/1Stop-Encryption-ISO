@@ -1,0 +1,289 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "authEvents": {
+      ".read": false,
+      ".write": false
+    },
+
+    "auditLogs": {
+      ".read": false,
+      ".write": false,
+      "$companyId": {
+        ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+        ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+        "$logId": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+          ".write": "auth != null && !data.exists() && root.child('users').child(auth.uid).child('companies').child($companyId).exists()"
+        },
+        "hmrcSubmissions": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+          ".write": true
+        }
+      }
+    },
+
+    "compliance": {
+      ".read": false,
+      ".write": false,
+      "consent": {
+        "$companyId": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+          "$consentId": {
+            ".read": "auth != null && (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin'] || data.child('userId').val() === auth.uid)",
+            ".write": "auth != null && (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin'] || data.child('userId').val() === auth.uid)"
+          }
+        }
+      },
+      "dataBreaches": {
+        "$companyId": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+          "$breachId": {
+            ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+            ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+          }
+        }
+      },
+      "dataRetention": {
+        "$companyId": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+        }
+      }
+    },
+
+    "users": {
+      "$userId": {
+        ".read": "auth != null && auth.uid == $userId",
+        ".write": "auth != null && auth.uid == $userId && !newData.hasChild('role') && !newData.hasChild('companies')",
+        "companies": {
+          ".read": "auth != null && auth.uid == $userId",
+          "$companyId": {
+            ".read": "auth != null && auth.uid == $userId",
+            ".write": false
+          }
+        },
+        "currentCompanyID": {
+          ".read": "auth != null && auth.uid == $userId",
+          ".write": "auth != null && auth.uid == $userId"
+        },
+        "employeeId": {
+          ".read": "auth != null && auth.uid == $userId",
+          ".write": "auth != null && auth.uid == $userId"
+        },
+        "email": {
+          ".read": "auth != null && auth.uid == $userId",
+          ".write": false
+        },
+        "displayName": {
+          ".read": "auth != null && auth.uid == $userId",
+          ".write": "auth != null && auth.uid == $userId"
+        },
+        "photoURL": {
+          ".read": "auth != null && auth.uid == $userId",
+          ".write": "auth != null && auth.uid == $userId"
+        },
+        "$other": {
+          ".read": "auth != null && auth.uid == $userId",
+          ".write": "auth != null && auth.uid == $userId"
+        }
+      }
+    },
+    "companies": {
+      ".read": false,
+      ".write": false,
+      "$companyId": {
+        ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+        ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+        "companyName": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+        },
+        "companyLogo": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+        },
+        "$otherCompanyField": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+        },
+        "data": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+          "company": {
+            "hmrcSettings": {
+              ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+              ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+            }
+          }
+        },
+        "permissions": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+        },
+        "users": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+        },
+        "sites": {
+          ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+          ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+          "$siteId": {
+            ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+            ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+            "name": {
+              ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+              ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+            },
+            "$otherSiteField": {
+              ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+              ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+            },
+            "data": {
+              ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+              ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+              "hr": {
+                ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                "employees": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration']",
+                  "$employeeId": {
+                    ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists() && (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration'] || (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() === 'staff' && data.child('userId').val() === auth.uid))",
+                    ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+                    "$field": {
+                      ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists() && (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration'] || (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() === 'staff' && data.parent().child('userId').val() === auth.uid))",
+                      ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+            }
+          }
+                },
+                "payrolls": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration']",
+                  "$payrollId": {
+                    ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists() && (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration'] || (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() === 'staff' && data.child('employeeId').val() === root.child('users').child(auth.uid).child('employeeId').val()))",
+                    ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager']"
+      }
+    },
+                "schedules": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'supervisor']",
+                  "$scheduleId": {
+                    ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                    ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'supervisor']"
+                  }
+                },
+                "timeOffs": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  "$timeOffId": {
+                    ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                    ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()"
+                  }
+                },
+                "attendances": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'supervisor']",
+                  "$attendanceId": {
+                    ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                    ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'supervisor']"
+                  }
+                },
+                "performanceReviews": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager']",
+                  "$reviewId": {
+                    ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                    ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager']"
+                  }
+                },
+                "$otherHRCollection": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager']"
+                }
+              },
+              "finance": {
+                ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration']",
+                ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'administration']",
+                "$financeId": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration']",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'administration']"
+                }
+              },
+              "stock": {
+                ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'supervisor']",
+                "$stockId": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'supervisor']"
+                }
+              },
+              "bookings": {
+                ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                "$bookingId": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()"
+                }
+              },
+              "pos": {
+                ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                "$posId": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()"
+                }
+              },
+              "company": {
+                "hmrcSettings": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+                }
+              }
+            },
+            "subsites": {
+              ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+              ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+              "$subsiteId": {
+                ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+                "data": {
+                  ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                  ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+                  "company": {
+                    "hmrcSettings": {
+                      ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']",
+                      ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+                    }
+                  },
+                  "hr": {
+                    ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                    "employees": {
+                      ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration']",
+                      "$employeeId": {
+                        ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists() && (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration'] || (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() === 'staff' && data.child('userId').val() === auth.uid))",
+                        ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin']"
+                      }
+                    },
+                    "payrolls": {
+                      ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration']",
+                      "$payrollId": {
+                        ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists() && (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager', 'administration'] || (root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() === 'staff' && data.child('employeeId').val() === root.child('users').child(auth.uid).child('employeeId').val()))",
+                        ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager']"
+                      }
+                    },
+                    "$otherHRCollection": {
+                      ".read": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).exists()",
+                      ".write": "auth != null && root.child('users').child(auth.uid).child('companies').child($companyId).child('role').val() in ['owner', 'admin', 'manager']"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+node_modules
+# Keep environment variables out of version control
+.env
+
+/generated/prisma
+
+# JWT RSA Keys (NEVER commit these!)
+jwt-private-key.pem
+jwt-public-key.pem
+keys/
+*.pem

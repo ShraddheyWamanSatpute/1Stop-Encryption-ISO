@@ -1,0 +1,779 @@
+{
+  "nightcap_group": {
+    "total_venues": 47,
+    "total_brands": 12,
+    "last_updated": "2025-01-18",
+    "data_source": "Comprehensive venue information from Nightcap Group",
+    "brands": {
+      "the_cocktail_club": {
+        "brand_name": "The Cocktail Club",
+        "concept": "Premium cocktail bars with theatrical presentation",
+        "target_audience": "Young professionals, cocktail enthusiasts",
+        "price_range": "£££",
+        "total_venues": 15,
+        "venues": [
+          {
+            "name": "The Cocktail Club Shoreditch",
+            "address": "129-131 Shoreditch High Street, E1 6JE",
+            "phone": "+44 (0)20 7739 9244",
+            "city": "London",
+            "postcode": "E1 6JE",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 200,
+            "features": ["Theatrical cocktails", "Live entertainment", "Private hire available"],
+            "booking_available": true,
+            "instagram": "@thecocktailclub"
+          },
+          {
+            "name": "The Cocktail Club Old Street",
+            "address": "69-71 Old Street, EC1V 9HX",
+            "phone": "+44 (0)20 7253 9244",
+            "city": "London",
+            "postcode": "EC1V 9HX",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 180,
+            "features": ["Theatrical cocktails", "Live entertainment", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Canary Wharf",
+            "address": "Cabot Place East, E14 4QT",
+            "phone": "+44 (0)20 7719 0650",
+            "city": "London",
+            "postcode": "E14 4QT",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 150,
+            "features": ["Theatrical cocktails", "Corporate events", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Marylebone",
+            "address": "15 Langham Place, W1B 3DE",
+            "phone": "+44 (0)20 7580 1144",
+            "city": "London",
+            "postcode": "W1B 3DE",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 120,
+            "features": ["Theatrical cocktails", "West End location", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Goodge Street",
+            "address": "16 Goodge Street, W1T 2QG",
+            "phone": "+44 (0)20 7580 3355",
+            "city": "London",
+            "postcode": "W1T 2QG",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 100,
+            "features": ["Theatrical cocktails", "Intimate setting", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Fitzrovia",
+            "address": "37 Goodge Street, W1T 2PJ",
+            "phone": "+44 (0)20 7580 1144",
+            "city": "London",
+            "postcode": "W1T 2PJ",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 90,
+            "features": ["Theatrical cocktails", "Cozy atmosphere", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Wimbledon",
+            "address": "The Broadway, SW19 1PS",
+            "phone": "+44 (0)20 8947 1144",
+            "city": "London",
+            "postcode": "SW19 1PS",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 140,
+            "features": ["Theatrical cocktails", "Suburban location", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Brighton",
+            "address": "10A Kings Road, BN1 1NE",
+            "phone": "+44 (0)1273 777 222",
+            "city": "Brighton",
+            "postcode": "BN1 1NE",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 160,
+            "features": ["Theatrical cocktails", "Seaside location", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Bath",
+            "address": "14-16 Edgar Buildings, BA1 2EE",
+            "phone": "+44 (0)1225 333 444",
+            "city": "Bath",
+            "postcode": "BA1 2EE",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 110,
+            "features": ["Theatrical cocktails", "Historic setting", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Bristol",
+            "address": "69 Queen Street, BS1 4DZ",
+            "phone": "+44 (0)117 925 1144",
+            "city": "Bristol",
+            "postcode": "BS1 4DZ",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 130,
+            "features": ["Theatrical cocktails", "City center location", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Leeds",
+            "address": "Boar Lane, LS1 5DA",
+            "phone": "+44 (0)113 244 1144",
+            "city": "Leeds",
+            "postcode": "LS1 5DA",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 170,
+            "features": ["Theatrical cocktails", "Northern location", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Manchester",
+            "address": "35 King Street West, M3 2PW",
+            "phone": "+44 (0)161 839 1144",
+            "city": "Manchester",
+            "postcode": "M3 2PW",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 190,
+            "features": ["Theatrical cocktails", "City center location", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Birmingham",
+            "address": "52 Temple Street, B2 5DP",
+            "phone": "+44 (0)121 633 1144",
+            "city": "Birmingham",
+            "postcode": "B2 5DP",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 180,
+            "features": ["Theatrical cocktails", "Midlands location", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Liverpool",
+            "address": "23 Wood Street, L1 4AQ",
+            "phone": "+44 (0)151 707 1144",
+            "city": "Liverpool",
+            "postcode": "L1 4AQ",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 160,
+            "features": ["Theatrical cocktails", "Waterfront city", "Private hire available"],
+            "booking_available": true
+          },
+          {
+            "name": "The Cocktail Club Cardiff",
+            "address": "Mill Lane, CF10 1FL",
+            "phone": "+44 (0)29 2034 1144",
+            "city": "Cardiff",
+            "postcode": "CF10 1FL",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Cocktails, Bar Snacks",
+            "capacity": 140,
+            "features": ["Theatrical cocktails", "Welsh capital", "Private hire available"],
+            "booking_available": true
+          }
+        ]
+      },
+      "dirty_martini": {
+        "brand_name": "Dirty Martini",
+        "concept": "Sophisticated cocktail bars with premium spirits",
+        "target_audience": "City professionals, after-work crowd",
+        "price_range": "£££",
+        "total_venues": 9,
+        "venues": [
+          {
+            "name": "Dirty Martini Monument",
+            "address": "11-15 Gracechurch Street, EC3V 0DR",
+            "phone": "+44 (0)20 7626 8388",
+            "city": "London",
+            "postcode": "EC3V 0DR",
+            "hours": "Mon-Fri 4pm-1am, Sat 6pm-1am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 200,
+            "features": ["Premium spirits", "City location", "After-work crowd"],
+            "booking_available": true
+          },
+          {
+            "name": "Dirty Martini St Paul's",
+            "address": "5-6 Cheapside, EC2V 6AA",
+            "phone": "+44 (0)20 7248 8388",
+            "city": "London",
+            "postcode": "EC2V 6AA",
+            "hours": "Mon-Fri 4pm-1am, Sat 6pm-1am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 180,
+            "features": ["Premium spirits", "Financial district", "Corporate events"],
+            "booking_available": true
+          },
+          {
+            "name": "Dirty Martini Bishopsgate",
+            "address": "132 Bishopsgate, EC2M 4RH",
+            "phone": "+44 (0)20 7377 8388",
+            "city": "London",
+            "postcode": "EC2M 4RH",
+            "hours": "Mon-Fri 4pm-1am, Sat 6pm-1am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 220,
+            "features": ["Premium spirits", "City location", "Large capacity"],
+            "booking_available": true
+          },
+          {
+            "name": "Dirty Martini Hanover Square",
+            "address": "11-12 Hanover Square, W1S 1JJ",
+            "phone": "+44 (0)20 7499 8388",
+            "city": "London",
+            "postcode": "W1S 1JJ",
+            "hours": "Mon-Fri 4pm-1am, Sat 6pm-1am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 160,
+            "features": ["Premium spirits", "Mayfair location", "Upmarket clientele"],
+            "booking_available": true
+          },
+          {
+            "name": "Dirty Martini Islington",
+            "address": "9 Chapel Market, N1 9EZ",
+            "phone": "+44 (0)20 7278 8388",
+            "city": "London",
+            "postcode": "N1 9EZ",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 140,
+            "features": ["Premium spirits", "North London", "Weekend opening"],
+            "booking_available": true
+          },
+          {
+            "name": "Dirty Martini Russell Square",
+            "address": "8-9 Russell Square, WC1B 5BE",
+            "phone": "+44 (0)20 7837 8388",
+            "city": "London",
+            "postcode": "WC1B 5BE",
+            "hours": "Mon-Fri 4pm-1am, Sat 6pm-1am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 170,
+            "features": ["Premium spirits", "Bloomsbury location", "Historic square"],
+            "booking_available": true
+          },
+          {
+            "name": "Dirty Martini Leeds",
+            "address": "16 Call Lane, LS1 7BT",
+            "phone": "+44 (0)113 245 8388",
+            "city": "Leeds",
+            "postcode": "LS1 7BT",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 190,
+            "features": ["Premium spirits", "Call Lane location", "Northern expansion"],
+            "booking_available": true
+          },
+          {
+            "name": "Dirty Martini Manchester",
+            "address": "1 Deansgate, M3 1AZ",
+            "phone": "+44 (0)161 832 8388",
+            "city": "Manchester",
+            "postcode": "M3 1AZ",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 210,
+            "features": ["Premium spirits", "Deansgate location", "Large venue"],
+            "booking_available": true
+          },
+          {
+            "name": "Dirty Martini Birmingham",
+            "address": "18 Newhall Street, B3 3LX",
+            "phone": "+44 (0)121 236 8388",
+            "city": "Birmingham",
+            "postcode": "B3 3LX",
+            "hours": "Mon-Thu 5pm-1am, Fri-Sat 5pm-2am, Sun 5pm-12am",
+            "cuisine": "Premium Cocktails, Light Bites",
+            "capacity": 180,
+            "features": ["Premium spirits", "Business district", "Midlands location"],
+            "booking_available": true
+          }
+        ]
+      },
+      "barrio_bars": {
+        "brand_name": "Barrio Bars",
+        "concept": "Latin-inspired cocktail bars with vibrant atmosphere",
+        "target_audience": "Party-goers, Latin music lovers",
+        "price_range": "££",
+        "total_venues": 7,
+        "venues": [
+          {
+            "name": "Barrio Shoreditch",
+            "address": "141-143 Shoreditch High Street, E1 6JE",
+            "phone": "+44 (0)20 7739 5040",
+            "city": "London",
+            "postcode": "E1 6JE",
+            "hours": "Mon-Thu 5pm-2am, Fri-Sat 5pm-3am, Sun 5pm-1am",
+            "cuisine": "Latin Cocktails, Tapas",
+            "capacity": 400,
+            "features": ["Latin music", "Dancing", "Large capacity", "Late opening"],
+            "booking_available": true,
+            "instagram": "@barrio_shoreditch"
+          },
+          {
+            "name": "Barrio Soho",
+            "address": "18 Kingly Street, W1B 5PZ",
+            "phone": "+44 (0)20 7287 5040",
+            "city": "London",
+            "postcode": "W1B 5PZ",
+            "hours": "Mon-Thu 5pm-2am, Fri-Sat 5pm-3am, Sun 5pm-1am",
+            "cuisine": "Latin Cocktails, Tapas",
+            "capacity": 250,
+            "features": ["Latin music", "West End location", "Dancing"],
+            "booking_available": true
+          },
+          {
+            "name": "Barrio Angel",
+            "address": "69 Upper Street, N1 0NY",
+            "phone": "+44 (0)20 7354 5040",
+            "city": "London",
+            "postcode": "N1 0NY",
+            "hours": "Mon-Thu 5pm-2am, Fri-Sat 5pm-3am, Sun 5pm-1am",
+            "cuisine": "Latin Cocktails, Tapas",
+            "capacity": 200,
+            "features": ["Latin music", "Islington location", "Dancing"],
+            "booking_available": true
+          },
+          {
+            "name": "Barrio Brixton",
+            "address": "Unit 7, Market Row, SW9 8LD",
+            "phone": "+44 (0)20 7733 5040",
+            "city": "London",
+            "postcode": "SW9 8LD",
+            "hours": "Mon-Thu 5pm-2am, Fri-Sat 5pm-3am, Sun 5pm-1am",
+            "cuisine": "Latin Cocktails, Tapas",
+            "capacity": 180,
+            "features": ["Latin music", "Market location", "Dancing"],
+            "booking_available": true
+          },
+          {
+            "name": "Barrio Covent Garden",
+            "address": "45 Bedford Street, WC2E 9HA",
+            "phone": "+44 (0)20 7240 5040",
+            "city": "London",
+            "postcode": "WC2E 9HA",
+            "hours": "Mon-Thu 5pm-2am, Fri-Sat 5pm-3am, Sun 5pm-1am",
+            "cuisine": "Latin Cocktails, Tapas",
+            "capacity": 220,
+            "features": ["Latin music", "Theatre district", "Dancing"],
+            "booking_available": true
+          },
+          {
+            "name": "Barrio Kings Cross",
+            "address": "78 York Way, N1 9AG",
+            "phone": "+44 (0)20 7278 5040",
+            "city": "London",
+            "postcode": "N1 9AG",
+            "hours": "Mon-Thu 5pm-2am, Fri-Sat 5pm-3am, Sun 5pm-1am",
+            "cuisine": "Latin Cocktails, Tapas",
+            "capacity": 300,
+            "features": ["Latin music", "Transport hub", "Dancing"],
+            "booking_available": true
+          },
+          {
+            "name": "Barrio Watford",
+            "address": "194 High Street, WD17 2DT",
+            "phone": "+44 (0)1923 225 040",
+            "city": "Watford",
+            "postcode": "WD17 2DT",
+            "hours": "Mon-Thu 5pm-2am, Fri-Sat 5pm-3am, Sun 5pm-1am",
+            "cuisine": "Latin Cocktails, Tapas",
+            "capacity": 280,
+            "features": ["Latin music", "Suburban location", "Dancing"],
+            "booking_available": true
+          }
+        ]
+      },
+      "tonight_josephine": {
+        "brand_name": "Tonight Josephine",
+        "concept": "Cabaret-style cocktail bars with theatrical entertainment",
+        "target_audience": "Entertainment seekers, cabaret lovers",
+        "price_range": "£££",
+        "total_venues": 6,
+        "venues": [
+          {
+            "name": "Tonight Josephine Shoreditch",
+            "address": "60 Commercial Street, E1 6LT",
+            "phone": "+44 (0)20 7247 0606",
+            "city": "London",
+            "postcode": "E1 6LT",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Cocktails, Cabaret Dining",
+            "capacity": 150,
+            "features": ["Live cabaret", "Theatrical performances", "Dinner shows"],
+            "booking_available": true,
+            "instagram": "@tonightjosephine"
+          },
+          {
+            "name": "Tonight Josephine Waterloo",
+            "address": "8 Hercules Road, SE1 7DP",
+            "phone": "+44 (0)20 7928 0606",
+            "city": "London",
+            "postcode": "SE1 7DP",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Cocktails, Cabaret Dining",
+            "capacity": 180,
+            "features": ["Live cabaret", "South London location", "Dinner shows"],
+            "booking_available": true
+          },
+          {
+            "name": "Tonight Josephine Birmingham",
+            "address": "25 Bennetts Hill, B2 5QP",
+            "phone": "+44 (0)121 643 0606",
+            "city": "Birmingham",
+            "postcode": "B2 5QP",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Cocktails, Cabaret Dining",
+            "capacity": 160,
+            "features": ["Live cabaret", "Midlands entertainment", "Dinner shows"],
+            "booking_available": true
+          },
+          {
+            "name": "Tonight Josephine Liverpool",
+            "address": "14 Mathew Street, L2 6RE",
+            "phone": "+44 (0)151 236 0606",
+            "city": "Liverpool",
+            "postcode": "L2 6RE",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Cocktails, Cabaret Dining",
+            "capacity": 140,
+            "features": ["Live cabaret", "Cavern Quarter", "Dinner shows"],
+            "booking_available": true
+          },
+          {
+            "name": "Tonight Josephine Cardiff",
+            "address": "10-14 Mill Lane, CF10 1FL",
+            "phone": "+44 (0)29 2034 0606",
+            "city": "Cardiff",
+            "postcode": "CF10 1FL",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Cocktails, Cabaret Dining",
+            "capacity": 130,
+            "features": ["Live cabaret", "Welsh capital", "Dinner shows"],
+            "booking_available": true
+          },
+          {
+            "name": "Tonight Josephine Bristol",
+            "address": "45 Park Street, BS1 5NT",
+            "phone": "+44 (0)117 925 0606",
+            "city": "Bristol",
+            "postcode": "BS1 5NT",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Cocktails, Cabaret Dining",
+            "capacity": 120,
+            "features": ["Live cabaret", "Park Street location", "Dinner shows"],
+            "booking_available": true
+          }
+        ]
+      },
+      "blame_gloria": {
+        "brand_name": "Blame Gloria",
+        "concept": "Quirky cocktail bars in unique locations",
+        "target_audience": "Adventurous drinkers, Instagram enthusiasts",
+        "price_range": "££",
+        "total_venues": 3,
+        "venues": [
+          {
+            "name": "Blame Gloria Covent Garden",
+            "address": "Henrietta Street, WC2E 8LU",
+            "phone": "+44 (0)20 7240 7766",
+            "city": "London",
+            "postcode": "WC2E 8LU",
+            "hours": "Mon-Wed 4pm-12am, Thu-Sat 4pm-1am, Sun 4pm-11pm",
+            "cuisine": "Cocktails, Light Bites",
+            "capacity": 60,
+            "features": ["Former public toilet", "Unique location", "Instagram-worthy"],
+            "booking_available": true,
+            "instagram": "@blamegloria"
+          },
+          {
+            "name": "Blame Gloria Bristol",
+            "address": "32 Park Street, BS1 5JG",
+            "phone": "+44 (0)117 925 7766",
+            "city": "Bristol",
+            "postcode": "BS1 5JG",
+            "hours": "Mon-Wed 4pm-12am, Thu-Sat 4pm-1am, Sun 4pm-11pm",
+            "cuisine": "Cocktails, Light Bites",
+            "capacity": 70,
+            "features": ["Quirky decor", "Park Street location", "Unique cocktails"],
+            "booking_available": true
+          },
+          {
+            "name": "Blame Gloria Clapham",
+            "address": "45 Clapham High Street, SW4 7TH",
+            "phone": "+44 (0)20 7622 7766",
+            "city": "London",
+            "postcode": "SW4 7TH",
+            "hours": "Mon-Wed 4pm-12am, Thu-Sat 4pm-1am, Sun 4pm-11pm",
+            "cuisine": "Cocktails, Light Bites",
+            "capacity": 80,
+            "features": ["South London location", "Quirky atmosphere", "Creative cocktails"],
+            "booking_available": true
+          }
+        ]
+      },
+      "disrepute": {
+        "brand_name": "Disrepute",
+        "concept": "Speakeasy-style cocktail bars with hidden entrances",
+        "target_audience": "Cocktail connoisseurs, speakeasy enthusiasts",
+        "price_range": "£££",
+        "total_venues": 2,
+        "venues": [
+          {
+            "name": "Disrepute Shoreditch",
+            "address": "8 Kingsland Road, E2 8DA",
+            "phone": "+44 (0)20 7739 8899",
+            "city": "London",
+            "postcode": "E2 8DA",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Premium Cocktails",
+            "capacity": 80,
+            "features": ["Hidden entrance", "Speakeasy style", "Premium cocktails", "Private vaults"],
+            "booking_available": true,
+            "instagram": "@disreputebar"
+          },
+          {
+            "name": "Disrepute King's Cross",
+            "address": "2 Granary Square, N1C 4AA",
+            "phone": "+44 (0)20 7278 8899",
+            "city": "London",
+            "postcode": "N1C 4AA",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Premium Cocktails",
+            "capacity": 90,
+            "features": ["Hidden entrance", "Speakeasy style", "Premium cocktails", "Private vaults"],
+            "booking_available": true
+          }
+        ]
+      },
+      "nikkis_bar": {
+        "brand_name": "Nikki's Bar",
+        "concept": "Day-to-night venue with flexible spaces",
+        "target_audience": "Flexible crowd, day and night",
+        "price_range": "££",
+        "total_venues": 1,
+        "venues": [
+          {
+            "name": "Nikki's Bar Shoreditch",
+            "address": "18 Calvert Avenue, E2 7JP",
+            "phone": "+44 (0)20 7739 5555",
+            "city": "London",
+            "postcode": "E2 7JP",
+            "hours": "Mon-Sun 12pm-2am",
+            "cuisine": "All-day dining, Cocktails",
+            "capacity": 200,
+            "features": ["Day-to-night venue", "Flexible spaces", "All-day service"],
+            "booking_available": true,
+            "instagram": "@nikkisbar"
+          }
+        ]
+      },
+      "the_escapologist": {
+        "brand_name": "The Escapologist",
+        "concept": "Magic-themed cocktail bars with entertainment",
+        "target_audience": "Magic enthusiasts, entertainment seekers",
+        "price_range": "££",
+        "total_venues": 1,
+        "venues": [
+          {
+            "name": "The Escapologist London",
+            "address": "8 Kingsland Road, E2 8DA",
+            "phone": "+44 (0)20 7739 7777",
+            "city": "London",
+            "postcode": "E2 8DA",
+            "hours": "Wed-Sat 6pm-2am",
+            "cuisine": "Cocktails, Magic Shows",
+            "capacity": 100,
+            "features": ["Magic shows", "Themed cocktails", "Entertainment venue"],
+            "booking_available": true,
+            "instagram": "@theescapologist"
+          }
+        ]
+      },
+      "the_piano_works": {
+        "brand_name": "The Piano Works",
+        "concept": "Interactive piano bars with live entertainment",
+        "target_audience": "Music lovers, interactive entertainment seekers",
+        "price_range": "££",
+        "total_venues": 4,
+        "venues": [
+          {
+            "name": "The Piano Works West End",
+            "address": "113-117 Wardour Street, W1F 0UN",
+            "phone": "+44 (0)20 7734 7734",
+            "city": "London",
+            "postcode": "W1F 0UN",
+            "hours": "Mon-Thu 6pm-1am, Fri-Sat 6pm-2am, Sun 6pm-12am",
+            "cuisine": "Cocktails, Bar Food",
+            "capacity": 300,
+            "features": ["Live piano entertainment", "Request-based music", "Interactive experience"],
+            "booking_available": true,
+            "instagram": "@thepianoworks"
+          },
+          {
+            "name": "The Piano Works Farringdon",
+            "address": "117 Farringdon Road, EC1R 3BX",
+            "phone": "+44 (0)20 7278 7734",
+            "city": "London",
+            "postcode": "EC1R 3BX",
+            "hours": "Mon-Thu 6pm-1am, Fri-Sat 6pm-2am, Sun 6pm-12am",
+            "cuisine": "Cocktails, Bar Food",
+            "capacity": 250,
+            "features": ["Live piano entertainment", "Request-based music", "Interactive experience"],
+            "booking_available": true
+          },
+          {
+            "name": "The Piano Works Angel",
+            "address": "11 Islington Green, N1 2XH",
+            "phone": "+44 (0)20 7354 7734",
+            "city": "London",
+            "postcode": "N1 2XH",
+            "hours": "Mon-Thu 6pm-1am, Fri-Sat 6pm-2am, Sun 6pm-12am",
+            "cuisine": "Cocktails, Bar Food",
+            "capacity": 200,
+            "features": ["Live piano entertainment", "Request-based music", "Interactive experience"],
+            "booking_available": true
+          },
+          {
+            "name": "The Piano Works Manchester",
+            "address": "16 Deansgate, M3 2FE",
+            "phone": "+44 (0)161 839 7734",
+            "city": "Manchester",
+            "postcode": "M3 2FE",
+            "hours": "Mon-Thu 6pm-1am, Fri-Sat 6pm-2am, Sun 6pm-12am",
+            "cuisine": "Cocktails, Bar Food",
+            "capacity": 280,
+            "features": ["Live piano entertainment", "Request-based music", "Interactive experience"],
+            "booking_available": true
+          }
+        ]
+      },
+      "brighton_i360": {
+        "brand_name": "Brighton i360",
+        "concept": "Observation tower with dining and bar experiences",
+        "target_audience": "Tourists, experience seekers",
+        "price_range": "£££",
+        "total_venues": 2,
+        "venues": [
+          {
+            "name": "Brighton i360 Tower",
+            "address": "Lower Kings Road, Brighton, BN1 2LN",
+            "phone": "+44 (0)1273 927318",
+            "city": "Brighton",
+            "postcode": "BN1 2LN",
+            "hours": "Mon-Fri 10:30am-9pm, Sat-Sun 10am-9pm",
+            "cuisine": "Sky Bar, Dining Experiences",
+            "capacity": 200,
+            "features": ["360° views", "Sky Bar", "Observation tower", "Height: 162m"],
+            "booking_available": true,
+            "pricing": "View 360: £18.50, Sky Bar 360: £32, Fly & Dine: £39.50",
+            "instagram": "@brightoni360"
+          },
+          {
+            "name": "Drift at Brighton i360",
+            "address": "West Pier Beach, adjacent to i360, Brighton",
+            "phone": "+44 (0)1273 927318",
+            "city": "Brighton",
+            "postcode": "BN1 2LN",
+            "hours": "Daily 10am-10pm (seasonal)",
+            "cuisine": "Coastal dining, Seafood",
+            "capacity": 150,
+            "features": ["Beachside location", "Sea views", "Coastal dining", "Sunset views"],
+            "booking_available": true,
+            "instagram": "@driftbrighton"
+          }
+        ]
+      },
+      "tuttons": {
+        "brand_name": "Tuttons",
+        "concept": "Historic Covent Garden brasserie",
+        "target_audience": "Theatre-goers, tourists, locals",
+        "price_range": "£££",
+        "total_venues": 1,
+        "venues": [
+          {
+            "name": "Tuttons Covent Garden",
+            "address": "11-12 Russell Street, Covent Garden, WC2B 5HZ",
+            "phone": "+44 (0)20 7632 2081",
+            "city": "London",
+            "postcode": "WC2B 5HZ",
+            "hours": "Breakfast Thu-Sun 9-11am, Lunch daily 12-4pm, Dinner Mon-Sat 5pm-12am, Sun 5-11pm",
+            "cuisine": "British Brasserie",
+            "capacity": 120,
+            "features": ["Historic venue", "Outdoor terrace", "Piazza views", "Private vaults"],
+            "booking_available": true,
+            "heritage": "Established 1985, 40+ years in Covent Garden",
+            "instagram": "@tuttonscoventgarden"
+          }
+        ]
+      },
+      "luna_springs": {
+        "brand_name": "Luna Springs",
+        "concept": "Outdoor event space in Birmingham",
+        "target_audience": "Event-goers, party crowds",
+        "price_range": "££",
+        "total_venues": 1,
+        "venues": [
+          {
+            "name": "Luna Springs Birmingham",
+            "address": "Lower Trinity Street, Digbeth, Birmingham B9 4AG",
+            "phone": "+44 121 663 6293",
+            "city": "Birmingham",
+            "postcode": "B9 4AG",
+            "hours": "Event-based opening",
+            "cuisine": "Event catering, Bar service",
+            "capacity": 3000,
+            "features": ["Outdoor space", "Production lasers", "UV lights", "Heated areas"],
+            "booking_available": true,
+            "email": "bookings@lunasprings.co.uk",
+            "instagram": "@luna_springs_digbeth"
+          }
+        ]
+      },
+      "afters": {
+        "brand_name": "Afters",
+        "concept": "Casual dive bar in Clapham",
+        "target_audience": "Local crowd, casual drinkers",
+        "price_range": "£",
+        "total_venues": 1,
+        "venues": [
+          {
+            "name": "Afters Clapham",
+            "address": "38 Clapham High Street, SW4 7UR",
+            "phone": "+44 (0)20 7622 5555",
+            "city": "London",
+            "postcode": "SW4 7UR",
+            "hours": "Mon-Thu 5pm-2am, Fri-Sat 4pm-2:30am, Sun 2pm-12am",
+            "cuisine": "Bar snacks, Casual dining",
+            "capacity": 80,
+            "features": ["Pool table", "Dive bar atmosphere", "Late opening"],
+            "booking_available": false,
+            "website": "seeyouatafters.co.uk"
+          }
+        ]
+      }
+    }
+  }
+}

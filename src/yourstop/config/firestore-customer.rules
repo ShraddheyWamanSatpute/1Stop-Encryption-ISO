@@ -1,0 +1,102 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // CUSTOMER COLLECTIONS (Separate from main app)
+    // ============================================
+    
+    // Customer user profiles
+    match /customers/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow create: if request.auth != null && request.resource.data.uid == request.auth.uid;
+    }
+    
+    // Customer bookings - users can only access their own bookings
+    match /customerBookings/{bookingId} {
+      allow read: if request.auth != null && 
+        (resource.data.userId == request.auth.uid || 
+         !exists(/databases/$(database)/documents/customerBookings/$(bookingId)));
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Customer favorites - users can only access their own favorites
+    match /customerFavorites/{favoriteId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Customer reviews - users can read all, write their own
+    match /customerReviews/{reviewId} {
+      allow read: if true; // Public reviews
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+    }
+    
+    // Customer payments - users can only access their own payment methods
+    match /customerPayments/{paymentId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+    }
+    
+    // Customer notifications - users can only access their own notifications
+    match /customerNotifications/{notificationId} {
+      allow read, write: if request.auth != null && 
+        resource.data.userId == request.auth.uid;
+      allow create: if request.auth != null && 
+        request.resource.data.userId == request.auth.uid;
+    }
+    
+    // ============================================
+    // PUBLIC COLLECTIONS (Shared with main app)
+    // ============================================
+    
+    // Restaurants - public read, admin write
+    match /restaurants/{restaurantId} {
+      allow read: if true; // Public data
+      allow write: if request.auth != null && 
+        request.auth.token.admin == true;
+    }
+    
+    // Restaurant reviews - public read, authenticated write
+    match /restaurantReviews/{reviewId} {
+      allow read: if true; // Public data
+      allow write: if request.auth != null;
+    }
+    
+    // ============================================
+    // MAIN APP COLLECTIONS (Separate - for reference)
+    // These are NOT accessible by customer auth
+    // ============================================
+    
+    // Main app users - NOT accessible by customers
+    match /users/{userId} {
+      allow read, write: if false; // Blocked for customer auth
+    }
+    
+    // Main app bookings - NOT accessible by customers
+    match /bookings/{bookingId} {
+      allow read, write: if false; // Blocked for customer auth
+    }
+    
+    // Main app favorites - NOT accessible by customers
+    match /favorites/{favoriteId} {
+      allow read, write: if false; // Blocked for customer auth
+    }
+    
+    // Admin-only collections - NOT accessible by customers
+    match /admin/{document=**} {
+      allow read, write: if false; // Blocked for customer auth
+    }
+  }
+}
+
