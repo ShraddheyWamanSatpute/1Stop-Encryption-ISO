@@ -50,8 +50,8 @@ async function validateBackup(backupPath: string): Promise<{ valid: boolean; siz
     const size = parseInt(metadata.size || '0', 10);
 
     // Try to read first few bytes to verify file is readable
-    const [buffer] = await file.download({ start: 0, end: 1024 });
-    
+    await file.download({ start: 0, end: 1024 });
+
     return { valid: true, size };
   } catch (error) {
     return {

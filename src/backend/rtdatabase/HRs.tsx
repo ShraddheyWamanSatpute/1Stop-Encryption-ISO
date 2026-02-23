@@ -1330,11 +1330,17 @@ export const createEmployee = async (basePath: string, employee: Omit<Employee, 
         console.log("[HRs] Employee data encrypted before storage")
       } catch (encryptError) {
         console.error("[HRs] Failed to encrypt employee data:", encryptError)
-        // In production, you might want to throw here to prevent unencrypted storage
-        // For now, we'll log the warning but still save
+        // In production, fail to prevent unencrypted storage
+        if (import.meta.env.PROD) {
+          throw new Error("Encryption required in production. Failed to encrypt employee data.")
+        }
         console.warn("[HRs] WARNING: Storing employee data without encryption")
       }
     } else {
+      // In production, encryption must be initialized
+      if (import.meta.env.PROD) {
+        throw new Error("Encryption service not initialized. Cannot store employee data in production.")
+      }
       console.warn("[HRs] Encryption service not initialized - storing employee data without encryption")
     }
 

@@ -200,7 +200,6 @@ async function createMonthlySnapshot(): Promise<void> {
     return; // Only run on first of month
   }
 
-  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const monthlyPath = `backups/monthly/${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}/`;
   const bucket = gcsStorage.bucket(BUCKET_NAME);
 
@@ -277,7 +276,7 @@ export async function runDailyBackup(): Promise<BackupMetadata> {
   const metadata: BackupMetadata = {
     timestamp: startTime,
     type: 'daily',
-    backupFiles: {} as any,
+    backupFiles: {} as Record<string, string>,
     status: 'success',
   };
 

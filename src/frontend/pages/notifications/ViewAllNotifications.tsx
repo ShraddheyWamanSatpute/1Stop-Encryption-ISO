@@ -83,7 +83,7 @@ const ViewAllNotifications: React.FC = () => {
 
   // Filter and sort notifications
   const filteredAndSortedNotifications = React.useMemo(() => {
-    let filtered = notificationsState.notifications.filter(notification => {
+    const filtered = notificationsState.notifications.filter(notification => {
       // Search filter
       if (searchTerm && !notification.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
           !notification.message.toLowerCase().includes(searchTerm.toLowerCase())) {

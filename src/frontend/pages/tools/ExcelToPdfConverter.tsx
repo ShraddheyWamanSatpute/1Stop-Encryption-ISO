@@ -192,7 +192,7 @@ const ExcelToPdfConverter = () => {
             }
 
             // Add table to PDF using autoTable
-            ;(pdf as any).autoTable(tableConfig)
+            (pdf as any).autoTable(tableConfig)
             
             // Update Y position for next content
             currentY = (pdf as any).lastAutoTable.finalY + 10

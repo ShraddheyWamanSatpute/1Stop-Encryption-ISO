@@ -377,7 +377,7 @@ const StockItemForm: React.FC = () => {
       product.ingredients &&
       product.ingredients.length > 0
     ) {
-      ;(async () => {
+      (async () => {
         try {
           const finalConv = await contextFetchMeasureData(product.finalMeasure!)
           const finalBase = finalQuantity * finalConv.totalQuantity

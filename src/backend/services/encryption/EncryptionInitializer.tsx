@@ -8,6 +8,12 @@
  * - SensitiveDataService (for employee/payroll/company data)
  * - SecureTokenStorage (for OAuth tokens)
  * - HMRCTokenEncryption (for HMRC tokens)
+ *
+ * KEY SOURCE (compliance): Client-side keys come from build-time env (VITE_*).
+ * This is not KMS/HSM; it is "key in env manager" at build time. For sensitive
+ * data, prefer server-side encryption via Firebase Functions where keys are
+ * held in Firebase Secret Manager (Google Cloud Secret Manager). Secure
+ * callables already use server-side keys for HR, Finance, Settings, Payroll.
  */
 
 import { useEffect, useState, createContext, useContext, ReactNode } from 'react'
@@ -183,7 +189,6 @@ export function EncryptionProvider({ children }: EncryptionProviderProps) {
         console.log('[EncryptionInitializer] Encryption services initialized successfully')
         // Expose for debugging in development
         if (import.meta.env.DEV) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (window as unknown as Record<string, unknown>).__encryptionStatus = {
             initialized: true,
             services,

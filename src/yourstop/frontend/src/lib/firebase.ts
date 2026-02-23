@@ -10,25 +10,33 @@ import {
   PhoneAuthProvider,
   signInWithCredential
 } from 'firebase/auth';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-import { getDatabase, connectDatabaseEmulator } from 'firebase/database';
-import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { getFirestore } from 'firebase/firestore';
+import { getDatabase } from 'firebase/database';
+import { getStorage } from 'firebase/storage';
 import { getMessaging, isSupported } from 'firebase/messaging';
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { getFunctions } from 'firebase/functions';
 
-// Your web app's Firebase configuration
-// IMPORTANT: This is a public configuration and is safe to expose.
-// Security is handled by Firebase Security Rules.
+// YourStop Firebase config from environment (no hardcoded secrets — Section 1.5 compliance)
+// Prefer VITE_YOURSTOP_FIREBASE_*; fall back to main app VITE_FIREBASE_* when not set.
+const env = (import.meta as { env?: Record<string, string> })?.env ?? {};
+const read = (primary: string, fallback: string): string =>
+  String(env[primary] ?? env[fallback] ?? '').trim();
+
 const firebaseConfig = {
-  projectId: 'bookmytable-ea37d',
-  appId: '1:1049141485409:web:6e8dbad1eaf713d3046f20',
-  storageBucket: 'bookmytable-ea37d.firebasestorage.app',
-  apiKey: 'AIzaSyDtqWWLKIF7ZMi2X21NhxkiCgoVUPIsV5I',
-  authDomain: 'bookmytable-ea37d.firebaseapp.com',
-  databaseURL: 'https://bookmytable-ea37d-default-rtdb.firebaseio.com',
-  measurementId: 'G-EYMZ6KB690', // Analytics
-  messagingSenderId: '1049141485409',
+  projectId: read('VITE_YOURSTOP_FIREBASE_PROJECT_ID', 'VITE_FIREBASE_PROJECT_ID'),
+  appId: read('VITE_YOURSTOP_FIREBASE_APP_ID', 'VITE_FIREBASE_APP_ID'),
+  storageBucket: read('VITE_YOURSTOP_FIREBASE_STORAGE_BUCKET', 'VITE_FIREBASE_STORAGE_BUCKET'),
+  apiKey: read('VITE_YOURSTOP_FIREBASE_API_KEY', 'VITE_FIREBASE_API_KEY'),
+  authDomain: read('VITE_YOURSTOP_FIREBASE_AUTH_DOMAIN', 'VITE_FIREBASE_AUTH_DOMAIN'),
+  databaseURL: read('VITE_YOURSTOP_FIREBASE_DATABASE_URL', 'VITE_FIREBASE_DATABASE_URL'),
+  measurementId: read('VITE_YOURSTOP_FIREBASE_MEASUREMENT_ID', 'VITE_FIREBASE_MEASUREMENT_ID'),
+  messagingSenderId: read('VITE_YOURSTOP_FIREBASE_MESSAGING_SENDER_ID', 'VITE_FIREBASE_MESSAGING_SENDER_ID'),
 };
+
+// Require minimum config so we never initialize with empty credentials
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  throw new Error('[YourStop] Set VITE_YOURSTOP_FIREBASE_* (or VITE_FIREBASE_*) in .env. See .env.example.');
+}
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
@@ -43,7 +51,7 @@ const functions = getFunctions(app);
 // Initialize messaging (only in browser and if supported)
 // Firebase Messaging requires service worker and HTTPS (or localhost)
 // It's optional functionality, so we silently handle failures
-let messaging: any = null;
+let messaging: ReturnType<typeof getMessaging> | null = null;
 if (typeof window !== 'undefined') {
   // Check if service workers are supported first
   const hasServiceWorker = 'serviceWorker' in navigator;
@@ -58,7 +66,7 @@ if (typeof window !== 'undefined') {
           } catch (error) {
             // Silently fail - messaging is optional
             // Only log in development mode
-            if (import.meta.env.DEV) {
+            if ((import.meta as { env?: { DEV?: boolean } })?.env?.DEV) {
               console.debug('Firebase Messaging not available (this is normal in some environments)');
             }
           }
@@ -86,7 +94,7 @@ appleProvider.addScope('email');
 appleProvider.addScope('name');
 
 // Development emulator setup (only in development)
-if (import.meta.env.MODE === 'development' && typeof window !== 'undefined') {
+if ((import.meta as { env?: { MODE?: string } })?.env?.MODE === 'development' && typeof window !== 'undefined') {
   try {
     // Uncomment these lines if you want to use Firebase emulators in development
     // connectFirestoreEmulator(db, 'localhost', 8080);

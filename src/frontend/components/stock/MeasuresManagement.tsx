@@ -67,7 +67,7 @@ const MeasuresManagement: React.FC = () => {
       return []
     }
     
-    let filtered = measures.filter((measure) =>
+    const filtered = measures.filter((measure) =>
       measure.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       measure.quantity?.toString().includes(searchTerm.toLowerCase()) ||
       measure.baseUnit?.toLowerCase().includes(searchTerm.toLowerCase())

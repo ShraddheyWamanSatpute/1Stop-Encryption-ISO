@@ -130,7 +130,7 @@ const ComplianceTracking: React.FC = () => {
 
   // Filter and sort compliance tasks
   const filteredTasks = React.useMemo(() => {
-    let filtered = hrState.complianceTasks.filter((task) => {
+    const filtered = hrState.complianceTasks.filter((task) => {
       const matchesSearch = 
         searchTerm === "" ||
         task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

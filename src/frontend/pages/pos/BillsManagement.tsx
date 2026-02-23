@@ -315,7 +315,8 @@ const BillsManagement: React.FC = () => {
     return new Date(timestamp).toLocaleTimeString()
   }
 
-  if (false) { // Would use loading state when implementing
+  // eslint-disable-next-line no-constant-condition -- placeholder for loading state
+  if (false) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: 400 }}>
         <CircularProgress />

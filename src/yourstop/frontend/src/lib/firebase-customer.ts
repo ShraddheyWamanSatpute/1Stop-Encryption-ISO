@@ -12,11 +12,11 @@ import {
   PhoneAuthProvider,
   signInWithCredential
 } from 'firebase/auth';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-import { getDatabase, connectDatabaseEmulator } from 'firebase/database';
-import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { getFirestore } from 'firebase/firestore';
+import { getDatabase } from 'firebase/database';
+import { getStorage } from 'firebase/storage';
 import { getMessaging, isSupported } from 'firebase/messaging';
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { getFunctions } from 'firebase/functions';
 import { APP_KEYS } from '../../../../config/keys';
 
 // Helper to read environment variables (same pattern as keys.ts)
@@ -29,11 +29,23 @@ const readEnv = (key: string, fallback?: string): string => {
 const customerApiKey = readEnv('VITE_CUSTOMER_FIREBASE_API_KEY') || readEnv('NEXT_PUBLIC_CUSTOMER_FIREBASE_API_KEY');
 const isPlaceholderKey = !customerApiKey || customerApiKey === 'AIzaSyCustomerKey123';
 
-// If using placeholder key, fall back to main app's Firebase config
-// This prevents errors when customer Firebase is not configured separately
-const customerFirebaseConfig = isPlaceholderKey ? {
+// Placeholder/default values that must never be used in production (Section 1.5)
+const PLACEHOLDER_VALUES = new Set([
+  'AIzaSyCustomerKey123', 'bookmytable-customers', '1:1049141485409:web:customer123',
+  'G-CUSTOMER123', 'bookmytable-customers.firebaseapp.com', 'bookmytable-customers.firebasestorage.app',
+  'https://bookmytable-customers-default-rtdb.firebaseio.com',
+]);
+const isProd = (import.meta as { env?: { PROD?: boolean } })?.env?.PROD === true;
+const isPlaceholderOrUnset = (v: string) => !v || PLACEHOLDER_VALUES.has(v);
+
+// In production, never use placeholder/default secrets; use main app config when customer config is missing or placeholder
+const useMainAppConfig = isPlaceholderKey || (isProd && (
+  isPlaceholderOrUnset(readEnv('VITE_CUSTOMER_FIREBASE_PROJECT_ID') || readEnv('NEXT_PUBLIC_CUSTOMER_FIREBASE_PROJECT_ID')) ||
+  isPlaceholderOrUnset(readEnv('VITE_CUSTOMER_FIREBASE_APP_ID') || readEnv('NEXT_PUBLIC_CUSTOMER_FIREBASE_APP_ID'))
+));
+
+const customerFirebaseConfig = useMainAppConfig ? {
   ...APP_KEYS.firebase,
-  // Override with customer-specific values if they exist, otherwise use main app config
   projectId: readEnv('VITE_CUSTOMER_FIREBASE_PROJECT_ID') || readEnv('NEXT_PUBLIC_CUSTOMER_FIREBASE_PROJECT_ID') || APP_KEYS.firebase.projectId,
   appId: readEnv('VITE_CUSTOMER_FIREBASE_APP_ID') || readEnv('NEXT_PUBLIC_CUSTOMER_FIREBASE_APP_ID') || APP_KEYS.firebase.appId,
 } : {

@@ -89,7 +89,7 @@ const TagsManagement: React.FC = () => {
 
   // Filter and sort tags
   const filteredAndSortedTags = useMemo(() => {
-    let filtered = bookingTags.filter(tag => {
+    const filtered = bookingTags.filter(tag => {
       // Search filter
       const searchMatch = !searchTerm || 
         tag.name?.toLowerCase().includes(searchTerm.toLowerCase())

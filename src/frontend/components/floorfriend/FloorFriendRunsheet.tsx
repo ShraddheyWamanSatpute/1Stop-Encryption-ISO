@@ -97,7 +97,7 @@ const FloorFriendRunsheet: React.FC<FloorFriendRunsheetProps> = ({ bookings }) =
 
   // Filter and sort bookings
   const filteredAndSortedBookings = useMemo(() => {
-    let filtered = bookings.filter((booking) => {
+    const filtered = bookings.filter((booking) => {
       // Global search filter
       if (normalizedSearch) {
         const searchableFields = [

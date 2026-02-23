@@ -99,7 +99,7 @@ const PreorderPage: React.FC = () => {
 
   const validate = (): string | null => {
     if (!courses.length) return null
-    for (let c of courses) {
+    for (const c of courses) {
       const cid = c.courseId || c.id || ""
       const min = Number(c.minPerPerson || 0)
       const max = Number(c.maxPerPerson || Infinity)

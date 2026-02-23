@@ -459,7 +459,7 @@ export class DSARService {
     } = {}
   ): Promise<DSARRecord[]> {
     const dsarRef = ref(db, `${this.basePath}/${companyId}`);
-    let dsarQuery = query(dsarRef, orderByChild('createdAt'));
+    const dsarQuery = query(dsarRef, orderByChild('createdAt'));
 
     const snapshot = await get(dsarQuery);
 

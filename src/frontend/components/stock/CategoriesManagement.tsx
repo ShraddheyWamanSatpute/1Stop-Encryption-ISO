@@ -83,7 +83,7 @@ const CategoriesManagement: React.FC = () => {
       return []
     }
     
-    let filtered = allCategoryTypes.filter((category) =>
+    const filtered = allCategoryTypes.filter((category) =>
       category.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       category.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       category.kind?.toLowerCase().includes(searchTerm.toLowerCase())

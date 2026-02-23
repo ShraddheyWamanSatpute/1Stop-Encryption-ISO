@@ -35,7 +35,7 @@ function SearchPageContent() {
   const [sortBy, setSortBy] = useState<SortOption>('rating');
 
   const filteredAndSortedRestaurants = useMemo(() => {
-    let filtered = restaurants.filter((restaurant) => {
+    const filtered = restaurants.filter((restaurant) => {
       // Search query filter
       const matchesQuery =
         restaurant.name.toLowerCase().includes(query.toLowerCase()) ||

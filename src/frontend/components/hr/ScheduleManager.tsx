@@ -451,7 +451,8 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
   // Fetch weather forecast using the backend service with caching
   const fetchWeatherForecast = useCallback(async () => {
     // Company state is now handled internally by HRContext
-    if (false) { // Disabled company state check
+    // eslint-disable-next-line no-constant-condition -- disabled placeholder
+    if (false) {
       console.log("Company or site not selected, skipping weather data fetch")
       return
     }
@@ -739,7 +740,8 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
     }
 
     // Company state is now handled internally by HRContext
-    if (false) { // Disabled company state check
+    // eslint-disable-next-line no-constant-condition -- disabled placeholder
+    if (false) {
       setNotification({ message: "Company or site not selected", type: "error" })
       return
     }
@@ -941,11 +943,12 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
     console.log("🔄 Copy Last Week - currentWeekStart formatted:", format(currentWeekStart, "yyyy-MM-dd"))
     
     // Company state is now handled internally by HRContext
-    if (false) { // Disabled company state check
+    // eslint-disable-next-line no-constant-condition -- disabled placeholder
+    if (false) {
       setNotification({ message: "Company or site not selected", type: "error" })
       return
     }
-    
+
     if (!addSchedule) {
       console.error("❌ Copy Last Week - addSchedule function is not available")
       setNotification({ message: "Schedule creation function not available", type: "error" })
@@ -1387,7 +1390,8 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
 
   const generateRotaWithAI = useCallback(async () => {
     // Company state is now handled internally by HRContext
-    if (false) { // Disabled company state check
+    // eslint-disable-next-line no-constant-condition -- disabled placeholder
+    if (false) {
       setNotification({ message: "Company or site not selected", type: "error" })
       return
     }
@@ -1699,7 +1703,7 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
       const parseAvailabilityDays = (daysStr?: string): number[] => {
         if (!daysStr) return []
         const mapping: Record<string, number> = { monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6, sunday: 0 }
-        let s = daysStr.toLowerCase().replace(/,/g, ' ').replace(/-/g, ' to ')
+        const s = daysStr.toLowerCase().replace(/,/g, ' ').replace(/-/g, ' to ')
         if (s.includes(' to ')) {
           const [a, b] = s.split(' to ').map((t) => t.trim())
           if (a in mapping && b in mapping) {
@@ -1714,8 +1718,8 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
       }
 
       // Demand forecast from bookings (current week)
-      let bookingsCurrentWeek: Booking[] = bookingsData || []
-      let allBookingsAll: Booking[] = bookingsData || []
+      const bookingsCurrentWeek: Booking[] = bookingsData || []
+      const allBookingsAll: Booking[] = bookingsData || []
       
       console.log("AI Scheduling - Using bookings data:", {
         totalBookings: bookingsData?.length || 0,
@@ -2367,7 +2371,7 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
       })
 
       // Flatten back
-      let balanced: typeof aiSuggestions = ([] as typeof aiSuggestions).concat(...Object.values(byEmpForBalance))
+      const balanced: typeof aiSuggestions = ([] as typeof aiSuggestions).concat(...Object.values(byEmpForBalance))
 
       // Add shifts for employees under minHours
       const balanceWeekDates = eachDayOfInterval({ start: currentWeekStart, end: endOfWeek(currentWeekStart, { weekStartsOn: 1 }) })

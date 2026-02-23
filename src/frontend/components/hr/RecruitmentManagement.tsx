@@ -99,7 +99,7 @@ const RecruitmentManagement: React.FC = () => {
 
   // Filter and sort jobs
   const filteredJobs = useMemo(() => {
-    let filtered = jobs.filter((job) => {
+    const filtered = jobs.filter((job) => {
       const matchesSearch = 
         searchTerm === "" ||
         job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

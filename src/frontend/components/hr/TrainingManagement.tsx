@@ -40,7 +40,7 @@ import { useHR } from "../../../backend/context/HRContext"
 import CRUDModal from "../reusable/CRUDModal"
 import TrainingCRUDForm from "./forms/TrainingCRUDForm"
 
-type TrainingManagementProps = {}
+type TrainingManagementProps = Record<string, never>
 
 const TrainingManagement: React.FC<TrainingManagementProps> = (): ReactElement => {
   const { state: hrState, refreshTrainings, updateTraining, deleteTraining } = useHR()

@@ -230,8 +230,8 @@ const BillsManagement: React.FC = () => {
     if (!sortConfig) return filteredBills
 
     return [...filteredBills].sort((a, b) => {
-      let aValue: any = a[sortConfig.key as keyof Bill]
-      let bValue: any = b[sortConfig.key as keyof Bill]
+      const aValue: any = a[sortConfig.key as keyof Bill]
+      const bValue: any = b[sortConfig.key as keyof Bill]
 
       if (aValue < bValue) {
         return sortConfig.direction === "ascending" ? -1 : 1

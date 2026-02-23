@@ -11,7 +11,8 @@ import {
   Globe
 } from 'lucide-react';
 
-// Google Maps type declarations
+// Google Maps type declarations (namespace required for @types/google.maps compatibility)
+/* eslint-disable @typescript-eslint/no-namespace */
 declare global {
   namespace google {
     namespace maps {

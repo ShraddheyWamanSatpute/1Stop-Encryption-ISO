@@ -79,5 +79,15 @@ export default defineConfig({
   },
   server: {
     // YourStop proxy removed - now integrated into main Vite app
+    // HSTS for dev server (ISO 27001 / SOC 2 — encryption & data protection)
+    headers: {
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+    },
+  },
+  // HSTS for preview (vite preview) — production build served by Vite
+  preview: {
+    headers: {
+      'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+    },
   },
 })

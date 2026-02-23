@@ -128,7 +128,7 @@ export const useESSDevice = (): ESSDeviceInfo => {
     const isTouchDevice = typeof window !== "undefined" && (
       "ontouchstart" in window ||
       navigator.maxTouchPoints > 0 ||
-      // @ts-ignore - legacy support
+      // @ts-expect-error - legacy support (msMaxTouchPoints on Navigator)
       (navigator.msMaxTouchPoints && navigator.msMaxTouchPoints > 0)
     )
 

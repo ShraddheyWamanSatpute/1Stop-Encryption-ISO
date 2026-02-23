@@ -279,7 +279,7 @@ const AnnouncementsManagement: React.FC = () => {
 
   // Filter and sort announcements
   const filteredAnnouncements = React.useMemo(() => {
-    let filtered = announcements.filter((announcement) => {
+    const filtered = announcements.filter((announcement) => {
       const matchesSearch = 
         searchTerm === "" ||
         announcement.title.toLowerCase().includes(searchTerm.toLowerCase()) ||

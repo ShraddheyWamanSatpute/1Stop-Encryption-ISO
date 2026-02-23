@@ -1355,8 +1355,8 @@ const PayrollManagement = () => {
       if (!employee) return
 
       let allocatedAmount = 0
-      let points = empForm.points || 0
-      let percentage = empForm.percentage || 0
+      const points = empForm.points || 0
+      const percentage = empForm.percentage || 0
 
       // Calculate allocation based on method
       if (formData.allocationMethod === "points") {
@@ -2786,7 +2786,7 @@ const PayrollManagement = () => {
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                               <Button
                                 variant="text"
-                                onClick={() => handleEmployeeClick(hrState.employees?.find(emp => emp.id === employee.employeeId)!)}
+                                onClick={() => { const emp = hrState.employees?.find(e => e.id === employee.employeeId); if (emp) handleEmployeeClick(emp); }}
                                 sx={{ textTransform: 'none', justifyContent: 'flex-start' }}
                               >
                                 {employee.employeeName}
@@ -2813,7 +2813,7 @@ const PayrollManagement = () => {
                           <TableCell>
                             <IconButton
                               size="small"
-                              onClick={() => handleEmployeeClick(hrState.employees?.find(emp => emp.id === employee.employeeId)!)}
+                              onClick={() => { const emp = hrState.employees?.find(e => e.id === employee.employeeId); if (emp) handleEmployeeClick(emp); }}
                             >
                               <SearchIcon />
                             </IconButton>

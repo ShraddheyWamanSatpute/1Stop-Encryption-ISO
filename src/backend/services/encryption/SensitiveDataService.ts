@@ -17,6 +17,11 @@
  * - Random IV per encryption
  * - Key stored in Firebase Secrets (never with data)
  *
+ * Production: Callers (Company, HRs, Finance, Settings rtdatabase modules) must
+ * never persist sensitive data unencrypted in production: they throw if
+ * encryption fails or the service is not initialized when import.meta.env.PROD
+ * is true. Dev-only fallback (store without encryption) is scoped to non-PROD.
+ *
  * Reference: ICO Encryption Guidance, UK GDPR Article 32
  */
 

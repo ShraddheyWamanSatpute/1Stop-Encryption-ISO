@@ -6,10 +6,15 @@
  * stored alongside encrypted data.
  *
  * Security Requirements:
- * - Keys stored in Firebase Secret Manager
+ * - Keys stored in Firebase Secret Manager (Google Cloud Secret Manager)
  * - Keys never exposed to client-side code
  * - Keys never logged or included in error messages
  * - Key rotation supported for compliance
+ *
+ * CLIENT vs SERVER: The main app also uses client-side encryption (e.g.
+ * SensitiveDataService) with VITE_* env keys at build time; that is not
+ * KMS/HSM. This class is for server-side (Firebase Functions) only, where
+ * keys are injected via defineSecret() and never leave the server.
  *
  * Reference: HMRC Security Requirements, UK GDPR Article 32
  */

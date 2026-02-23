@@ -140,7 +140,7 @@ const FloorFriendNotes: React.FC<FloorFriendNotesProps> = () => {
 
   // Filter and sort notes
   const filteredNotes = useMemo(() => {
-    let filtered = mockNotesData.filter((note) => {
+    const filtered = mockNotesData.filter((note) => {
       // Global search filter
       if (normalizedSearch) {
         const searchableFields = [

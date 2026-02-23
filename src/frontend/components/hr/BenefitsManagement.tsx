@@ -121,7 +121,7 @@ const BenefitsManagement: React.FC = () => {
 
   // Filter and sort benefits
   const filteredBenefits = React.useMemo(() => {
-    let filtered = benefits.filter((benefit) => {
+    const filtered = benefits.filter((benefit) => {
       const matchesSearch = 
         searchTerm === "" ||
         benefit.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

@@ -72,7 +72,7 @@ const SuppliersManagement: React.FC = () => {
       return []
     }
     
-    let filtered = suppliers.filter((supplier) =>
+    const filtered = suppliers.filter((supplier) =>
       supplier.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       supplier.ref?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       supplier.address?.toLowerCase().includes(searchTerm.toLowerCase()) ||

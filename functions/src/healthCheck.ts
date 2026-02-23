@@ -16,6 +16,7 @@ import { db, storage } from './admin';
 interface HealthCheckResult {
   status: 'healthy' | 'degraded' | 'unhealthy';
   timestamp: string;
+  durationMs?: number;
   checks: {
     database: { status: 'ok' | 'error'; responseTimeMs?: number; error?: string };
     storage: { status: 'ok' | 'error'; error?: string };
@@ -75,7 +76,7 @@ export const healthCheck = onRequest(
     const startTime = Date.now();
 
     try {
-      // Run all health checks in parallel
+      // Run all health checks in parallel (startTime used for duration below)
       const [databaseCheck, storageCheck] = await Promise.all([
         checkDatabase(),
         checkStorage(),
@@ -97,6 +98,7 @@ export const healthCheck = onRequest(
       const result: HealthCheckResult = {
         status: overallStatus,
         timestamp: new Date().toISOString(),
+        durationMs: Date.now() - startTime,
         checks: {
           database: databaseCheck,
           storage: storageCheck,

@@ -30,15 +30,27 @@ import { addDoc } from "firebase/firestore"
 import "firebase/storage"
 import { getStorage, ref as ref1, ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"
 
+// Firebase config from environment (no hardcoded secrets — Section 1.5 compliance)
+const env = (import.meta as { env?: Record<string, string> })?.env ?? {}
+const read = (key: string): string => String(env[key] ?? "").trim()
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAu5zAe1Ft2jVKj7pBKzJ0MemZ-Ld52v0I",
-  authDomain: "pw-manager-198d3.firebaseapp.com",
-  databaseURL: "https://pw-manager-198d3-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "pw-manager-198d3",
-  storageBucket: "pw-manager-198d3.firebasestorage.app",
-  messagingSenderId: "123936786602",
-  appId: "1:123936786602:web:1da0c3bbe22c802ac0e8d3",
-  measurementId: "G-YCN56HRWHC",
+  apiKey: read("VITE_PWF_LOOR_API_KEY"),
+  authDomain: read("VITE_PWF_LOOR_AUTH_DOMAIN"),
+  databaseURL: read("VITE_PWF_LOOR_DATABASE_URL"),
+  projectId: read("VITE_PWF_LOOR_PROJECT_ID"),
+  storageBucket: read("VITE_PWF_LOOR_STORAGE_BUCKET"),
+  messagingSenderId: read("VITE_PWF_LOOR_MESSAGING_SENDER_ID"),
+  appId: read("VITE_PWF_LOOR_APP_ID"),
+  measurementId: read("VITE_PWF_LOOR_MEASUREMENT_ID") || undefined,
+}
+
+// Validate required config so we never initialize with wrong/missing config
+const required = ["apiKey", "authDomain", "databaseURL", "projectId", "appId"] as const
+const missing = required.filter((k) => !firebaseConfig[k])
+if (missing.length > 0) {
+  const envKey = (k: string) => `VITE_PWF_LOOR_${k.replace(/([A-Z])/g, "_$1").toUpperCase()}`
+  throw new Error(`[pwf-loor-app] Missing Firebase env: ${missing.map(envKey).join(", ")}. Add to .env (see .env.example).`)
 }
 
 // Initialize Firebase

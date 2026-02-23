@@ -10,25 +10,36 @@ import {
   PhoneAuthProvider,
   signInWithCredential
 } from 'firebase/auth';
-import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
-import { getDatabase, connectDatabaseEmulator } from 'firebase/database';
-import { getStorage, connectStorageEmulator } from 'firebase/storage';
+import { getFirestore } from 'firebase/firestore';
+import { getDatabase } from 'firebase/database';
+import { getStorage } from 'firebase/storage';
 import { getMessaging, isSupported } from 'firebase/messaging';
-import { getFunctions, connectFunctionsEmulator } from 'firebase/functions';
+import { getFunctions } from 'firebase/functions';
 
-// Your web app's Firebase configuration
-// IMPORTANT: This is a public configuration and is safe to expose.
-// Security is handled by Firebase Security Rules.
-const firebaseConfig = {
-  projectId: 'bookmytable-ea37d',
-  appId: '1:1049141485409:web:6e8dbad1eaf713d3046f20',
-  storageBucket: 'bookmytable-ea37d.firebasestorage.app',
-  apiKey: 'AIzaSyDtqWWLKIF7ZMi2X21NhxkiCgoVUPIsV5I',
-  authDomain: 'bookmytable-ea37d.firebaseapp.com',
-  databaseURL: 'https://bookmytable-ea37d-default-rtdb.firebaseio.com',
-  measurementId: 'G-EYMZ6KB690', // Analytics
-  messagingSenderId: '1049141485409',
+// OldYourStop Firebase config from environment (no hardcoded secrets — Section 1.5 compliance)
+// Supports Vite (import.meta.env) and Next (process.env). Prefer VITE_YOURSTOP_FIREBASE_* then VITE_FIREBASE_*.
+const viteEnv = (typeof import.meta !== 'undefined' && (import.meta as { env?: Record<string, string> })?.env) ?? {};
+const nodeEnv = (typeof process !== 'undefined' && process.env) ?? {};
+const read = (primary: string, fallback: string): string => {
+  const v = viteEnv[primary] ?? viteEnv[fallback] ?? nodeEnv[primary] ?? nodeEnv[fallback] ?? '';
+  return String(v).trim();
 };
+
+const firebaseConfig = {
+  projectId: read('VITE_YOURSTOP_FIREBASE_PROJECT_ID', 'VITE_FIREBASE_PROJECT_ID'),
+  appId: read('VITE_YOURSTOP_FIREBASE_APP_ID', 'VITE_FIREBASE_APP_ID'),
+  storageBucket: read('VITE_YOURSTOP_FIREBASE_STORAGE_BUCKET', 'VITE_FIREBASE_STORAGE_BUCKET'),
+  apiKey: read('VITE_YOURSTOP_FIREBASE_API_KEY', 'VITE_FIREBASE_API_KEY'),
+  authDomain: read('VITE_YOURSTOP_FIREBASE_AUTH_DOMAIN', 'VITE_FIREBASE_AUTH_DOMAIN'),
+  databaseURL: read('VITE_YOURSTOP_FIREBASE_DATABASE_URL', 'VITE_FIREBASE_DATABASE_URL'),
+  measurementId: read('VITE_YOURSTOP_FIREBASE_MEASUREMENT_ID', 'VITE_FIREBASE_MEASUREMENT_ID'),
+  messagingSenderId: read('VITE_YOURSTOP_FIREBASE_MESSAGING_SENDER_ID', 'VITE_FIREBASE_MESSAGING_SENDER_ID'),
+};
+
+// Require minimum config so we never initialize with empty credentials
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  throw new Error('[OldYourStop] Set VITE_YOURSTOP_FIREBASE_* (or VITE_FIREBASE_*) in .env. See .env.example.');
+}
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
@@ -41,7 +52,7 @@ const storage = getStorage(app);
 const functions = getFunctions(app);
 
 // Initialize messaging (only in browser and if supported)
-let messaging: any = null;
+let messaging: ReturnType<typeof getMessaging> | null = null;
 if (typeof window !== 'undefined') {
   isSupported().then((supported) => {
     if (supported) {

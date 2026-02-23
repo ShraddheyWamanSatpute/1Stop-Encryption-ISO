@@ -130,8 +130,8 @@ const SafeCheckPage: React.FC = () => {
       // Aggregate data for the same week
       let aggregatedSafeCount = { ...safeCount };
       let aggregatedDailySales = { ...dailySales };
-      let aggregatedOutstandingPayments: typeof outstandingPayments = [];
-      let aggregatedPettyCash: typeof pettyCash = [];
+      const aggregatedOutstandingPayments: typeof outstandingPayments = [];
+      const aggregatedPettyCash: typeof pettyCash = [];
       let mostRecentHouseFloatValue = 0;
       let mostRecentTillFloatsIssued = 0;
   

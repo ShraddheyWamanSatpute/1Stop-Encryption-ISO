@@ -4,6 +4,7 @@ import { createLogger } from './logger';
 const logger = createLogger();
 
 declare global {
+  // eslint-disable-next-line no-var -- global augmentation requires var
   var __prisma: PrismaClient | undefined;
 }
 

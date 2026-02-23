@@ -78,7 +78,7 @@ const CoursesManagement: React.FC = () => {
       return []
     }
     
-    let filtered = coursesToUse.filter((course) =>
+    const filtered = coursesToUse.filter((course) =>
       course.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       course.description?.toLowerCase().includes(searchTerm.toLowerCase())
     )

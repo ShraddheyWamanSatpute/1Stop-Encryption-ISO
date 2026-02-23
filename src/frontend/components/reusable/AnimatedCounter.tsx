@@ -22,7 +22,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
     
     if (start === end) return;
 
-    let timer = setInterval(() => {
+    const timer = setInterval(() => {
       start += incrementValue;
       setCount(start);
       if (start >= end) {

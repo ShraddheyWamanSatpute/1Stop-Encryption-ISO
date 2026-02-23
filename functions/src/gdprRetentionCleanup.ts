@@ -149,7 +149,7 @@ async function processPendingUserAnonymizations(): Promise<{
   let errors = 0;
   const now = Date.now();
 
-  for (const [userId, userData] of Object.entries(users)) {
+  for (const [userId] of Object.entries(users)) {
     try {
       const deletionStatusRef = db.ref(`users/${userId}/deletionStatus`);
       const statusSnapshot = await deletionStatusRef.once('value');

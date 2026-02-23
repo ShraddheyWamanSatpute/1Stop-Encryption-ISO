@@ -335,12 +335,14 @@ const DynamicWidget: React.FC<DynamicWidgetProps> = ({ widget, data, onSettingsO
         } else if (widget.dataType === DataType.INVENTORY_VALUE && data.inventoryValue !== undefined) {
           value = data.inventoryValue
           hasValidData = true
+        // eslint-disable-next-line no-dupe-else-if -- DataType enum branches
         } else if (widget.dataType === DataType.SALES && data.totalSalesValue !== undefined) {
           value = data.totalSalesValue
           hasValidData = true
         } else if (widget.dataType === DataType.COST_OF_SALES && data.totalCostValue !== undefined) {
           value = data.totalCostValue
           hasValidData = true
+        // eslint-disable-next-line no-dupe-else-if -- DataType enum branches
         } else if (widget.dataType === DataType.STOCK_QUANTITY && data.totalQuantity !== undefined) {
           value = data.totalQuantity
           hasValidData = true
@@ -779,10 +781,13 @@ const DynamicWidget: React.FC<DynamicWidgetProps> = ({ widget, data, onSettingsO
           cardValue = data.lowStockItems
         } else if (widget.dataType === DataType.INVENTORY_VALUE && data.inventoryValue !== undefined) {
           cardValue = data.inventoryValue
+        // eslint-disable-next-line no-dupe-else-if -- DataType enum branches
         } else if (widget.dataType === DataType.SALES && data.totalSalesValue !== undefined) {
           cardValue = data.totalSalesValue
+        // eslint-disable-next-line no-dupe-else-if -- DataType enum branches
         } else if (widget.dataType === DataType.COST_OF_SALES && data.totalCostValue !== undefined) {
           cardValue = data.totalCostValue
+        // eslint-disable-next-line no-dupe-else-if -- DataType enum branches
         } else if (widget.dataType === DataType.STOCK_QUANTITY && data.totalQuantity !== undefined) {
           cardValue = data.totalQuantity
         } else if (widget.dataType === DataType.ATTENDANCE && data.attendanceRate !== undefined) {

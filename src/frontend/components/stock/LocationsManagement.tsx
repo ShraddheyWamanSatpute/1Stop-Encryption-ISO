@@ -69,7 +69,7 @@ const LocationsManagement: React.FC = () => {
       return []
     }
     
-    let filtered = locations.filter((location) =>
+    const filtered = locations.filter((location) =>
       location.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       location.description?.toLowerCase().includes(searchTerm.toLowerCase())
     )
