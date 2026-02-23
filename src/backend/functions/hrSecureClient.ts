@@ -59,8 +59,9 @@ export async function createEmployeeSecureCall(
   employee: Record<string, unknown>
 ): Promise<string> {
   const result = await createEmployeeSecure({ hrWritePath, employee });
-  const data = result.data as { employeeId: string };
-  return data.employeeId;
+  // Cloud Function returns nested data: { data: { employeeId } }
+  const payload = result.data as { data: { employeeId: string } };
+  return payload.data.employeeId;
 }
 
 export async function updateEmployeeSecureCall(
@@ -74,7 +75,8 @@ export async function updateEmployeeSecureCall(
 
 export async function fetchEmployeesSecureCall(hrWritePath: string): Promise<EmployeeListItem[]> {
   const result = await fetchEmployeesSecure({ hrWritePath });
-  return (result.data as EmployeeListItem[]) ?? [];
+  const payload = result.data as { data: EmployeeListItem[] };
+  return payload.data ?? [];
 }
 
 export async function fetchEmployeeDetailSecureCall(

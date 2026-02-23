@@ -160,7 +160,7 @@ export async function submitFPSForPayrollRun(
     }
     const firebaseIdToken = await currentUser.getIdToken()
     const hmrcClient = new HMRCAPIClient()
-    const result = await hmrcClient.submitFPS(fpsData, hmrcSettings, companyId, firebaseIdToken, userId, siteId, subsiteId)
+    const result = await hmrcClient.submitFPS(fpsData, hmrcSettings, companyId, firebaseIdToken, userId ?? undefined, siteId ?? undefined, subsiteId ?? undefined)
 
     // 7. Update payroll records with submission status
     if (result.success && result.submissionId) {
@@ -270,7 +270,7 @@ export async function submitEPS(
     }
     const firebaseIdToken = await currentUser.getIdToken()
     const hmrcClient = new HMRCAPIClient()
-    const result = await hmrcClient.submitEPS(fullEPSData, hmrcSettings, companyId, firebaseIdToken, userId, siteId, subsiteId)
+    const result = await hmrcClient.submitEPS(fullEPSData, hmrcSettings, companyId, firebaseIdToken, userId ?? undefined, siteId ?? undefined, subsiteId ?? undefined)
 
     // 5. Update HMRC settings
     if (result.success && foundAt) {

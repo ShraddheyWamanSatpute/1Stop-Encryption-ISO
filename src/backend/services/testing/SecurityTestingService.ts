@@ -15,7 +15,7 @@
  * - CHECK Scheme (NCSC approved)
  */
 
-import { ref, push, set, get, update, query, orderByChild } from 'firebase/database';
+import { ref, push, set, get, update } from 'firebase/database';
 import { db } from '../Firebase';
 
 /**
@@ -540,7 +540,7 @@ export class SecurityTestingService {
     upcomingAssessments: SecurityAssessmentSchedule[];
     owaspCoverage: { category: string; tested: boolean }[];
   }> {
-    const [penTests, allVulns, openVulns, overdueVulns, upcomingAssessments] = await Promise.all([
+    const [penTests, _allVulns, openVulns, overdueVulns, upcomingAssessments] = await Promise.all([
       this.getPenTests(companyId),
       this.getVulnerabilitiesByPenTest(companyId, ''), // Get all
       this.getOpenVulnerabilities(companyId),

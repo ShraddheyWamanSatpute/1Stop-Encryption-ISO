@@ -13,7 +13,7 @@
  * Reference: https://developer.service.hmrc.gov.uk/api-documentation
  */
 
-import { ref, push, set, get, update, query, orderByChild } from 'firebase/database';
+import { ref, push, set, get, update } from 'firebase/database';
 import { db } from '../Firebase';
 
 /**

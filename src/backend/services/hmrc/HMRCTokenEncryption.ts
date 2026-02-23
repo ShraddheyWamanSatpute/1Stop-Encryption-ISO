@@ -12,10 +12,10 @@
  * Reference: HMRC Development Practices, ICO Encryption Guidance
  */
 
-import { EncryptionService, SensitiveDataEncryption } from '../../utils/EncryptionService'
+import { EncryptionService } from '../../utils/EncryptionService'
 
-// Fields that contain sensitive OAuth tokens
-const HMRC_TOKEN_FIELDS = ['hmrcAccessToken', 'hmrcRefreshToken'] as const
+// Fields that contain sensitive OAuth tokens (used for encryption)
+const _HMRC_TOKEN_FIELDS = ['hmrcAccessToken', 'hmrcRefreshToken'] as const
 
 /**
  * Interface for encrypted token storage

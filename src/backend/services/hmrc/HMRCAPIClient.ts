@@ -16,7 +16,6 @@
  * See: HMRC_DEVELOPER_HUB_BEST_PRACTICES.md for architecture details
  */
 
-import { functionsApp } from '../Firebase'
 import { HMRCAuthService } from './HMRCAuthService'
 import { FraudPreventionService } from './FraudPreventionService'
 import { RTIXMLGenerator } from './RTIXMLGenerator'
@@ -131,14 +130,14 @@ function isRetryableError(error: unknown, httpStatus?: number, config: RetryConf
 }
 
 export class HMRCAPIClient {
-  private authService: HMRCAuthService
+  private _authService: HMRCAuthService
   private fraudPreventionService: FraudPreventionService
   private xmlGenerator: RTIXMLGenerator
   private retryConfig: RetryConfig
   private circuitBreaker: CircuitBreakerState
 
   constructor(retryConfig?: Partial<RetryConfig>) {
-    this.authService = new HMRCAuthService()
+    this._authService = new HMRCAuthService()
     this.fraudPreventionService = new FraudPreventionService()
     this.xmlGenerator = new RTIXMLGenerator()
     this.retryConfig = { ...DEFAULT_RETRY_CONFIG, ...retryConfig }
@@ -283,7 +282,7 @@ export class HMRCAPIClient {
         environment: hmrcSettings.hmrcEnvironment || 'sandbox',
         xmlPayload: xml,
         accessToken: hmrcSettings.hmrcAccessToken,
-        fraudPreventionHeaders: fraudHeaders,
+        fraudPreventionHeaders: fraudHeaders as Record<string, string>,
         firebaseIdToken,
       })
 
@@ -361,7 +360,7 @@ export class HMRCAPIClient {
         environment: hmrcSettings.hmrcEnvironment || 'sandbox',
         xmlPayload: xml,
         accessToken: hmrcSettings.hmrcAccessToken,
-        fraudPreventionHeaders: fraudHeaders,
+        fraudPreventionHeaders: fraudHeaders as Record<string, string>,
         firebaseIdToken,
       })
 
@@ -439,7 +438,7 @@ export class HMRCAPIClient {
         environment: hmrcSettings.hmrcEnvironment || 'sandbox',
         xmlPayload: xml,
         accessToken: hmrcSettings.hmrcAccessToken,
-        fraudPreventionHeaders: fraudHeaders,
+        fraudPreventionHeaders: fraudHeaders as Record<string, string>,
         firebaseIdToken,
       })
 
@@ -468,7 +467,7 @@ export class HMRCAPIClient {
     hmrcSettings: HMRCSettings,
     companyId: string,
     firebaseIdToken: string,
-    userId?: string
+    _userId?: string
   ): Promise<unknown> {
     try {
       if (!hmrcSettings.hmrcAccessToken) {

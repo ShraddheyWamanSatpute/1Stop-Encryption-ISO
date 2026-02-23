@@ -176,19 +176,20 @@ class DataCache {
       this.listeners.set(cacheKey, new Set());
     }
     
-    this.listeners.get(cacheKey)!.add(callback);
+    const wrapped = (data: unknown) => callback(data as T | null);
+    this.listeners.get(cacheKey)!.add(wrapped);
 
     // Immediately return cached data if available
     const cached = this.memoryCache.get(cacheKey);
     if (cached) {
-      callback(cached.data as T);
+      callback(cached.data as T | null);
     }
 
     // Return unsubscribe function
     return () => {
       const listeners = this.listeners.get(cacheKey);
       if (listeners) {
-        listeners.delete(callback);
+        listeners.delete(wrapped);
         if (listeners.size === 0) {
           this.listeners.delete(cacheKey);
         }

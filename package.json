@@ -29,6 +29,7 @@
     "test:yourstop": "cd src/yourstop/frontend && npm run typecheck",
     "test:all": "npm run test:main && npm run test:yourstop",
     "lint": "eslint . --ext ts,tsx --max-warnings 9999",
+    "lint:strict": "eslint . --ext ts,tsx --max-warnings 0",
     "lint:fix": "eslint . --ext ts,tsx --fix",
     "deploy:main": "npm run build:main && echo \"Build complete. Deploy dist/ folder to your hosting service.\"",
     "deploy:ess": "npm run build:ess && echo \"Build complete. Deploy dist-ess/ folder to your hosting service.\"",

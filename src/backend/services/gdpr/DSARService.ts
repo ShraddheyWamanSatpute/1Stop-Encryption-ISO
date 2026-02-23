@@ -23,7 +23,7 @@ import { db } from '../Firebase';
 import { DataSubjectAccessRequest } from './types';
 import { auditTrailService } from './AuditTrailService';
 import { consentService } from './ConsentService';
-import { sensitiveDataService } from '../../encryption/SensitiveDataService';
+import { sensitiveDataService } from '../encryption/SensitiveDataService';
 
 /**
  * DSAR Request Types
@@ -52,6 +52,7 @@ export type DSARStatus =
  * Extended DSAR record with full tracking
  */
 export interface DSARRecord extends DataSubjectAccessRequest {
+  status: DSARStatus;
   // Identity verification
   identityVerified: boolean;
   identityVerifiedAt?: number;
@@ -614,7 +615,7 @@ export class DSARService {
   async addInternalNote(
     companyId: string,
     dsarId: string,
-    userId: string,
+    _userId: string,
     note: string
   ): Promise<void> {
     const dsarRef = ref(db, `${this.basePath}/${companyId}/${dsarId}`);
@@ -676,21 +677,21 @@ export class DSARService {
     const personalSettingsRef = ref(db, `users/${userId}/settings/personal`);
     const personalSettingsSnapshot = await get(personalSettingsRef);
     if (personalSettingsSnapshot.exists()) {
-      let personalSettings = personalSettingsSnapshot.val();
+      let personalSettings: Record<string, unknown> = personalSettingsSnapshot.val() as Record<string, unknown>;
       
       // Decrypt if encrypted
       if (sensitiveDataService.isInitialized()) {
         try {
-          personalSettings = await sensitiveDataService.decryptUserPersonalData(
-            personalSettings as Record<string, unknown>
-          );
+          personalSettings = (await sensitiveDataService.decryptUserPersonalData(
+            personalSettings
+          )) as Record<string, unknown>;
         } catch (err) {
           console.warn('[DSARService] Failed to decrypt personal settings:', err);
         }
       }
 
       personalData.contact = {
-        ...personalData.contact,
+        ...(personalData.contact as Record<string, unknown>),
         firstName: personalSettings.firstName,
         lastName: personalSettings.lastName,
         phone: personalSettings.phone,
@@ -698,7 +699,7 @@ export class DSARService {
         emergencyContact: personalSettings.emergencyContact,
       };
       personalData.financial = {
-        ...personalData.financial,
+        ...(personalData.financial as Record<string, unknown>),
         bankDetails: personalSettings.bankDetails,
         niNumber: personalSettings.niNumber,
         taxCode: personalSettings.taxCode,
@@ -713,12 +714,12 @@ export class DSARService {
       companiesSnapshot.forEach((child) => {
         companies.push({
           companyId: child.key,
-          ...child.val(),
+          ...(child.val() as Record<string, unknown>),
         });
       });
     }
     personalData.employment = {
-      ...personalData.employment,
+      ...(personalData.employment as Record<string, unknown>),
       companies,
     };
 
@@ -758,6 +759,7 @@ export class DSARService {
                     }
                     
                     employeeRecords.push({
+                      id: empChild.key ?? '',
                       companyId: compId,
                       siteId,
                       ...empData,
@@ -775,7 +777,7 @@ export class DSARService {
     
     if (employeeRecords.length > 0) {
       personalData.employment = {
-        ...personalData.employment,
+        ...(personalData.employment as Record<string, unknown>),
         employeeRecords,
       };
     }
@@ -798,9 +800,9 @@ export class DSARService {
             const payroll = payrollChild.val() as Record<string, unknown>;
             if (payroll.employeeId === empId) {
               payrollRecords.push({
-                id: payrollChild.key,
+                id: payrollChild.key ?? '',
                 ...payroll,
-              });
+              } as Record<string, unknown>);
             }
           });
         }
@@ -811,7 +813,7 @@ export class DSARService {
     
     if (payrollRecords.length > 0) {
       personalData.financial = {
-        ...personalData.financial,
+        ...(personalData.financial as Record<string, unknown>),
         payrollRecords,
       };
     }

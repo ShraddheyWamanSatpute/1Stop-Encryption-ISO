@@ -27,7 +27,6 @@ import {
   createExpense,
   updateExpense,
   deleteExpense,
-  fetchBankAccounts,
   fetchTransactions,
   createTransaction,
   fetchBudgets,
@@ -540,7 +539,7 @@ export const FinanceProvider: FC<FinanceProviderProps> = ({ children }) => {
         try {
           const bankAccounts = await fetchBankAccountsSecureCall(path)
           if (bankAccounts && bankAccounts.length > 0) {
-            dispatch({ type: "SET_BANK_ACCOUNTS", payload: bankAccounts })
+            dispatch({ type: "SET_BANK_ACCOUNTS", payload: bankAccounts as BankAccount[] })
             console.log(`All bank accounts loaded from secure path: ${path}`)
             break
           }
@@ -816,12 +815,12 @@ export const FinanceProvider: FC<FinanceProviderProps> = ({ children }) => {
             creditNotes, purchaseOrders, taxRates, paymentTerms,
             bankReconciliations, reports, currencies
           ]) => {
-            dispatch({ 
-              type: "BATCH_UPDATE", 
+            dispatch({
+              type: "BATCH_UPDATE",
               payload: {
                 bills: bills || [],
                 contacts: contacts || [],
-                bankAccounts: bankAccounts || [],
+                bankAccounts: (bankAccounts || []) as BankAccount[],
                 budgets: budgets || [],
                 expenses: expenses || [],
                 payments: payments || [],

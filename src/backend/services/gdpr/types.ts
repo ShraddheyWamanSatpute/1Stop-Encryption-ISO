@@ -242,7 +242,7 @@ export interface DataSubjectAccessRequest {
   requesterId: string;       // User making the request
   requesterEmail: string;
   requestType: 'access' | 'rectification' | 'erasure' | 'portability' | 'restriction' | 'objection';
-  status: 'pending' | 'in_progress' | 'completed' | 'rejected';
+  status: 'pending' | 'in_progress' | 'completed' | 'rejected' | 'withdrawn' | 'identity_verification' | 'extended';
   requestedAt: number;
   dueDate: number;           // 30 days from request (1 month)
   completedAt?: number;

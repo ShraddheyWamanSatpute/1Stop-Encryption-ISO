@@ -11,10 +11,10 @@
  * Reference: GDPR Art. 17, ISO 27701, ICO Right to Erasure Guidance
  */
 
-import { ref, get, update, set, remove, query, orderByChild, equalTo } from 'firebase/database';
+import { ref, get, update, set, remove } from 'firebase/database';
 import { db } from '../Firebase';
 import { auditTrailService } from './AuditTrailService';
-import { sensitiveDataService } from '../../encryption/SensitiveDataService';
+import { sensitiveDataService } from '../encryption/SensitiveDataService';
 
 /**
  * User deletion status
@@ -44,7 +44,7 @@ export interface AnonymizationResult {
  */
 export class UserAccountDeletionService {
   private readonly GRACE_PERIOD_DAYS = 30;
-  private readonly deletionStatusPath = 'users/{userId}/deletionStatus';
+  private readonly _deletionStatusPath = 'users/{userId}/deletionStatus';
 
   /**
    * Initiate user account deletion (soft delete)
@@ -139,7 +139,7 @@ export class UserAccountDeletionService {
     const userSnapshot = await get(userRef);
     
     if (userSnapshot.exists()) {
-      const userData = userSnapshot.val();
+      const _userData = userSnapshot.val();
       const anonymizedEmail = `${userId}@deleted.local`;
       
       await update(userRef, {
@@ -199,56 +199,53 @@ export class UserAccountDeletionService {
     const companiesSnapshot = await get(companiesRef);
     
     if (companiesSnapshot.exists()) {
-      companiesSnapshot.forEach(async (companyChild) => {
+      const companyIds: string[] = [];
+      companiesSnapshot.forEach((companyChild) => {
         const compId = companyChild.key;
-        if (!compId) return;
-
-        // Find employee records with this userId
+        if (compId) companyIds.push(compId);
+      });
+      for (const compId of companyIds) {
         try {
           const sitesRef = ref(db, `companies/${compId}/sites`);
           const sitesSnapshot = await get(sitesRef);
-          
-          if (sitesSnapshot.exists()) {
-            sitesSnapshot.forEach(async (siteChild) => {
-              const siteId = siteChild.key;
-              if (!siteId) return;
-
-              const employeesRef = ref(db, `companies/${compId}/sites/${siteId}/data/hr/employees`);
-              const employeesSnapshot = await get(employeesRef);
-              
-              if (employeesSnapshot.exists()) {
-                employeesSnapshot.forEach(async (empChild) => {
-                  const employee = empChild.val() as Record<string, unknown>;
-                  if (employee.userId === userId) {
-                    const empRef = ref(db, `companies/${compId}/sites/${siteId}/data/hr/employees/${empChild.key}`);
-                    
-                    // Anonymize employee record (but keep for HMRC retention)
-                    await update(empRef, {
-                      firstName: 'Deleted',
-                      lastName: 'User',
-                      email: `${userId}@deleted.local`,
-                      phone: null,
-                      address: null,
-                      emergencyContact: null,
-                      notes: null,
-                      photo: null,
-                      // Keep: salary, payroll records, tax info (required for HMRC)
-                    });
-
-                    result.fieldsAnonymized.push(
-                      'firstName', 'lastName', 'email', 'phone', 'address',
-                      'emergencyContact', 'notes', 'photo'
-                    );
-                    result.recordsAffected++;
-                  }
-                });
-              }
+          if (!sitesSnapshot.exists()) continue;
+          const siteIds: string[] = [];
+          sitesSnapshot.forEach((siteChild) => {
+            const siteId = siteChild.key;
+            if (siteId) siteIds.push(siteId);
+          });
+          for (const siteId of siteIds) {
+            const employeesRef = ref(db, `companies/${compId}/sites/${siteId}/data/hr/employees`);
+            const employeesSnapshot = await get(employeesRef);
+            if (!employeesSnapshot.exists()) continue;
+            const empIds: string[] = [];
+            employeesSnapshot.forEach((empChild) => {
+              const employee = empChild.val() as Record<string, unknown>;
+              if (employee.userId === userId && empChild.key) empIds.push(empChild.key);
             });
+            for (const empKey of empIds) {
+              const empRef = ref(db, `companies/${compId}/sites/${siteId}/data/hr/employees/${empKey}`);
+              await update(empRef, {
+                firstName: 'Deleted',
+                lastName: 'User',
+                email: `${userId}@deleted.local`,
+                phone: null,
+                address: null,
+                emergencyContact: null,
+                notes: null,
+                photo: null,
+              });
+              result.fieldsAnonymized.push(
+                'firstName', 'lastName', 'email', 'phone', 'address',
+                'emergencyContact', 'notes', 'photo'
+              );
+              result.recordsAffected++;
+            }
           }
         } catch (err) {
           console.warn(`[UserAccountDeletionService] Error anonymizing employee records for company ${compId}:`, err);
         }
-      });
+      }
     }
 
     // 4. Update deletion status

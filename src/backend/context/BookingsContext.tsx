@@ -8,13 +8,14 @@ import { measurePerformance } from "../utils/PerformanceTimer"
 import { createCachedFetcher } from "../utils/CachedFetcher"
 // import { useCompany } from "./CompanyContext" - removed as it's no longer used
 import * as BookingsFunctions from "../functions/Bookings"
-import { 
-  Booking, 
-  BookingType, 
-  Table, 
-  BookingStatus, 
-  Customer, 
-  WaitlistEntry, 
+import type { PreorderProfile } from "../rtdatabase/Bookings"
+import {
+  Booking,
+  BookingType,
+  Table,
+  BookingStatus,
+  Customer,
+  WaitlistEntry,
   BookingSettings,
   FloorPlan,
   BookingStats,

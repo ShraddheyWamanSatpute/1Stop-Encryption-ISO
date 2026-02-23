@@ -1,13 +1,13 @@
 import { ref, get, set, push, update, remove } from "firebase/database"
 import { db } from "../services/Firebase"
 import { sensitiveDataService, BANK_ACCOUNT_ENCRYPTED_FIELDS } from "../services/encryption/SensitiveDataService"
-import type { 
-  Account, 
-  Transaction, 
-  Bill, 
-  Contact, 
-  BankAccount, 
-  Budget, 
+import type {
+  Account,
+  Transaction,
+  Bill,
+  Contact,
+  BankAccount,
+  Budget,
   Expense,
   Payment,
   CreditNote,
@@ -17,7 +17,8 @@ import type {
   BankReconciliation,
   FinancialReport,
   Currency,
-  JournalEntry
+  JournalEntry,
+  Invoice,
 } from "../interfaces/Finance"
 
 // Accounts
@@ -27,10 +28,13 @@ export const fetchAccounts = async (basePath: string): Promise<Account[]> => {
     const snapshot = await get(accountsRef)
 
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as unknown as Account
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -91,10 +95,13 @@ export const fetchTransactions = async (basePath: string): Promise<Transaction[]
     const snapshot = await get(transactionsRef)
 
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as Transaction
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -134,10 +141,13 @@ export const fetchBills = async (basePath: string): Promise<Bill[]> => {
     const billsRef = ref(db, `${basePath}/bills`)
     const snapshot = await get(billsRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as Bill
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -171,10 +181,13 @@ export const fetchContacts = async (basePath: string): Promise<Contact[]> => {
     const contactsRef = ref(db, `${basePath}/contacts`)
     const snapshot = await get(contactsRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as Contact
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -189,10 +202,13 @@ export const fetchBankAccounts = async (basePath: string): Promise<BankAccount[]
     const bankAccountsRef = ref(db, `${basePath}/bankAccounts`)
     const snapshot = await get(bankAccountsRef)
     if (snapshot.exists()) {
-      const bankAccounts = Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as BankAccount),
-      }))
+      const bankAccounts = Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as BankAccount
+        return {
+          ...data,
+          id,
+        }
+      })
       
       // Decrypt sensitive bank account data if encryption service is initialized
       const decryptedBankAccounts: BankAccount[] = []
@@ -229,10 +245,13 @@ export const fetchBudgets = async (basePath: string): Promise<Budget[]> => {
     const budgetsRef = ref(db, `${basePath}/budgets`)
     const snapshot = await get(budgetsRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as Budget
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -247,10 +266,13 @@ export const fetchExpenses = async (basePath: string): Promise<Expense[]> => {
     const expensesRef = ref(db, `${basePath}/expenses`)
     const snapshot = await get(expensesRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as Expense
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -310,10 +332,13 @@ export const fetchInvoices = async (basePath: string): Promise<Invoice[]> => {
     const invoicesRef = ref(db, `${basePath}/invoices`)
     const snapshot = await get(invoicesRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Invoice),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as Invoice
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -589,10 +614,13 @@ export const fetchCurrencies = async (basePath: string): Promise<Currency[]> => 
     const currenciesRef = ref(db, `${basePath}/currencies`)
     const snapshot = await get(currenciesRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        ...(data as Currency),
-        code: id,
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([code, raw]) => {
+        const data = raw as Currency
+        return {
+          ...data,
+          code,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -638,10 +666,13 @@ export const fetchPayments = async (basePath: string): Promise<Payment[]> => {
     const paymentsRef = ref(db, `${basePath}/payments`)
     const snapshot = await get(paymentsRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as Payment
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -701,10 +732,13 @@ export const fetchCreditNotes = async (basePath: string): Promise<CreditNote[]> 
     const creditNotesRef = ref(db, `${basePath}/creditNotes`)
     const snapshot = await get(creditNotesRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as CreditNote
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -764,10 +798,13 @@ export const fetchPurchaseOrders = async (basePath: string): Promise<PurchaseOrd
     const purchaseOrdersRef = ref(db, `${basePath}/purchaseOrders`)
     const snapshot = await get(purchaseOrdersRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as PurchaseOrder
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -827,10 +864,13 @@ export const fetchTaxRates = async (basePath: string): Promise<TaxRate[]> => {
     const taxRatesRef = ref(db, `${basePath}/taxRates`)
     const snapshot = await get(taxRatesRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as TaxRate
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -884,10 +924,13 @@ export const fetchPaymentTerms = async (basePath: string): Promise<PaymentTerm[]
     const paymentTermsRef = ref(db, `${basePath}/paymentTerms`)
     const snapshot = await get(paymentTermsRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as PaymentTerm
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -921,10 +964,13 @@ export const fetchBankReconciliations = async (basePath: string): Promise<BankRe
     const reconciliationsRef = ref(db, `${basePath}/bankReconciliations`)
     const snapshot = await get(reconciliationsRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as BankReconciliation
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {
@@ -969,10 +1015,13 @@ export const fetchJournalEntries = async (basePath: string): Promise<JournalEntr
     const journalEntriesRef = ref(db, `${basePath}/journalEntries`)
     const snapshot = await get(journalEntriesRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Account),
-      }))
+      return Object.entries(snapshot.val() as Record<string, unknown>).map(([id, raw]) => {
+        const data = raw as JournalEntry
+        return {
+          ...data,
+          id,
+        }
+      })
     }
     return []
   } catch (error) {

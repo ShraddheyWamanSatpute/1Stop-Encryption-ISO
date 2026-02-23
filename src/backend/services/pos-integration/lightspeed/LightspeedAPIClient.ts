@@ -269,34 +269,43 @@ export class LightspeedAPIClient {
       if (response.Sale) {
         const saleItems = Array.isArray(response.Sale) ? response.Sale : [response.Sale]
         
-        for (const sale of saleItems) {
-          const saleLines = sale.SaleLines?.SaleLine || []
-          const items = saleLines.map((line: Record<string, unknown>) => ({
-            productId: line.Item?.['@attributes']?.id || line['@attributes']?.id || '',
-            productName: line.description || line.Item?.description || 'Unknown',
-            quantity: parseFloat(line.quantity || '0'),
-            unitPrice: parseFloat(line.unitPrice || '0'),
-            totalPrice: parseFloat(line.unitPrice || '0') * parseFloat(line.quantity || '0'),
-            discount: parseFloat(line.unitDiscount || '0')
-          }))
+        for (const sale of saleItems as Record<string, unknown>[]) {
+          const saleLines = (sale.SaleLines as { SaleLine?: unknown[] } | undefined)?.SaleLine || []
+          const items = saleLines.map((line: Record<string, unknown>) => {
+            const attrs = line['@attributes'] as { id?: string } | undefined
+            const item = line.Item as Record<string, unknown> | undefined
+            const itemAttrs = item?.['@attributes'] as { id?: string } | undefined
+            return {
+              productId: itemAttrs?.id ?? attrs?.id ?? '',
+              productName: (line.description as string) || (item?.description as string) || 'Unknown',
+              quantity: parseFloat((line.quantity as string) || '0'),
+              unitPrice: parseFloat((line.unitPrice as string) || '0'),
+              totalPrice: parseFloat((line.unitPrice as string) || '0') * parseFloat((line.quantity as string) || '0'),
+              discount: parseFloat((line.unitDiscount as string) || '0')
+            }
+          })
 
+          const saleAttrs = sale['@attributes'] as { id?: string } | undefined
+          const customer = sale.Customer as Record<string, unknown> | undefined
+          const customerAttrs = customer?.['@attributes'] as { id?: string } | undefined
+          const payments = sale.Payments as { SalePayment?: Array<{ paymentTypeID?: string }> } | undefined
           const saleData: POSSale = {
-            id: sale['@attributes']?.id || '',
-            saleNumber: sale.saleNumber || '',
-            date: sale.saleTime ? new Date(sale.saleTime).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
-            time: sale.saleTime ? new Date(sale.saleTime).toTimeString().split(' ')[0] : undefined,
+            id: saleAttrs?.id ?? '',
+            saleNumber: (sale.saleNumber as string) ?? '',
+            date: sale.saleTime ? new Date(sale.saleTime as string).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+            time: sale.saleTime ? new Date(sale.saleTime as string).toTimeString().split(' ')[0] : undefined,
             items,
-            subtotal: parseFloat(sale.total || '0') - parseFloat(sale.totalTax || '0'),
-            tax: parseFloat(sale.totalTax || '0'),
-            total: parseFloat(sale.total || '0'),
-            paymentMethod: sale.Payments?.SalePayment?.[0]?.paymentTypeID || 'unknown',
+            subtotal: parseFloat((sale.total as string) || '0') - parseFloat((sale.totalTax as string) || '0'),
+            tax: parseFloat((sale.totalTax as string) || '0'),
+            total: parseFloat((sale.total as string) || '0'),
+            paymentMethod: payments?.SalePayment?.[0]?.paymentTypeID || 'unknown',
             paymentStatus: 'completed',
-            customerId: sale.Customer?.['@attributes']?.id,
-            customerName: sale.Customer 
-              ? `${sale.Customer.firstName || ''} ${sale.Customer.lastName || ''}`.trim()
+            customerId: customerAttrs?.id,
+            customerName: customer
+              ? `${(customer.firstName as string) || ''} ${(customer.lastName as string) || ''}`.trim()
               : undefined,
             metadata: {
-              lightspeedId: sale['@attributes']?.id,
+              lightspeedId: saleAttrs?.id,
               lightspeedData: sale
             }
           }
@@ -415,7 +424,7 @@ export class LightspeedAPIClient {
           result.products!.errors++
           result.errors!.push({
             type: 'product',
-            message: error.message || 'Failed to sync products'
+            message: error instanceof Error ? error.message : 'Failed to sync products'
           })
         }
       }
@@ -431,7 +440,7 @@ export class LightspeedAPIClient {
           result.sales!.errors++
           result.errors!.push({
             type: 'sale',
-            message: error.message || 'Failed to sync sales'
+            message: error instanceof Error ? error.message : 'Failed to sync sales'
           })
         }
       }
@@ -445,7 +454,7 @@ export class LightspeedAPIClient {
           result.customers!.errors++
           result.errors!.push({
             type: 'customer',
-            message: error.message || 'Failed to sync customers'
+            message: error instanceof Error ? error.message : 'Failed to sync customers'
           })
         }
       }
@@ -459,7 +468,7 @@ export class LightspeedAPIClient {
           result.inventory!.errors++
           result.errors!.push({
             type: 'inventory',
-            message: error.message || 'Failed to sync inventory'
+            message: error instanceof Error ? error.message : 'Failed to sync inventory'
           })
         }
       }

@@ -468,7 +468,8 @@ export const getSitesFromDb = async (companyId: string, _shallow = true): Promis
       
       // CRITICAL OPTIMIZATION: Extract minimal data but keep subsites (needed for SubsiteDropdown)
       // Include subsites but only with minimal fields (ID, name) - exclude other nested data
-      const sites = Object.entries(sitesData).map(([siteId, data]: [string, Record<string, unknown>]) => {
+      const sites = Object.entries(sitesData as Record<string, unknown>).map(([siteId, rawData]) => {
+        const data = rawData as Record<string, unknown>;
         const minimalSite: Record<string, unknown> = {
           siteID: siteId,
           companyID: companyId,
@@ -489,14 +490,15 @@ export const getSitesFromDb = async (companyId: string, _shallow = true): Promis
         // This is needed for SubsiteDropdown to work
         if (data.subsites && typeof data.subsites === 'object') {
           const minimalSubsites: Record<string, unknown> = {};
-          Object.entries(data.subsites as Record<string, unknown>).forEach(([subsiteId, subsiteData]: [string, Record<string, unknown>]) => {
+          Object.entries(data.subsites as Record<string, unknown>).forEach(([subsiteId, rawSubsite]) => {
+            const subsiteData = rawSubsite as Record<string, unknown>;
             if (subsiteData && typeof subsiteData === 'object') {
               // Only include essential subsite fields
               minimalSubsites[subsiteId] = {
                 subsiteID: subsiteId,
-                name: subsiteData.name || '',
-                description: subsiteData.description || '',
-                location: subsiteData.location || '',
+                name: (subsiteData.name as string) || '',
+                description: (subsiteData.description as string) || '',
+                location: (subsiteData.location as string) || '',
                 // Exclude address, data, teams, and other heavy nested objects
               };
             }
@@ -509,7 +511,7 @@ export const getSitesFromDb = async (companyId: string, _shallow = true): Promis
         // Explicitly exclude: teams, data, and other heavy nested structures
         // They'll be loaded on-demand when needed
         
-        return minimalSite as Site;
+        return minimalSite as unknown as Site;
       });
       
       const processTime = performance.now() - processStartTime;
@@ -922,11 +924,17 @@ export const getSiteInvitesFromDb = async (companyId: string): Promise<SiteInvit
     if (snapshot.exists()) {
       const invitesData = snapshot.val();
       return Object.entries(invitesData)
-        .filter(([_, data]: [string, SiteInvite]) => data.companyID === companyId)
-        .map(([id, data]) => ({
+        .filter(([_id, raw]) => {
+          const data = raw as SiteInvite;
+          return data.companyID === companyId;
+        })
+        .map(([id, raw]) => {
+          const data = raw as SiteInvite;
+          return {
           id,
           ...(data as Omit<SiteInvite, 'id'>)
-        }));
+          };
+        });
     }
     return [];
   } catch (error) {
@@ -946,7 +954,10 @@ export const getSiteInviteByCodeFromDb = async (inviteCode: string): Promise<Sit
     
     if (snapshot.exists()) {
       const invitesData = snapshot.val();
-      const inviteEntry = Object.entries(invitesData).find(([_, data]: [string, SiteInvite]) => data.code === inviteCode);
+      const inviteEntry = Object.entries(invitesData).find(([_id, raw]) => {
+        const data = raw as SiteInvite;
+        return data.code === inviteCode;
+      });
       
       if (inviteEntry) {
         const [id, data] = inviteEntry;
@@ -1064,7 +1075,11 @@ export const getEmployeeJoinCodesFromDb = async (
       }
     })
     // Sort by createdAt desc
-    results.sort((a, b) => (b.data.createdAt || 0) - (a.data.createdAt || 0))
+  results.sort((a, b) => {
+    const aCreated = (a.data.createdAt as number) || 0
+    const bCreated = (b.data.createdAt as number) || 0
+    return bCreated - aCreated
+  })
     return results
   } catch (error) {
     throw new Error(`Error fetching employee join codes: ${error}`)
@@ -1101,15 +1116,22 @@ export const getCompanyUsersFromDb = async (companyId: string): Promise<UserProf
       const usersData = snapshot.val();
       const companyUsers: UserProfile[] = [];
       
-      Object.entries(usersData).forEach(([userId, userData]: [string, Record<string, unknown>]) => {
-        const companies = userData.companies as Record<string, { role?: string }> | undefined;
+      Object.entries(usersData as Record<string, unknown>).forEach(([userId, rawUser]) => {
+        const userData = rawUser as Record<string, unknown>;
+        const companies = userData.companies as
+          | Record<string, { role?: string; department?: string }>
+          | undefined;
+        
         if (companies && companies[companyId]) {
-          companyUsers.push({
+          const companyEntry = companies[companyId];
+          const userWithMeta = ({
+            ...(userData as unknown as Record<string, unknown>),
             uid: userId,
-            ...(userData as UserProfile),
-            companyRole: companies[companyId].role,
-            companyDepartment: userData.companies[companyId].department,
-          });
+            companyRole: companyEntry.role,
+            companyDepartment: companyEntry.department,
+          } as unknown) as UserProfile;
+          
+          companyUsers.push(userWithMeta);
         }
       });
       

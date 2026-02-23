@@ -91,6 +91,15 @@ interface DataManagementConfig {
   bookings: "company" | "site" | "subsite"
   pos: "company" | "site" | "subsite"
   messenger: "company" | "site" | "subsite"
+  /** Optional shape when payload uses accessibleModules (e.g. from API) */
+  accessibleModules?: {
+    stock?: "company" | "site" | "subsite"
+    hr?: "company" | "site" | "subsite"
+    finance?: "company" | "site" | "subsite"
+    bookings?: "company" | "site" | "subsite"
+    pos?: "company" | "site" | "subsite"
+    messenger?: "company" | "site" | "subsite"
+  }
 }
 
 
@@ -131,7 +140,7 @@ export type CompanyAction =
   | { type: "SET_ERROR"; payload: string | null }
   | { type: "SET_COMPANY_ID"; payload: string }
   | { type: "SET_COMPANY"; payload: Company | Partial<Company> }
-  | { type: "SET_USER"; payload: User | Partial<User> }
+  | { type: "SET_USER"; payload: User | Partial<User> | null }
   | { type: "SET_PERMISSIONS"; payload: CompanyPermissions }
   | { type: "SET_DATA_MANAGEMENT"; payload: DataManagementConfig }
   | { type: "SELECT_SITE"; payload: { siteID: string; siteName: string } }
@@ -261,13 +270,13 @@ const companyReducer = (state: CompanyState, action: CompanyAction): CompanyStat
       
       return {
         ...state,
-        company: action.payload,
+        company: action.payload as Company | null,
         dataManagement,
         loading: false,
         error: null,
       }
     case "SET_USER":
-      return { ...state, user: action.payload }
+      return { ...state, user: action.payload as User | null }
     case "SET_PERMISSIONS":
       return { ...state, permissions: action.payload }
     case "SET_DATA_MANAGEMENT":
@@ -507,12 +516,12 @@ interface CompanyContextType {
   filterChecklistsByStatus: (checklists: CompanyChecklist[], status: string) => CompanyChecklist[]
   
   // Checklist completion functions
-  createChecklistCompletion: (completion: Partial<ChecklistCompletion>) => Promise<ChecklistCompletion>
+  createChecklistCompletion: (completion: Partial<ChecklistCompletion>) => Promise<string>
   getChecklistCompletions: (filters?: Partial<ChecklistCompletion>) => Promise<ChecklistCompletion[]>
   updateChecklistCompletion: (completionId: string, updates: Partial<ChecklistCompletion>) => Promise<void>
   
   // Site invite functions
-  createSiteInvite: (siteId: string, inviteData: SiteInviteData) => Promise<SiteInvite>
+  createSiteInvite: (siteId: string, inviteData: SiteInviteData) => Promise<string>
   getSiteInvites: (siteId?: string) => Promise<SiteInvite[]>
   getSiteInviteByCode: (inviteCode: string) => Promise<SiteInvite | null>
   acceptSiteInvite: (inviteId: string, userId: string) => Promise<{ success: boolean; message: string }>
@@ -1081,9 +1090,8 @@ export const CompanyProvider: React.FC<{ children: React.ReactNode }> = ({ child
             Object.keys(pagePerms).forEach((actionName) => {
               const actionKey = actionName as keyof typeof pagePerms
               if (actionKey in mergedPagePerms) {
-                (mergedPagePerms as Record<string, boolean>)[actionName] = 
-                  (mergedPagePerms as Record<string, boolean>)[actionName] || 
-                  Boolean(pagePerms[actionKey])
+                const mergedPage = mergedPagePerms as unknown as Record<string, boolean>
+                mergedPage[actionName] = mergedPage[actionName] || Boolean(pagePerms[actionKey])
               }
             })
           }
@@ -1092,7 +1100,7 @@ export const CompanyProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
     mergeFrom(rolePerms)
     mergeFrom(deptPerms)
-    applyCompanyAliasMappings(merged.modules as Record<string, Record<string, Record<string, boolean>>>)
+    applyCompanyAliasMappings(merged.modules as unknown as Record<string, Record<string, Record<string, boolean>>>)
     return merged
   }, [state.permissions, state.user, isOwner])
 
