@@ -21,7 +21,8 @@ export const isSettingsReady = (settingsState: Record<string, unknown>): boolean
   // 1. Auth is initialized (logged in or confirmed not logged in)
   // 2. Not currently loading OR we have cached user data (for instant UI)
   const hasAuth = settingsState?.auth !== undefined
-  const authInitialized = settingsState?.auth?.isLoggedIn !== undefined || settingsState?.auth?.uid === null
+  const auth = settingsState?.auth as { isLoggedIn?: boolean; uid?: string | null } | undefined
+  const authInitialized = auth?.isLoggedIn !== undefined || auth?.uid === null
   const notLoading = !settingsState?.loading
   const hasCachedData = settingsState?.user !== undefined // Allow rendering with cached data
   
@@ -41,7 +42,8 @@ export const isCompanyReady = (companyState: Record<string, unknown>, settingsSt
   if (!companyState) return false
   
   // If user is not logged in, company context is ready (no company needed)
-  if (settingsState && !settingsState.auth?.isLoggedIn) {
+  const auth = settingsState?.auth as { isLoggedIn?: boolean } | undefined
+  if (settingsState && !auth?.isLoggedIn) {
     return true
   }
   

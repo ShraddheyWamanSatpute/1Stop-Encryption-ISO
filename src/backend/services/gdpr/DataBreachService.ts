@@ -19,7 +19,7 @@ import { sensitiveDataService } from '../encryption/SensitiveDataService';
 const HOURS_72_MS = 72 * 60 * 60 * 1000; // 72 hours in milliseconds
 
 // Fields to encrypt in breach records (may contain sensitive incident details)
-const BREACH_ENCRYPTED_FIELDS = ['description'] as const;
+const _BREACH_ENCRYPTED_FIELDS = ['description'] as const;
 
 export class DataBreachService {
   private basePath: string;
@@ -241,7 +241,7 @@ export class DataBreachService {
   async recordHMRCNotification(
     companyId: string,
     breachId: string,
-    userId: string,
+    _userId: string,
     referenceNumber: string
   ): Promise<void> {
     const breachRef = ref(db, `${this.basePath}/${companyId}/${breachId}`);

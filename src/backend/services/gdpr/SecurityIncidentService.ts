@@ -348,7 +348,7 @@ export class SecurityIncidentService {
   async addResponseAction(
     companyId: string,
     incidentId: string,
-    userId: string,
+    _userId: string,
     action: {
       actionType: IncidentResponseAction['actionType'];
       description: string;

@@ -62,7 +62,7 @@ export interface KeyRotationResult {
  */
 export class KeyManagementService {
   private keyCache: Map<EncryptionKeyType, string> = new Map()
-  private keyMetadata: Map<EncryptionKeyType, KeyMetadata> = new Map()
+  private _keyMetadata: Map<EncryptionKeyType, KeyMetadata> = new Map()
   private isServerSide: boolean
 
   constructor() {
@@ -255,7 +255,7 @@ export class KeyManagementService {
   /**
    * Generate key metadata
    */
-  private generateKeyMetadata(keyType: EncryptionKeyType, version: string): KeyMetadata {
+  private _generateKeyMetadata(keyType: EncryptionKeyType, version: string): KeyMetadata {
     return {
       keyType,
       version,

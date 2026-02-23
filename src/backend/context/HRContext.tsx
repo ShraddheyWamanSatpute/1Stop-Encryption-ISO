@@ -21,9 +21,6 @@ import {
 import { createNotification } from "../functions/Notifications"
 import * as rtdb from "../rtdatabase/HRs"
 import {
-  fetchEmployees,
-  createEmployee as createEmployeeRTDB,
-  updateEmployee as updateEmployeeRTDB,
   deleteEmployee as deleteEmployeeRTDB,
   fetchRoles,
   fetchDepartments,
@@ -916,7 +913,6 @@ export const HRProvider: React.FC<HRProviderProps> = ({ children }) => {
   // Must be defined before functions that use them
   // Employees: use secure Function (server-side) - list returns non-sensitive fields only
   const fetchEmployeesSecureCached = useMemo(() => createCachedFetcher(fetchEmployeesSecureCall, 'employeesSecure'), [])
-  const fetchEmployeesCached = useMemo(() => createCachedFetcher(fetchEmployees, 'employees'), [])
   const fetchRolesCached = useMemo(() => createCachedFetcher(fetchRoles, 'roles'), [])
   const fetchDepartmentsCached = useMemo(() => createCachedFetcher(fetchDepartments, 'departments'), [])
   const fetchTimeOffsCached = useMemo(() => createCachedFetcher(fetchTimeOffs, 'timeOffs'), [])
@@ -1159,17 +1155,17 @@ export const HRProvider: React.FC<HRProviderProps> = ({ children }) => {
     const hrBasePath = `${basePath}/data/hr`
     console.log("HR Context - refreshPayrolls from database for basePath:", basePath)
     
-    await safeRefresh('payrolls', 
+    await safeRefresh('payrolls',
       async () => {
         try {
           const list = await fetchPayrollSecureCall(hrBasePath)
           console.log("HR Context - Payroll fetch (secure):", list.length, "items")
-          return list as Payroll[]
+          return list as unknown as Payroll[]
         } catch (secureErr) {
           console.warn("HR Context - Secure payroll fetch failed, falling back to RTDB:", secureErr)
           const result = await fetchPayroll(hrBasePath)
           console.log("HR Context - Payroll fetch (RTDB fallback):", result.length, "items")
-          return result
+          return result as unknown as Payroll[]
         }
       },
       "SET_PAYROLL_RECORDS"
@@ -1524,10 +1520,10 @@ export const HRProvider: React.FC<HRProviderProps> = ({ children }) => {
           ])
           
           // Update critical data immediately
-          dispatch({ 
-            type: "BATCH_UPDATE", 
+          dispatch({
+            type: "BATCH_UPDATE",
             payload: {
-              employees: employees || [],
+              employees: (employees || []) as Employee[],
               roles: roles || [],
               departments: departments || [],
               initialized: true
@@ -3089,7 +3085,7 @@ export const HRProvider: React.FC<HRProviderProps> = ({ children }) => {
     const hrBasePath = `${basePath}/data/hr`
     try {
       const detail = await fetchPayrollDetailSecureCall(hrBasePath, payrollId)
-      return detail as Payroll
+      return detail as unknown as Payroll
     } catch (secureErr) {
       console.warn("HR Context - Secure payroll detail fetch failed, falling back to RTDB:", secureErr)
       return fetchPayrollById(hrBasePath, payrollId) as Promise<Payroll | null>
@@ -3320,7 +3316,7 @@ export const HRProvider: React.FC<HRProviderProps> = ({ children }) => {
     if (!basePath) throw new Error("Base path not set")
     
     try {
-      await deleteContractRTDB(basePath, contractId)
+      await rtdb.deleteContract(basePath, contractId)
       // Remove from state
       const currentContracts = state.contracts || []
       const updatedContracts = currentContracts.filter(c => c.id !== contractId)
@@ -3947,6 +3943,9 @@ export const useHR = (): HRContextType => {
       createContract: async () => null,
       updateContract: async () => null,
       createContractTemplate: async () => null,
+      updateContractTemplate: async () => null,
+      deleteContractTemplate: async () => false,
+      deleteContract: async () => false,
       fetchContractTemplates: async () => [],
       initializeDefaultContractTemplates: async () => {},
       createBenefit: async () => null,

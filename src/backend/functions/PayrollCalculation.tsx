@@ -579,7 +579,7 @@ export async function generatePayrollFromApprovedSchedules(
   payPeriodEnd: number,
   periodType: 'weekly' | 'monthly' | 'fortnightly' | 'four_weekly',
   serviceChargeAllocations?: Map<string, number>, // employeeId -> serviceChargeAmount
-  userId?: string
+  _userId?: string
 ): Promise<Payroll[]> {
   try {
     // 1. Fetch approved schedules for the period
@@ -651,7 +651,7 @@ export async function generatePayrollFromApprovedSchedules(
         }
         
         // Calculate regular and overtime hours
-        for (const [date, hours] of Object.entries(dailyHours)) {
+        for (const [_date, hours] of Object.entries(dailyHours)) {
           if (hours > 8) {
             totalOvertimeHours += hours - 8
             totalRegularHours += 8

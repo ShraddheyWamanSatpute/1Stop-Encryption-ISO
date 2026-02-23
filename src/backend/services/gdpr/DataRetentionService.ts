@@ -17,7 +17,7 @@
 
 import { ref, push, set, get, update, remove, query, orderByChild, startAt, endAt } from 'firebase/database';
 import { db } from '../Firebase';
-import { DataRetentionPolicy } from './types';
+import type { DataRetentionPolicy } from './types';
 import { auditTrailService } from './AuditTrailService';
 
 /**
@@ -703,7 +703,7 @@ export class DataRetentionService {
   async createReviewTask(
     companyId: string,
     category: DataCategory,
-    userId: string
+    _userId: string
   ): Promise<RetentionReviewTask> {
     const records = await this.getExpiringRecords(companyId, {
       category,

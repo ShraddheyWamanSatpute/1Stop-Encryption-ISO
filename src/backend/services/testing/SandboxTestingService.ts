@@ -683,9 +683,9 @@ export class SandboxTestingService {
   /**
    * Calculate next run time
    */
-  private calculateNextRun(frequency: TestFrequency, cronExpression?: string): number {
+  private calculateNextRun(frequency: TestFrequency, _cronExpression?: string): number {
     const now = Date.now();
-    const hour = 2 * 60 * 60 * 1000; // 2am
+    const _hour = 2 * 60 * 60 * 1000; // 2am
     const day = 24 * 60 * 60 * 1000;
     const week = 7 * day;
     const month = 30 * day;

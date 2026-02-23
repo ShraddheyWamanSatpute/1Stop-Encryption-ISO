@@ -12,7 +12,7 @@
 import { ref, get, set, update } from 'firebase/database'
 import { db } from '../services/Firebase'
 import { HMRCSettings } from '../interfaces/Company'
-import { hmrcTokenEncryption, EncryptedHMRCTokens } from '../services/hmrc/HMRCTokenEncryption'
+import { hmrcTokenEncryption } from '../services/hmrc/HMRCTokenEncryption'
 
 /**
  * Get the path for HMRC settings at a specific level

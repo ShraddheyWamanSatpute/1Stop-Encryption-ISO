@@ -37,7 +37,7 @@ export async function verifyMarketingConsent(
   companyId: string
 ): Promise<{ hasConsent: boolean; error?: string }> {
   try {
-    const hasConsent = await consentService.hasConsent(userId, companyId, 'marketing');
+    const hasConsent = await consentService.hasConsent(userId, companyId, 'marketing_communications');
     
     if (!hasConsent) {
       return {

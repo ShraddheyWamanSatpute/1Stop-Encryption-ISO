@@ -13,7 +13,7 @@
  * https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/
  */
 
-import { ref, push, set, get, update, query, orderByChild, equalTo } from 'firebase/database';
+import { ref, push, set, get, update } from 'firebase/database';
 import { db } from '../Firebase';
 import { LawfulBasis } from './types';
 

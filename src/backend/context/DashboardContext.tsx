@@ -618,17 +618,18 @@ export const DashboardProvider: React.FC<{ children: React.ReactNode }> = ({ chi
             return { labels: [], datasets: [] };
           }
           
+          const valueField = config.valueField as string | undefined
           switch (module) {
             case 'stock':
-              return await analytics.getStockChartData(card.groupBy || { field: 'category', type: 'category' }, config.valueField);
+              return await analytics.getStockChartData(card.groupBy || { field: 'category', type: 'category' }, valueField);
             case 'hr':
-              return await analytics.getHRChartData(card.groupBy || { field: 'department', type: 'custom' }, config.valueField);
+              return await analytics.getHRChartData(card.groupBy || { field: 'department', type: 'custom' }, valueField);
             case 'bookings':
-              return await analytics.getBookingsChartData(card.groupBy || { field: 'status', type: 'custom' }, config.valueField);
+              return await analytics.getBookingsChartData(card.groupBy || { field: 'status', type: 'custom' }, valueField);
             case 'finance':
-              return await analytics.getFinanceChartData(card.groupBy || { field: 'type', type: 'custom' }, config.valueField);
+              return await analytics.getFinanceChartData(card.groupBy || { field: 'type', type: 'custom' }, valueField);
             case 'pos':
-              return await analytics.getPOSChartData(card.groupBy || { field: 'paymentMethod', type: 'custom' }, config.valueField);
+              return await analytics.getPOSChartData(card.groupBy || { field: 'paymentMethod', type: 'custom' }, valueField);
             default:
               return { labels: [], datasets: [] };
           }

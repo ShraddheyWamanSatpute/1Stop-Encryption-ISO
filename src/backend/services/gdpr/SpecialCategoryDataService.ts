@@ -461,7 +461,7 @@ export class SpecialCategoryDataService {
     companyId: string,
     recordId: string,
     userId: string,
-    notes?: string
+    _notes?: string
   ): Promise<SpecialCategoryProcessingRecord> {
     const recordRef = ref(db, `${this.basePath}/${companyId}/${recordId}`);
     const snapshot = await get(recordRef);

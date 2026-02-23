@@ -14,7 +14,6 @@ import {
   updateBusinessLogoInDb,
   getUserData,
   setCurrentCompany,
-  fetchUserPersonalSettings,
   fetchUserPreferencesSettings,
   updatePreferencesSettings as updatePreferencesSettingsDb,
   fetchCompanyBusinessSettings,
@@ -104,7 +103,7 @@ export const setCurrentCompanyForUser = async (uid: string, companyID: string): 
 export const getUserPersonalSettings = async (uid: string): Promise<PersonalSettings> => {
   try {
     const data = await fetchPersonalSettingsSecureCall(uid);
-    return data as PersonalSettings;
+    return data as unknown as PersonalSettings;
   } catch (error) {
     throw new Error(`Error fetching personal settings: ${error}`);
   }
@@ -265,7 +264,7 @@ export const updateCompanyLogoWithFile = async (companyId: string, file: File): 
 export const getAllSettings = async (uid: string, companyId: string): Promise<Settings> => {
   try {
     // Combine all settings - personal uses secure Function (server-side decryption)
-    const personalSettings = await fetchPersonalSettingsSecureCall(uid) as PersonalSettings;
+    const personalSettings = await fetchPersonalSettingsSecureCall(uid) as unknown as PersonalSettings;
     const preferencesSettings = await fetchUserPreferencesSettings(uid);
     const businessSettings = await fetchCompanyBusinessSettings(companyId);
 
@@ -376,7 +375,7 @@ export async function register(
       ...additionalData
     };
 
-    await createUserProfileInDb(userProfile);
+    await createUserProfileInDb(userProfile as unknown as Record<string, unknown>);
     return userProfile;
   } catch (error) {
     console.error("Registration error:", error);
@@ -418,7 +417,7 @@ export async function logout(): Promise<void> {
  */
 export async function fetchUserProfile(uid: string): Promise<UserProfile | null> {
   try {
-    return await fetchUserProfileFromDb(uid);
+    return (await fetchUserProfileFromDb(uid)) as UserProfile | null;
   } catch (error) {
     console.error("Error fetching user profile:", error);
     return null;

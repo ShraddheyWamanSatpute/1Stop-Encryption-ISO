@@ -310,7 +310,7 @@ export class LightspeedSyncService {
           result.success = false
           result.errors!.push({
             type: 'sale',
-            message: error.message || 'Failed to sync sales'
+            message: error instanceof Error ? error.message : 'Failed to sync sales'
           })
         }
       }
@@ -324,7 +324,7 @@ export class LightspeedSyncService {
           result.success = false
           result.errors!.push({
             type: 'inventory',
-            message: error.message || 'Failed to sync inventory'
+            message: error instanceof Error ? error.message : 'Failed to sync inventory'
           })
         }
       }
