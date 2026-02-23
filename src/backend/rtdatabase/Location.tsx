@@ -28,10 +28,11 @@ export const fetchLocations = async (basePath: string): Promise<Location[]> => {
     const snapshot = await get(locationsRef)
 
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Location),
-      }))
+      const val = snapshot.val() as Record<string, unknown>
+      return Object.entries(val).map(([id, data]) => {
+        const rest = data as unknown as Omit<Location, 'id'>
+        return { ...rest, id }
+      })
     }
     return []
   } catch (error) {

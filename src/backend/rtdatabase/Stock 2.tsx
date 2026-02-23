@@ -93,10 +93,11 @@ export async function addSale(basePath: string, sale: Omit<Sale, "id">): Promise
     const newSaleRef = push(salesRef)
     const saleId = newSaleRef.key || uuidv4()
     
+    const saleRecord = sale as unknown as Record<string, unknown>
     await set(newSaleRef, {
       ...sale,
       id: saleId,
-      createdAt: sale.createdAt || new Date().toISOString(),
+      createdAt: (saleRecord.createdAt as string) || new Date().toISOString(),
       updatedAt: new Date().toISOString()
     })
     
@@ -230,7 +231,7 @@ export async function fetchOpenBills(basePath: string): Promise<Bill[]> {
     const snapshot = await get(billsRef)
     console.log("Bills snapshot exists:", snapshot.exists())
     if (snapshot.exists()) {
-      const billsData = snapshot.val()
+      const billsData = snapshot.val() as Record<string, unknown>
       console.log("Raw bills data:", billsData)
       const bills: Bill[] = Object.entries(billsData)
         .map(([id, value]) => {
@@ -250,11 +251,7 @@ export async function fetchOpenBills(basePath: string): Promise<Bill[]> {
               status: "active"
             }))
           }
-          return {
-            id,
-            ...billData,
-            items
-          }
+          return { id, ...billData, items } as Bill
         })
         .filter((bill) => bill.status === "Open")
       console.log("Filtered open bills:", bills)
@@ -274,7 +271,7 @@ export async function fetchClosedBills(basePath: string): Promise<Bill[]> {
     const snapshot = await get(billsRef)
     console.log("Bills snapshot exists:", snapshot.exists())
     if (snapshot.exists()) {
-      const billsData = snapshot.val()
+      const billsData = snapshot.val() as Record<string, unknown>
       console.log("Raw bills data:", billsData)
       const bills: Bill[] = Object.entries(billsData)
         .map(([id, value]) => {
@@ -294,11 +291,7 @@ export async function fetchClosedBills(basePath: string): Promise<Bill[]> {
               status: "active"
             }))
           }
-          return {
-            id,
-            ...billData,
-            items
-          }
+          return { id, ...billData, items } as Bill
         })
         .filter((bill) => bill.status === "Closed")
       console.log("Filtered closed bills:", bills)
@@ -417,20 +410,24 @@ export async function fetchSales(basePath: string): Promise<Sale[]> {
   try {
     const snapshot = await get(salesRef)
     if (snapshot.exists()) {
-      const salesData = Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        productId: data.productId,
-        productName: data.productName,
-        quantity: Number(data.quantity),
-        salePrice: Number(data.salePrice || 0),  // Convert to number
-        date: data.date,
-        time: data.time,
-        paymentMethod: data.paymentMethod,
-        measureId: data.measureId,
-        billId: data.billId,
-        terminalId: data.terminalId,
-        tradingDate: data.tradingDate,
-      }))
+      const val = snapshot.val() as Record<string, unknown>
+      const salesData: Sale[] = Object.entries(val).map(([id, data]) => {
+        const d = data as Record<string, unknown>
+        return {
+          id,
+          productId: d.productId,
+          productName: d.productName,
+          quantity: Number(d.quantity),
+          salePrice: Number(d.salePrice || 0),
+          date: d.date,
+          time: d.time,
+          paymentMethod: d.paymentMethod,
+          measureId: d.measureId,
+          billId: d.billId,
+          terminalId: d.terminalId,
+          tradingDate: d.tradingDate,
+        } as Sale
+      })
       return salesData
     }
     return []
@@ -667,23 +664,24 @@ export const subscribeTillScreens = (basePath: string, callback: (data: TillScre
         const data = snapshot.val()
         console.log("Raw till screens data:", data) // Debug log
 
-        const screens: TillScreen[] = Object.entries(data).map(([id, value]) => {
+        const dataRecord = data as Record<string, unknown>
+        const screens: TillScreen[] = Object.entries(dataRecord).map(([id, value]) => {
           const screenData = value as Record<string, unknown>
           return {
             id,
-            name: screenData.name || "Unnamed Screen",
-            layout: Array.isArray(screenData.layout) ? screenData.layout : [],
-            settings: screenData.settings || {
+            name: String(screenData.name ?? '') || "Unnamed Screen",
+            layout: Array.isArray(screenData.layout) ? screenData.layout as TillScreen['layout'] : [],
+            settings: (screenData.settings != null ? screenData.settings : {
               aspectRatio: "16:9",
               canvasWidth: 1600,
               canvasHeight: 900,
               gridSize: 25,
               snapToGrid: true,
               isScrollable: false,
-            },
-            isDefault: screenData.isDefault || false,
-            createdAt: screenData.createdAt || Date.now(),
-            updatedAt: screenData.updatedAt || Date.now(),
+            }) as TillScreen['settings'],
+            isDefault: Boolean(screenData.isDefault),
+            createdAt: Number(screenData.createdAt) || Date.now(),
+            updatedAt: Number(screenData.updatedAt) || Date.now(),
           }
         })
 
@@ -910,7 +908,7 @@ export async function fetchSalesDivisions(basePath: string): Promise<Array<Recor
   try {
     const snapshot = await get(salesDivisionsRef)
     if (snapshot.exists()) {
-      const fetched = Object.entries(snapshot.val() as Record<string, Record<string, unknown>>).map(([id, data]) => ({ id, ...data }))
+      const fetched: Array<Record<string, unknown>> = Object.entries(snapshot.val() as Record<string, unknown>).map(([id, data]) => ({ id, ...(data as Record<string, unknown>) }))
       console.log("Fetched sales divisions from database:", fetched)
       console.log("First sales division color:", fetched[0]?.color)
       return fetched
@@ -927,7 +925,7 @@ export async function fetchCategories(basePath: string): Promise<Array<Record<st
   try {
     const snapshot = await get(categoriesRef)
     if (snapshot.exists()) {
-      const fetched = Object.entries(snapshot.val() as Record<string, Record<string, unknown>>).map(([id, data]) => ({ id, ...data }))
+      const fetched: Array<Record<string, unknown>> = Object.entries(snapshot.val() as Record<string, unknown>).map(([id, data]) => ({ id, ...(data as Record<string, unknown>) }))
       console.log("Fetched categories from database:", fetched)
       console.log("First category color:", fetched[0]?.color)
       return fetched
@@ -944,7 +942,7 @@ export async function fetchSubcategories(basePath: string): Promise<Array<Record
   try {
     const snapshot = await get(subcategoriesRef)
     if (snapshot.exists()) {
-      const fetched = Object.entries(snapshot.val() as Record<string, Record<string, unknown>>).map(([id, data]) => ({ id, ...data }))
+      const fetched: Array<Record<string, unknown>> = Object.entries(snapshot.val() as Record<string, unknown>).map(([id, data]) => ({ id, ...(data as Record<string, unknown>) }))
       console.log("Fetched subcategories from database:", fetched)
       console.log("First subcategory color:", fetched[0]?.color)
       return fetched
@@ -962,10 +960,8 @@ export const fetchGroups = async (basePath: string): Promise<Array<Record<string
   try {
     const snapshot = await get(groupsRef)
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Record<string, unknown>),
-      }))
+      const val = snapshot.val() as Record<string, unknown>
+      return Object.entries(val).map(([id, data]) => ({ id, ...(data as Record<string, unknown>) }))
     }
     return []
   } catch (error) {

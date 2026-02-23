@@ -45,6 +45,8 @@ export interface AnonymizationResult {
 export class UserAccountDeletionService {
   private readonly GRACE_PERIOD_DAYS = 30;
   private readonly _deletionStatusPath = 'users/{userId}/deletionStatus';
+  /** Path used for deletion status; exposed for tests/docs. */
+  get deletionStatusPath(): string { return this._deletionStatusPath; }
 
   /**
    * Initiate user account deletion (soft delete)
@@ -139,7 +141,7 @@ export class UserAccountDeletionService {
     const userSnapshot = await get(userRef);
     
     if (userSnapshot.exists()) {
-      const _userData = userSnapshot.val();
+      void (userSnapshot.val() as Record<string, unknown>); // reserved for future partial merge
       const anonymizedEmail = `${userId}@deleted.local`;
       
       await update(userRef, {
@@ -159,13 +161,13 @@ export class UserAccountDeletionService {
     const personalSettingsSnapshot = await get(personalSettingsRef);
     
     if (personalSettingsSnapshot.exists()) {
-      let personalSettings = personalSettingsSnapshot.val();
+      let _personalSettings = personalSettingsSnapshot.val();
       
       // Decrypt if encrypted
       if (sensitiveDataService.isInitialized()) {
         try {
-          personalSettings = await sensitiveDataService.decryptUserPersonalData(
-            personalSettings as Record<string, unknown>
+          _personalSettings = await sensitiveDataService.decryptUserPersonalData(
+            _personalSettings as Record<string, unknown>
           );
         } catch (err) {
           console.warn('[UserAccountDeletionService] Failed to decrypt personal settings:', err);

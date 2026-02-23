@@ -1338,7 +1338,7 @@ const BookingDiary: React.FC<Record<string, never>> = () => {
     return bookingType ? bookingType.name : bookingTypeId
   }, [getAllBookingTypes])
 
-  const getStatusName = useCallback((statusId: string | undefined): string => {
+  const _getStatusName = useCallback((statusId: string | undefined): string => {
     if (!statusId) return "Unknown"
     const status = getAllBookingStatuses.find((s) => s.id === statusId || s.name === statusId)
     return status ? status.name : statusId

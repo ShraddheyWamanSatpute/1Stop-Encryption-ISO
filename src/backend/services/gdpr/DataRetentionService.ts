@@ -17,7 +17,6 @@
 
 import { ref, push, set, get, update, remove, query, orderByChild, startAt, endAt } from 'firebase/database';
 import { db } from '../Firebase';
-import type { DataRetentionPolicy } from './types';
 import { auditTrailService } from './AuditTrailService';
 
 /**

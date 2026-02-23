@@ -145,7 +145,7 @@ export const getSiteChats = async (basePath: string, siteId: string): Promise<Ch
     const snapshot = await get(chatsRef)
     if (!snapshot.exists()) return []
     const allChats = snapshot.val() as Record<string, Chat>
-    return Object.values(allChats).filter((c): c is Chat => c.siteId === siteId || c.subsiteId === siteId)
+    return Object.values(allChats).filter((c): c is Chat => c.siteId === siteId || (c as Chat & { subsiteId?: string }).subsiteId === siteId)
   } catch (error) {
     console.error("Error fetching site chats:", error)
     throw error
@@ -291,11 +291,12 @@ export const subscribeToMessages = (basePath: string, chatId: string, callback: 
 
   return onValue(messagesRef, (snapshot) => {
     if (snapshot.exists()) {
-      const messages = Object.entries(snapshot.val())
-        .map(([id, data]: [string, Record<string, unknown>]) => ({
-          id,
-          ...(data as Message),
-        }))
+      const val = snapshot.val() as Record<string, unknown>
+      const messages = Object.entries(val)
+        .map(([id, data]) => {
+          const rest = data as unknown as Omit<Message, 'id'>
+          return { ...rest, id }
+        })
         .sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
 
       callback(messages)
@@ -974,10 +975,11 @@ export const fetchContacts = async (basePath: string): Promise<Contact[]> => {
     const snapshot = await get(contactsRef)
 
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Contact),
-      }))
+      const val = snapshot.val() as Record<string, unknown>
+      return Object.entries(val).map(([id, data]) => {
+        const rest = data as unknown as Omit<Contact, 'id'>
+        return { ...rest, id }
+      })
     }
     return []
   } catch (error) {
@@ -1031,9 +1033,9 @@ export const subscribeToChats = (basePath: string, userId: string, callback: (ch
     const chatsRef = ref(db, `${basePath}/chats`)
     const unsubscribe = onValue(chatsRef, (snapshot) => {
       if (snapshot.exists()) {
-        const chatsData = snapshot.val()
+        const chatsData = snapshot.val() as Record<string, unknown>
         const chats = Object.entries(chatsData)
-          .map(([id, chat]: [string, Record<string, unknown>]) => ({ ...(chat as Chat), id }))
+          .map(([id, chat]) => ({ ...(chat as unknown as Omit<Chat, 'id'>), id }))
           .filter((chat: Chat) =>
             chat.participants?.includes(userId) ||
             chat.createdBy === userId

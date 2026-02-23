@@ -19,7 +19,7 @@ import { APP_KEYS } from '../../config/keys';
 const firebaseConfig = APP_KEYS.firebase;
 
 // Initialize Firebase - check if app already exists to prevent duplicate initialization
-const app = !getApps().length ? initializeApp(firebaseConfig as Record<string, unknown>) : getApp();
+const app = !getApps().length ? initializeApp(firebaseConfig as unknown as Record<string, unknown>) : getApp();
 
 export const storage = getStorage(app);
 export const auth = getAuth(app);

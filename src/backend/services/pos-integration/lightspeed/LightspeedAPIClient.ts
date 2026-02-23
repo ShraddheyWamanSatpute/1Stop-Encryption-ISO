@@ -271,17 +271,18 @@ export class LightspeedAPIClient {
         
         for (const sale of saleItems as Record<string, unknown>[]) {
           const saleLines = (sale.SaleLines as { SaleLine?: unknown[] } | undefined)?.SaleLine || []
-          const items = saleLines.map((line: Record<string, unknown>) => {
-            const attrs = line['@attributes'] as { id?: string } | undefined
-            const item = line.Item as Record<string, unknown> | undefined
+          const items = saleLines.map((line: unknown) => {
+            const lineRecord = line as Record<string, unknown>;
+            const attrs = lineRecord['@attributes'] as { id?: string } | undefined
+            const item = lineRecord.Item as Record<string, unknown> | undefined
             const itemAttrs = item?.['@attributes'] as { id?: string } | undefined
             return {
               productId: itemAttrs?.id ?? attrs?.id ?? '',
-              productName: (line.description as string) || (item?.description as string) || 'Unknown',
-              quantity: parseFloat((line.quantity as string) || '0'),
-              unitPrice: parseFloat((line.unitPrice as string) || '0'),
-              totalPrice: parseFloat((line.unitPrice as string) || '0') * parseFloat((line.quantity as string) || '0'),
-              discount: parseFloat((line.unitDiscount as string) || '0')
+              productName: (lineRecord.description as string) || (item?.description as string) || 'Unknown',
+              quantity: parseFloat((lineRecord.quantity as string) || '0'),
+              unitPrice: parseFloat((lineRecord.unitPrice as string) || '0'),
+              totalPrice: parseFloat((lineRecord.unitPrice as string) || '0') * parseFloat((lineRecord.quantity as string) || '0'),
+              discount: parseFloat((lineRecord.unitDiscount as string) || '0')
             }
           })
 

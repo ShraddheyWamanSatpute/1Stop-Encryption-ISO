@@ -1,6 +1,5 @@
 import emailjs from '@emailjs/browser';
 import { consentService } from '../services/gdpr/ConsentService';
-import { useCompany } from '../context/CompanyContext';
 
 interface EmailResult {
   success: boolean;
