@@ -773,7 +773,7 @@ const useWidgetManager = (section: string = 'stock') => {
           // Handle both array return and object with layout property (for backward compatibility)
           let layoutArray: WidgetSettings[] = []
           if (Array.isArray(dbLayout)) {
-            layoutArray = dbLayout
+            layoutArray = dbLayout as unknown as WidgetSettings[]
           } else if (dbLayout && typeof dbLayout === 'object' && 'layout' in dbLayout && Array.isArray((dbLayout as any).layout)) {
             layoutArray = (dbLayout as any).layout
           } else if (dbLayout && typeof dbLayout === 'object') {

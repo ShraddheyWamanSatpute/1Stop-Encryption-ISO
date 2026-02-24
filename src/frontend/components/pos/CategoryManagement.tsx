@@ -495,11 +495,11 @@ const CategoryManagement: React.FC = () => {
 
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
                   <Typography variant="caption" color="text.secondary">
-                    Parent: {getParentName(category)}
+                    Parent: {String(getParentName(category))}
                   </Typography>
                   <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                     <Chip
-                      label={category.active ? "Active" : "Inactive"}
+                      label={category.active === true ? "Active" : "Inactive"}
                       size="small"
                       color={category.active ? "success" : "default"}
                       sx={{ height: 20, fontSize: "0.7rem" }}

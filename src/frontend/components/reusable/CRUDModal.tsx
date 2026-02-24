@@ -103,8 +103,8 @@ const CRUDModal: React.FC<CRUDModalProps> = ({
       
       // Use formRef if available
       if (formRef && formRef.current) {
-        const result = formRef.current.submit()
-        if (result && typeof (result as Promise<unknown>).then === 'function') {
+        const result = formRef.current.submit() as unknown
+        if (result != null && typeof (result as Promise<unknown>).then === 'function') {
           await (result as Promise<void>)
         }
       } else {

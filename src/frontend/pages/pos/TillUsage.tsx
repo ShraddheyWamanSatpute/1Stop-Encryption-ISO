@@ -35,10 +35,10 @@ const TillUsagePage: React.FC = () => {
 
       if (screenId) {
         // Load existing screen
-        const screenData = await fetchTillScreen(screenId)
+        const screenData = await fetchTillScreen(screenId) as { name?: string; layout?: { cards?: TillCard[] }; cards?: TillCard[] } | null
         if (screenData) {
-          setCards(screenData.cards || [])
-          setScreenName(screenData.name || `Screen ${screenId}`)
+          setCards(screenData.layout?.cards ?? screenData.cards ?? [])
+          setScreenName(screenData.name ?? `Screen ${screenId}`)
         } else {
           setError("Till screen not found")
         }
@@ -132,9 +132,12 @@ const TillUsagePage: React.FC = () => {
         await saveTillScreenWithId(screenId, {
           id: screenId,
           name: screenName,
-          cards: updatedCards,
+          layout: updatedCards as unknown as import("../../../backend/interfaces/Stock").TillScreen["layout"],
+          settings: { aspectRatio: "16:9", canvasWidth: 1000, canvasHeight: 800, gridSize: 10, snapToGrid: true, isScrollable: false },
+          isDefault: false,
+          createdAt: Date.now(),
           updatedAt: Date.now(),
-        })
+        } as import("../../../backend/interfaces/Stock").TillScreen)
       } catch (err) {
         console.error("Error saving till screen:", err)
       }

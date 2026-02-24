@@ -246,8 +246,8 @@ const StockTable: React.FC = () => {
       
       // Calculate stock movements for display
       // Get the latest stock count
-      const latestCount = state.latestCounts?.[product.id]
-      const previousStock = latestCount?.baseQuantity || 0
+      const latestCount = state.latestCounts?.[product.id] as { baseQuantity?: number; date?: string } | undefined
+      const previousStock = latestCount?.baseQuantity ?? 0
       const countDate = latestCount?.date ? new Date(latestCount.date) : new Date(0)
       
       // Calculate purchases SINCE the latest stock count (in base units)
@@ -299,11 +299,11 @@ const StockTable: React.FC = () => {
       return {
         id: product.id || "",
         name: product.name || "",
-        category: product.categoryName || getCategoryName(product.categoryId) || "",
+        category: String(product.categoryName || getCategoryName(product.categoryId) || ""),
         categoryId: product.categoryId || "",
-        subCategory: product.subcategoryName || getSubCategoryName(product.subcategoryId) || "",
-        salesDivision: product.salesDivisionName || getSalesDivisionName(product.salesDivisionId) || "",
-        course: getCourseName(product.course) || "",
+        subCategory: String(product.subcategoryName || getSubCategoryName(product.subcategoryId) || ""),
+        salesDivision: String(product.salesDivisionName || getSalesDivisionName(product.salesDivisionId) || ""),
+        course: String(getCourseName(product.course) || ""),
         type: product.type || "",
         purchasePrice,
         salesPrice,

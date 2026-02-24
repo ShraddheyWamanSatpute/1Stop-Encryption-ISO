@@ -1718,8 +1718,8 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
       }
 
       // Demand forecast from bookings (current week)
-      const bookingsCurrentWeek: Booking[] = bookingsData || []
-      const allBookingsAll: Booking[] = bookingsData || []
+      const bookingsCurrentWeek: Booking[] = (bookingsData ?? []) as Booking[]
+      const allBookingsAll: Booking[] = (bookingsData ?? []) as Booking[]
       
       console.log("AI Scheduling - Using bookings data:", {
         totalBookings: bookingsData?.length || 0,
@@ -2506,10 +2506,10 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
         if (employee) {
           // Create a temporary schedule object with employee and date pre-filled
           // Use Date object for the form, it will be formatted on save
-          const tempSchedule: Partial<Schedule> & { date: Date } = {
+          const tempSchedule: Partial<Schedule> & { date: string } = {
             employeeId: employee.id,
             employeeName: `${employee.firstName} ${employee.lastName}`,
-            date: date, // Pass Date object, form will handle it
+            date: typeof date === 'string' ? date : format(date, 'yyyy-MM-dd'),
             department: employee.department || '',
             role: (() => {
               const roleId = employee.roleId || (employee as any).roleID
@@ -2518,7 +2518,7 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
             })(),
             status: 'draft',
             shiftType: 'regular',
-            payType: employee.payType || 'hourly',
+            payType: (employee.payType === 'salary' ? 'flat' : (employee.payType || 'hourly')) as 'flat' | 'hourly',
             payRate: employee.hourlyRate || 0,
           }
           handleOpenScheduleCRUD(tempSchedule as any, 'create')
@@ -3149,11 +3149,12 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
                           if (scheduleToCopy) {
                             // Copy the shift to this employee and day
                             const dayStr = format(day, "yyyy-MM-dd")
-                            const newSchedule: ScheduleFormData = {
+                            const newSchedule: Omit<Schedule, "id"> = {
                               employeeId: employee.id,
-                              date: dayStr, // Use formatted string instead of Date object
-                              startTime: scheduleToCopy.startTime,
-                              endTime: scheduleToCopy.endTime,
+                              employeeName: `${employee.firstName} ${employee.lastName}`,
+                              date: dayStr,
+                              startTime: typeof scheduleToCopy.startTime === "string" ? scheduleToCopy.startTime : String(scheduleToCopy.startTime),
+                              endTime: typeof scheduleToCopy.endTime === "string" ? scheduleToCopy.endTime : String(scheduleToCopy.endTime),
                               department: employee.department || scheduleToCopy.department,
                               role: (() => {
                                 const roleId = employee.roleId || (employee as any).roleID
@@ -3165,6 +3166,7 @@ const ScheduleManager: React.FC<ScheduleManagerProps> = ({ dateRange, bookingsDa
                               shiftType: scheduleToCopy.shiftType || 'regular',
                               payType: scheduleToCopy.payType || 'hourly',
                               payRate: scheduleToCopy.payRate,
+                              createdAt: new Date().toISOString(),
                             }
                             
                             try {

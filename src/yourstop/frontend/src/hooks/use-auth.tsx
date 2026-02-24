@@ -118,7 +118,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Validate input
       const validation = validateLogin(data);
       if (!validation.success) {
-        const error = validation.error.errors[0]?.message || 'Invalid input';
+        const error = (validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? 'Invalid input';
         logLoginFailure(data.email, error);
         return { success: false, error };
       }
@@ -173,7 +173,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Validate input
       const validation = validateSignup(data);
       if (!validation.success) {
-        const error = validation.error.errors[0]?.message || 'Invalid input';
+        const error = (validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? 'Invalid input';
         logSignupFailure(data.email, error);
         return { success: false, error };
       }
@@ -225,7 +225,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Validate input
       const validation = validatePasswordReset(data);
       if (!validation.success) {
-        const error = validation.error.errors[0]?.message || 'Invalid email';
+        const error = (validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? 'Invalid email';
         return { success: false, error };
       }
 

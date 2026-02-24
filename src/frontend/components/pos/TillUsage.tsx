@@ -768,9 +768,10 @@ const TillUsage: React.FC<TillUsageComponentProps> = ({
 
     if (card.type === "function" && card.option === "group" && card.data) {
       // Handle group selection - show products in this group
-      const categoryId = card.data.categoryId || card.data.id
-      setSelectedCategory(categoryId)
-      setNotification({ message: `Showing products for ${card.data.name || 'category'}`, type: "info" })
+      const data = card.data as { categoryId?: string; id?: string; name?: string }
+      const categoryId = data.categoryId ?? data.id
+      setSelectedCategory(categoryId ?? "")
+      setNotification({ message: `Showing products for ${data.name ?? 'category'}`, type: "info" })
       return
     }
 

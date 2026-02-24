@@ -133,11 +133,11 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
         {/* Category - requires Sales Division as parent */}
         {formData.kind === 'Category' && (
           <Grid item xs={12}>
-            <Autocomplete
-              value={salesDivisions?.find(sd => sd.id === formData.salesDivision) || null}
+            <Autocomplete<{ id?: string; name?: string }>
+              value={salesDivisions?.find((sd: { id?: string }) => sd.id === formData.salesDivision) || null}
               onChange={(_, value) => setFormData(prev => ({ ...prev, salesDivision: value?.id || '' }))}
               options={salesDivisions || []}
-              getOptionLabel={(option) => option.name || ''}
+              getOptionLabel={(option) => (option && typeof option === 'object' && 'name' in option ? String(option.name) : '')}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -155,11 +155,11 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
         {/* Subcategory - requires Category as parent */}
         {formData.kind === 'Subcategory' && (
           <Grid item xs={12}>
-            <Autocomplete
-              value={categories?.find(c => c.id === formData.parentCategory) || null}
+            <Autocomplete<{ id?: string; name?: string }>
+              value={categories?.find((c: { id?: string }) => c.id === formData.parentCategory) || null}
               onChange={(_, value) => setFormData(prev => ({ ...prev, parentCategory: value?.id || '' }))}
-              options={categories?.filter(c => c.id !== category?.id) || []}
-              getOptionLabel={(option) => option.name || ''}
+              options={categories?.filter((c: { id?: string }) => c.id !== (category as { id?: string })?.id) || []}
+              getOptionLabel={(option) => (option && typeof option === 'object' && 'name' in option ? String(option.name) : '')}
               renderInput={(params) => (
                 <TextField
                   {...params}

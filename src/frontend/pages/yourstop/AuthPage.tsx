@@ -62,7 +62,7 @@ export default function AuthPage() {
       // Validate
       const validation = validateLogin(sanitizedData);
       if (!validation.success) {
-        setError(validation.error.errors[0]?.message || "Invalid input");
+        setError((validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? "Invalid input");
         return;
       }
 
@@ -97,7 +97,7 @@ export default function AuthPage() {
       // Validate
       const validation = validateSignup(sanitizedData);
       if (!validation.success) {
-        setError(validation.error.errors[0]?.message || "Invalid input");
+        setError((validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? "Invalid input");
         return;
       }
 
@@ -130,7 +130,7 @@ export default function AuthPage() {
       // Validate
       const validation = validatePasswordReset(sanitizedData);
       if (!validation.success) {
-        setError(validation.error.errors[0]?.message || "Invalid email");
+        setError((validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? "Invalid email");
         return;
       }
 

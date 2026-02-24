@@ -447,9 +447,9 @@ const ProductListPanel: React.FC<ProductListPanelProps> = ({
                   }}
                 >
                   <MenuItem value="">All Divisions</MenuItem>
-                  {salesDivisions.map((division) => (
-                    <MenuItem key={division.id} value={division.id}>
-                      {division.name || "Unnamed Division"}
+                  {salesDivisions.map((division: { id?: unknown; name?: unknown }) => (
+                    <MenuItem key={String(division.id ?? '')} value={String(division.id ?? '')}>
+                      {String(division.name ?? "Unnamed Division")}
                     </MenuItem>
                   ))}
                 </Select>
@@ -466,9 +466,9 @@ const ProductListPanel: React.FC<ProductListPanelProps> = ({
                   }}
                 >
                   <MenuItem value="">All Categories</MenuItem>
-                  {availableCategories.map((category) => (
-                    <MenuItem key={category.id} value={category.id}>
-                      {category.name || "Unnamed Category"}
+                  {availableCategories.map((category: { id?: unknown; name?: unknown }) => (
+                    <MenuItem key={String(category.id ?? '')} value={String(category.id ?? '')}>
+                      {String(category.name ?? "Unnamed Category")}
                     </MenuItem>
                   ))}
                 </Select>
@@ -482,9 +482,9 @@ const ProductListPanel: React.FC<ProductListPanelProps> = ({
                   onChange={(e) => setSelectedSubcategory(e.target.value)}
                 >
                   <MenuItem value="">All Subcategories</MenuItem>
-                  {availableSubcategories.map((subcategory) => (
-                    <MenuItem key={subcategory.id} value={subcategory.id}>
-                      {subcategory.name || "Unnamed Subcategory"}
+                  {availableSubcategories.map((subcategory: { id?: unknown; name?: unknown }) => (
+                    <MenuItem key={String(subcategory.id ?? '')} value={String(subcategory.id ?? '')}>
+                      {String(subcategory.name ?? "Unnamed Subcategory")}
                     </MenuItem>
                   ))}
                 </Select>

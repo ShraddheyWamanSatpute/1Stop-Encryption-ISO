@@ -54,6 +54,7 @@ import { format } from "date-fns"
 import DataHeader from "../../components/reusable/DataHeader"
 import CRUDModal from "../../components/reusable/CRUDModal"
 import RequireCompanyContext from "../../components/global/RequireCompanyContext"
+import type { CompanyChecklist as BackendCompanyChecklist } from "../../../backend/interfaces/Company"
 
 // TODO: Move these types to appropriate context files
 interface ChecklistItem {
@@ -270,7 +271,7 @@ const ChecklistsPage: React.FC = () => {
       setLoading(true)
       const [checklistsData, completionsData] = await Promise.all([fetchChecklists(), getChecklistCompletions()])
 
-      setChecklists(checklistsData || [])
+      setChecklists((checklistsData || []) as unknown as CompanyChecklist[])
       setCompletions(completionsData || [])
     } catch (error) {
       console.error("Error loading data:", error)
@@ -508,13 +509,13 @@ const ChecklistsPage: React.FC = () => {
       }
 
       if (editingChecklist) {
-        await updateChecklist(editingChecklist.id, checklistData)
+        await updateChecklist(editingChecklist.id, checklistData as Partial<BackendCompanyChecklist>)
       } else {
         const newChecklistData = {
           ...checklistData,
           createdBy: userId,
         }
-        await createChecklist(newChecklistData)
+        await createChecklist(newChecklistData as Partial<BackendCompanyChecklist>)
       }
 
       await loadData()

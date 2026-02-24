@@ -252,18 +252,18 @@ const ESSHeader: React.FC<ESSHeaderProps> = ({
             aria-label="Go to profile"
             >
               <Avatar
-                src={essState.currentEmployee?.profilePicture || undefined}
+                src={(essState.currentEmployee as { profilePicture?: string } | null)?.profilePicture || undefined}
                 sx={{
                 width: { xs: 40, sm: 48 },
                 height: { xs: 40, sm: 48 },
-                bgcolor: essState.currentEmployee?.profilePicture ? "transparent" : "white",
+                bgcolor: (essState.currentEmployee as { profilePicture?: string } | null)?.profilePicture ? "transparent" : "white",
                   // Clock status indicator ring
                   border: essState.isClockedIn
                     ? `2px solid ${theme.palette.success.main}`
                     : `2px solid transparent`,
                 }}
               >
-                {essState.currentEmployee?.profilePicture ? null : (
+                {(essState.currentEmployee as { profilePicture?: string } | null)?.profilePicture ? null : (
                   <Typography
                     sx={{
                       fontSize: { xs: 16, sm: 18 },

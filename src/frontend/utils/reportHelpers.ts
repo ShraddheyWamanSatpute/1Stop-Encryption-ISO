@@ -110,9 +110,9 @@ export const filterByCompanyContext = <T extends Record<string, any>>(
 /**
  * Safely parse a date string or Date object
  */
-export const safeParseDate = (date: string | Date | null | undefined): Date | null => {
-  if (!date) return null
-  
+export const safeParseDate = (date: string | Date | number | null | undefined): Date | null => {
+  if (date == null) return null
+  if (typeof date === 'number') return isValid(new Date(date)) ? new Date(date) : null
   if (date instanceof Date) {
     return isValid(date) ? date : null
   }
@@ -133,7 +133,7 @@ export const safeParseDate = (date: string | Date | null | undefined): Date | nu
  * Check if a date is within a date range (inclusive)
  */
 export const isDateInRange = (
-  date: string | Date | null | undefined,
+  date: string | Date | number | null | undefined,
   startDate: Date,
   endDate: Date
 ): boolean => {

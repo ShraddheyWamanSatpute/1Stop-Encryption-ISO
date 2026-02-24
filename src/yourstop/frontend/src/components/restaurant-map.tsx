@@ -180,7 +180,7 @@ export function RestaurantMap({ restaurant }: RestaurantMapProps) {
         },
         map: map,
         title: restaurant.name,
-        animation: window.google.maps.Animation.DROP
+        animation: (window.google.maps as { Animation?: { DROP: number } }).Animation?.DROP ?? 2
       });
 
       const infoWindow = new window.google.maps.InfoWindow({
@@ -192,7 +192,7 @@ export function RestaurantMap({ restaurant }: RestaurantMapProps) {
         `
       });
 
-      marker.addListener('click', () => {
+      (marker as unknown as { addListener(event: string, fn: () => void): void }).addListener('click', () => {
         infoWindow.open(map, marker);
       });
 

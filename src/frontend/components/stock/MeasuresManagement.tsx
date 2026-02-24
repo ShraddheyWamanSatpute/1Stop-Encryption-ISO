@@ -240,7 +240,7 @@ const MeasuresManagement: React.FC = () => {
                 }}
               >
                 <TableCell align="center" sx={{ verticalAlign: 'middle' }}>{measure.name}</TableCell>
-                <TableCell align="center" sx={{ verticalAlign: 'middle' }}>{measure.quantity || measure.baseQuantity || "1"}</TableCell>
+                <TableCell align="center" sx={{ verticalAlign: 'middle' }}>{Number((measure as unknown as Record<string, unknown>).quantity ?? (measure as unknown as Record<string, unknown>).baseQuantity ?? 1)}</TableCell>
                 <TableCell align="center" sx={{ verticalAlign: 'middle' }}>{measure.baseUnit || measure.unit || "N/A"}</TableCell>
                 <TableCell align="center" sx={{ verticalAlign: 'middle' }}>
                   <Box display="flex" gap={1} justifyContent="center">

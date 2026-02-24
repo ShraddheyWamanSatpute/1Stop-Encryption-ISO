@@ -161,7 +161,7 @@ const ChecklistHistoryPage: React.FC = () => {
         }
         break
       case "number":
-        valueDisplay = response.value ?? ""
+        valueDisplay = String(response.value ?? "")
         if (response.isOutOfRange) {
           hasWarning = true
           warningMessage = `Value is out of acceptable range`
@@ -177,7 +177,7 @@ const ChecklistHistoryPage: React.FC = () => {
         }
         break
       case "text":
-        valueDisplay = response.value ?? ""
+        valueDisplay = String(response.value ?? "")
         break
       case "file":
       case "photo":

@@ -409,7 +409,7 @@ const TrainingManagement: React.FC<TrainingManagementProps> = (): ReactElement =
                             <IconButton
                               size="small"
                               color="error"
-                              onClick={() => handleDeleteTraining(training.id)}
+                              onClick={() => handleDeleteTraining(String(training.id))}
                             >
                               <DeleteIcon fontSize="small" />
                             </IconButton>
@@ -580,7 +580,7 @@ const TrainingManagement: React.FC<TrainingManagementProps> = (): ReactElement =
         autoHideDuration={6000}
         onClose={() => setNotification(null)}
       >
-        {notification && (
+        {notification ? (
           <Alert
             onClose={() => setNotification(null)}
             severity={notification.type}
@@ -588,7 +588,7 @@ const TrainingManagement: React.FC<TrainingManagementProps> = (): ReactElement =
           >
             {notification.message}
           </Alert>
-        )}
+        ) : undefined}
       </Snackbar>
     </Box>
   )

@@ -243,13 +243,14 @@ class CustomerBookingService {
 
       const updatedDoc = await getDoc(docRef);
       const updatedData = updatedDoc.data();
+      if (!updatedData) throw new Error('Booking not found after update');
 
       return {
         id: updatedDoc.id,
         ...updatedData,
-        createdAt: updatedData.createdAt?.toDate?.()?.toISOString() || updatedData.createdAt || new Date().toISOString(),
-        updatedAt: updatedData.updatedAt?.toDate?.()?.toISOString() || updatedData.updatedAt || new Date().toISOString(),
-        cancelledAt: updatedData.cancelledAt?.toDate?.()?.toISOString() || updatedData.cancelledAt,
+        createdAt: updatedData.createdAt?.toDate?.()?.toISOString() ?? updatedData.createdAt ?? new Date().toISOString(),
+        updatedAt: updatedData.updatedAt?.toDate?.()?.toISOString() ?? updatedData.updatedAt ?? new Date().toISOString(),
+        cancelledAt: updatedData.cancelledAt?.toDate?.()?.toISOString() ?? updatedData.cancelledAt,
       } as CustomerBooking;
     } catch (error) {
       console.error('Error updating booking:', error);

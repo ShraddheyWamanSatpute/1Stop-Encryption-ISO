@@ -120,11 +120,12 @@ const BookingReports: React.FC = () => {
       })
       const matchesStatus = selectedStatus === "all" || booking.status === selectedStatus
       const matchesTable = selectedTable === "all" || booking.tableId === selectedTable
+      const cust = booking.customer as { name?: string; email?: string; phone?: string } | null | undefined;
       const matchesSearch =
         searchTerm === "" ||
-        (booking.customer?.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (booking.customer?.email || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (booking.customer?.phone || "").includes(searchTerm)
+        (String(cust?.name ?? "").toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (String(cust?.email ?? "").toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (String(cust?.phone ?? "").includes(searchTerm))
 
       return matchesDateRange && matchesStatus && matchesTable && matchesSearch
     })
@@ -141,11 +142,11 @@ const BookingReports: React.FC = () => {
     // Revenue calculation (assuming each booking has a revenue field or we calculate it)
     const totalRevenue = filteredBookings
       .filter((b: Booking) => b.status === "completed")
-      .reduce((sum: number, booking: Booking) => sum + (booking.totalAmount || 0), 0)
+      .reduce((sum: number, booking: Booking) => sum + (Number(booking.totalAmount) || 0), 0)
 
     // Average party size
     const avgPartySize =
-      totalBookings > 0 ? filteredBookings.reduce((sum: number, booking: Booking) => sum + (booking.guestCount || 0), 0) / totalBookings : 0
+      totalBookings > 0 ? filteredBookings.reduce((sum: number, booking: Booking) => sum + (Number(booking.guestCount) || 0), 0) / totalBookings : 0
 
     // Booking trends (daily)
     const bookingTrends = []
@@ -163,7 +164,7 @@ const BookingReports: React.FC = () => {
       bookingTrends.push({
         date: format(currentDate, "MMM dd"),
         bookings: dayBookings.length,
-        revenue: dayBookings.filter((b: { status: string }) => b.status === "completed").reduce((sum: any, b: { totalAmount: any }) => sum + (b.totalAmount || 0), 0),
+        revenue: dayBookings.filter((b: { status: string }) => b.status === "completed").reduce((sum: number, b: { totalAmount?: unknown }) => sum + (Number(b.totalAmount) || 0), 0),
       })
     }
 
@@ -181,8 +182,8 @@ const BookingReports: React.FC = () => {
     // Table utilization
     const tableUtilization = filteredBookings.reduce(
       (acc: Record<string, number>, booking: Booking) => {
-        const table = bookingsContext.tables.find((t: { id: any }) => t.id === booking.tableId)
-        const tableName = table ? `Table ${table.name}` : "Unknown Table"
+        const table = bookingsContext.tables.find((t: { id: string; name?: string }) => t.id === booking.tableId)
+        const tableName = table ? `Table ${String(table.name ?? "")}` : "Unknown Table"
         acc[tableName] = (acc[tableName] || 0) + 1
         return acc
       },
@@ -242,7 +243,7 @@ const BookingReports: React.FC = () => {
     // Customer analysis
     const repeatCustomers = filteredBookings.reduce(
       (acc: Record<string, number>, booking: Booking) => {
-        const customerEmail = booking.customer?.email || ""
+        const customerEmail = String((booking.customer as { email?: string })?.email ?? "")
         acc[customerEmail] = (acc[customerEmail] || 0) + 1
         return acc
       },
@@ -805,7 +806,7 @@ const BookingReports: React.FC = () => {
                           const tableBookings = filteredBookings.filter((b: Booking) => b.tableId === table.id)
                           const tableRevenue = tableBookings
                             .filter((b: { status: string }) => b.status === "completed")
-                            .reduce((sum: number, b: Booking) => sum + (b.totalAmount || 0), 0)
+                            .reduce((sum: number, b: Booking) => sum + (Number(b.totalAmount) || 0), 0)
                           const utilizationRate =
                             tableBookings.length > 0 ? (tableBookings.length / filteredBookings.length) * 100 : 0
 
@@ -948,15 +949,15 @@ const BookingReports: React.FC = () => {
                             </Avatar>
                             <Box>
                               <Typography variant="body2" fontWeight={500}>
-                                {booking.customer?.name || "Unknown"}
+                                {String((booking.customer as { name?: string })?.name ?? "Unknown")}
                               </Typography>
                               <Typography variant="caption" color="text.secondary">
-                                {booking.customer?.email || ""}
+                                {String((booking.customer as { email?: string })?.email ?? "")}
                               </Typography>
                             </Box>
                           </Box>
                         </TableCell>
-                        <TableCell>{booking.customer?.phone || ""}</TableCell>
+                        <TableCell>{String((booking.customer as { phone?: string })?.phone ?? "")}</TableCell>
                         <TableCell>
                           <Chip
                             label={`${booking.guestCount || 0} ${(booking.guestCount || 0) === 1 ? "person" : "people"}`}
@@ -965,7 +966,7 @@ const BookingReports: React.FC = () => {
                           />
                         </TableCell>
                         <TableCell>
-                          {bookingsContext.tables.find((t: { id: any }) => t.id === booking.tableId)?.name || "N/A"}
+                          {String(bookingsContext.tables.find((t: { id: string; name?: string }) => t.id === booking.tableId)?.name ?? "N/A")}
                         </TableCell>
                         <TableCell>
                           <Chip

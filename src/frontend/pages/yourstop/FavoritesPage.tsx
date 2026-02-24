@@ -170,7 +170,7 @@ export default function FavoritesPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
               {favoriteRestaurants.map((restaurant, index) => (
                 <div key={`${restaurant.dataSource.primary}-${restaurant.id}-${index}`} className="relative">
-                  <RestaurantCard restaurant={restaurant} />
+                  <RestaurantCard restaurant={{ ...restaurant, dataSource: { ...restaurant.dataSource, reliability: restaurant.dataSource?.reliability ?? 0 } }} />
                   
                   {/* Remove from Favorites Button */}
                   <Button

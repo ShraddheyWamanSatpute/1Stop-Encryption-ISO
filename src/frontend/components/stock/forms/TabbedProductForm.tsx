@@ -678,9 +678,9 @@ const TabbedProductForm = forwardRef<TabbedProductFormRef, TabbedProductFormProp
                         onChange={(e) => handleInputChange('salesDivisionId', e.target.value)}
                         disabled={isReadOnly}
                       >
-                        {(salesDivisions || []).map((division) => (
-                          <MenuItem key={division.id} value={division.id}>
-                            {division.name}
+                        {(salesDivisions || []).map((division: { id?: unknown; name?: unknown }) => (
+                          <MenuItem key={String(division.id ?? '')} value={String(division.id ?? '')}>
+                            {String(division.name ?? '')}
                           </MenuItem>
                         ))}
                       </Select>
@@ -696,9 +696,9 @@ const TabbedProductForm = forwardRef<TabbedProductFormRef, TabbedProductFormProp
                         onChange={(e) => handleInputChange('categoryId', e.target.value)}
                         disabled={isReadOnly}
                       >
-                        {(categories || []).map((category) => (
-                          <MenuItem key={category.id} value={category.id}>
-                            {category.name}
+                        {(categories || []).map((category: { id?: unknown; name?: unknown }) => (
+                          <MenuItem key={String(category.id ?? '')} value={String(category.id ?? '')}>
+                            {String(category.name ?? '')}
                           </MenuItem>
                         ))}
                       </Select>
@@ -715,10 +715,10 @@ const TabbedProductForm = forwardRef<TabbedProductFormRef, TabbedProductFormProp
                         disabled={isReadOnly}
                       >
                         {(subcategories || [])
-                          .filter(sub => sub.parentCategoryId === productData.categoryId)
-                          .map((subcategory) => (
-                            <MenuItem key={subcategory.id} value={subcategory.id}>
-                              {subcategory.name}
+                          .filter((sub: { parentCategoryId?: unknown }) => sub.parentCategoryId === productData.categoryId)
+                          .map((subcategory: { id?: unknown; name?: unknown }) => (
+                            <MenuItem key={String(subcategory.id ?? '')} value={String(subcategory.id ?? '')}>
+                              {String(subcategory.name ?? '')}
                             </MenuItem>
                           ))}
                       </Select>

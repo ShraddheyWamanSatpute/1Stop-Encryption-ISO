@@ -157,7 +157,7 @@ const StockCountForm = forwardRef<StockCountFormRef, StockCountFormProps>(({
     const loadPresets = async () => {
       try {
         const presetsData = await fetchPresetsFromDB()
-        setPresets(presetsData || [])
+        setPresets((presetsData ?? []) as unknown as StockPreset[])
       } catch (error) {
         console.error("Error loading presets:", error)
       }
@@ -462,11 +462,11 @@ const StockCountForm = forwardRef<StockCountFormRef, StockCountFormProps>(({
   const getPreviousStockQuantity = (productId: string, measureId: string) => {
     if (!productId || !measureId || !stockState.latestCounts) return 0
     
-    const latestCount = stockState.latestCounts[productId]
+    const latestCount = stockState.latestCounts[productId] as { baseQuantity?: number } | undefined
     if (!latestCount) return 0
     
     // Get the base quantity from the latest count
-    const baseQuantity = latestCount.baseQuantity || 0
+    const baseQuantity = latestCount.baseQuantity ?? 0
     
     // Convert to the selected measure if needed
     if (measureId && measures) {
@@ -633,7 +633,7 @@ const StockCountForm = forwardRef<StockCountFormRef, StockCountFormProps>(({
       
       // Refresh presets
       const updatedPresets = await fetchPresetsFromDB()
-      setPresets(updatedPresets || [])
+      setPresets((updatedPresets ?? []) as unknown as StockPreset[])
       
       // Close dialog and reset
       setShowSavePresetDialog(false)

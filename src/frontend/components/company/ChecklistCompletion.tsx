@@ -42,7 +42,7 @@ import type {
   ChecklistItem,
   ItemResponse,
   MultipleEntryResponse,
-  ChecklistSection
+  ChecklistSection,
 } from "../../../backend/interfaces/Company"
 import { useCompany, CompanyChecklist, ChecklistCompletion } from "../../../backend/context/CompanyContext"
 import { useSettings } from "../../../backend/context/SettingsContext"
@@ -295,7 +295,8 @@ const ChecklistCompletionDialog: React.FC<ChecklistCompletionProps> = ({ open, o
   const renderLogEntryInput = (sectionId: string, entryIndex: number, item: ChecklistItem) => {
     const entries = logEntries[sectionId] || []
     const entry = entries[entryIndex]
-    const value = entry?.fields[item.id] || ''
+    const fields = entry && typeof entry.fields === 'object' && entry.fields ? entry.fields : {}
+    const value = fields[item.id] ?? ''
     
     switch (item.type) {
       case 'text':
@@ -378,14 +379,17 @@ const ChecklistCompletionDialog: React.FC<ChecklistCompletionProps> = ({ open, o
             const sanitizedItemId = item.id.replace(/[.#$\[\]\/]/g, '_')
             
             // Sanitize each log entry ID and field keys to ensure Firebase compatibility
-            const sanitizedEntries = entries.map(entry => ({
-              ...entry,
-              id: entry.id.replace(/[.#$\[\]\/]/g, '_'),
-              fields: Object.entries(entry.fields).reduce((acc, [fieldKey, fieldValue]) => {
+            const sanitizedEntries = entries.map(entry => {
+              const entryFields = entry && typeof entry.fields === 'object' && entry.fields ? entry.fields : {}
+              return {
+                ...entry,
+                id: entry.id.replace(/[.#$\[\]\/]/g, '_'),
+                fields: Object.entries(entryFields).reduce((acc, [fieldKey, fieldValue]) => {
                 const sanitizedFieldKey = fieldKey.replace(/[.#$\[\]\/]/g, '_')
                 return { ...acc, [sanitizedFieldKey]: fieldValue }
-              }, {})
-            }))
+              }, {} as Record<string, unknown>)
+              }
+            })
             
             sanitizedResponses[sanitizedItemId] = {
               itemId: sanitizedItemId,
@@ -745,13 +749,16 @@ const ChecklistCompletionDialog: React.FC<ChecklistCompletionProps> = ({ open, o
   const handleLogEntryChange = (sectionId: string, entryIndex: number, itemId: string, value: any) => {
     setLogEntries(prev => {
       const sectionEntries = [...(prev[sectionId] || [])]
+      const current = sectionEntries[entryIndex] as MultipleEntryResponse | undefined
+      const currentFields = (current?.fields && typeof current.fields === 'object') ? current.fields : {}
       sectionEntries[entryIndex] = {
-        ...sectionEntries[entryIndex],
+        id: current?.id ?? `entry-${entryIndex}`,
+        ...(current ?? {}),
         fields: {
-          ...sectionEntries[entryIndex].fields,
+          ...currentFields,
           [itemId]: value
         }
-      }
+      } as MultipleEntryResponse
       return {
         ...prev,
         [sectionId]: sectionEntries
@@ -842,7 +849,7 @@ const ChecklistCompletionDialog: React.FC<ChecklistCompletionProps> = ({ open, o
                 {entries.map((entry, entryIndex) => (
                   <TableRow key={entry.id}>
                     <TableCell>
-                      {new Date(entry.timestamp).toLocaleString()}
+                      {new Date((entry.timestamp ?? 0) as number).toLocaleString()}
                     </TableCell>
                     {section.items.map(item => (
                       <TableCell key={item.id}>

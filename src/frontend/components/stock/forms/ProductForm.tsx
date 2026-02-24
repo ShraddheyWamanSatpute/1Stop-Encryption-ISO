@@ -165,11 +165,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
       <FormSection title="Categories">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6}>
-            <Autocomplete
-              value={categories?.find(c => c.id === formData.category) || null}
+            <Autocomplete<{ id?: string; name?: string }>
+              value={categories?.find((c: { id?: string }) => c.id === formData.category) || null}
               onChange={(_, value) => setFormData(prev => ({ ...prev, category: value?.id || '' }))}
               options={categories || []}
-              getOptionLabel={(option) => option.name || ''}
+              getOptionLabel={(option) => (option && typeof option === 'object' && 'name' in option ? String(option.name) : '')}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -182,11 +182,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Autocomplete
-              value={subCategories?.find((sc: any) => sc.id === formData.subCategory) || null}
+            <Autocomplete<{ id?: string; name?: string }>
+              value={subCategories?.find((sc: { id?: string }) => sc.id === formData.subCategory) || null}
               onChange={(_, value) => setFormData(prev => ({ ...prev, subCategory: value?.id || '' }))}
               options={subCategories || []}
-              getOptionLabel={(option) => option.name || ''}
+              getOptionLabel={(option) => (option && typeof option === 'object' && 'name' in option ? String(option.name) : '')}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -199,11 +199,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Autocomplete
-              value={salesDivisions?.find(sd => sd.id === formData.salesDivision) || null}
+            <Autocomplete<{ id?: string; name?: string }>
+              value={salesDivisions?.find((sd: { id?: string }) => sd.id === formData.salesDivision) || null}
               onChange={(_, value) => setFormData(prev => ({ ...prev, salesDivision: value?.id || '' }))}
               options={salesDivisions || []}
-              getOptionLabel={(option) => option.name || ''}
+              getOptionLabel={(option) => (option && typeof option === 'object' && 'name' in option ? String(option.name) : '')}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -216,11 +216,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Autocomplete
-              value={courses?.find((c: any) => c.id === formData.course) || null}
+            <Autocomplete<{ id?: string; name?: string }>
+              value={courses?.find((c: { id?: string }) => c.id === formData.course) || null}
               onChange={(_, value) => setFormData(prev => ({ ...prev, course: value?.id || '' }))}
               options={courses || []}
-              getOptionLabel={(option) => option.name || ''}
+              getOptionLabel={(option) => (option && typeof option === 'object' && 'name' in option ? String(option.name) : '')}
               renderInput={(params) => (
                 <TextField
                   {...params}
