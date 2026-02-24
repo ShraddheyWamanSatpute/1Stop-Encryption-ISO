@@ -134,10 +134,10 @@ export const markAllNotificationsAsReadInDb = async (basePath: string, userId: s
     const snapshot = await get(notificationsRef)
     
     if (snapshot.exists()) {
-      const notificationsData = snapshot.val()
+      const notificationsData = snapshot.val() as Record<string, Notification>
       const updates: Record<string, unknown> = {}
       
-      Object.entries(notificationsData).forEach(([id, notification]: [string, Notification]) => {
+      Object.entries(notificationsData).forEach(([id, notification]) => {
         if (notification.userId === userId && !notification.read) {
           updates[`${id}/read`] = true
           updates[`${id}/updatedAt`] = Date.now()
@@ -172,10 +172,10 @@ export const deleteAllNotificationsFromDb = async (basePath: string, userId: str
     const snapshot = await get(notificationsRef)
     
     if (snapshot.exists()) {
-      const notificationsData = snapshot.val()
+      const notificationsData = snapshot.val() as Record<string, Notification>
       const updates: Record<string, unknown> = {}
       
-      Object.entries(notificationsData).forEach(([id, notification]: [string, Notification]) => {
+      Object.entries(notificationsData).forEach(([id, notification]) => {
         if (notification.userId === userId) {
           updates[id] = null
         }
@@ -265,27 +265,31 @@ export const getUserNotificationHistoryFromDb = async (basePath: string, userId:
     const snapshot = await get(notificationsRef)
     
     if (snapshot.exists()) {
-      const notificationsData = snapshot.val()
-      let notifications = Object.entries(notificationsData).map(([id, data]: [string, Notification]) => ({
-        id,
-        ...data,
-        isReadByUser: data.readBy && data.readBy[userId] && data.readBy[userId].seen,
-        readAtByUser: data.readBy && data.readBy[userId] ? data.readBy[userId].readAt : null
-      }))
+      const notificationsData = snapshot.val() as Record<string, Notification>
+      type NotifWithReadBy = Notification & { readBy?: Record<string, { seen?: boolean; readAt?: number }> }
+      let notifications = Object.entries(notificationsData).map(([id, data]) => {
+        const d = data as NotifWithReadBy
+        return {
+          ...(data as Omit<Notification, 'id'>),
+          id,
+          isReadByUser: d.readBy?.[userId]?.seen ?? false,
+          readAtByUser: d.readBy?.[userId]?.readAt ?? null
+        }
+      })
       
       // Apply filters if provided
       if (filter) {
         if (filter.read !== undefined) {
           notifications = notifications.filter(n => n.isReadByUser === filter.read)
         }
-        if (filter.type && filter.type.length > 0) {
-          notifications = notifications.filter(n => filter.type.includes(n.type))
+        if (filter.type != null && filter.type.length > 0) {
+          notifications = notifications.filter(n => filter.type!.includes(n.type))
         }
-        if (filter.dateFrom) {
-          notifications = notifications.filter(n => n.timestamp >= filter.dateFrom)
+        if (filter.dateFrom != null) {
+          notifications = notifications.filter(n => n.timestamp >= filter.dateFrom!)
         }
-        if (filter.dateTo) {
-          notifications = notifications.filter(n => n.timestamp <= filter.dateTo)
+        if (filter.dateTo != null) {
+          notifications = notifications.filter(n => n.timestamp <= filter.dateTo!)
         }
       }
       
@@ -314,10 +318,10 @@ export const cleanupOldNotificationsFromDb = async (basePath: string, daysOld: n
     const snapshot = await get(notificationsRef)
     
     if (snapshot.exists()) {
-      const notificationsData = snapshot.val()
+      const notificationsData = snapshot.val() as Record<string, Notification>
       const updates: Record<string, unknown> = {}
       
-      Object.entries(notificationsData).forEach(([id, notification]: [string, Notification]) => {
+      Object.entries(notificationsData).forEach(([id, notification]) => {
         if (notification.timestamp < cutoffTime) {
           updates[id] = null
         }

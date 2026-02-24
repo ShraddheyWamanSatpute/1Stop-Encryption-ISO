@@ -20,6 +20,7 @@ const HOURS_72_MS = 72 * 60 * 60 * 1000; // 72 hours in milliseconds
 
 // Fields to encrypt in breach records (may contain sensitive incident details)
 const _BREACH_ENCRYPTED_FIELDS = ['description'] as const;
+void _BREACH_ENCRYPTED_FIELDS; // reserved for future field-level encryption
 
 export class DataBreachService {
   private basePath: string;

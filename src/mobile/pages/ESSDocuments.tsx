@@ -229,7 +229,7 @@ const ESSDocuments: React.FC = () => {
                         label="Sign"
                         size="small"
                         color="primary"
-                        variant="contained"
+                        variant="filled"
                         clickable
                       />
                     ) : doc.url ? (

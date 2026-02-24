@@ -273,29 +273,51 @@ export class FreeRestaurantDataService {
       const data = await response.json();
       console.log(`✅ Foursquare returned ${data.results?.length || 0} enhanced restaurants`);
       
-      return data.results?.map((place: Record<string, unknown>) => ({
-        id: `fsq_${place.id || Math.random().toString(36).substr(2, 9)}`,
-        name: place.name,
-        address: place.address || place.formatted_address,
-        phone: place.phone || '',
+      type FsqPlace = Record<string, unknown> & {
+        location?: { latitude?: number; longitude?: number; postcode?: string; postal_code?: string; area?: string; locality?: string; neighbourhood?: string; borough?: string; region?: string };
+        geocodes?: { main?: { latitude?: number; longitude?: number } };
+        categories?: unknown[];
+        stats?: { total_ratings?: number };
+        name?: string;
+        id?: string;
+        address?: string;
+        formatted_address?: string;
+        phone?: string;
+        rating?: number;
+        price?: unknown;
+        photos?: Array<{ prefix?: string; suffix?: string }>;
+        fsq_id?: string;
+        chains?: unknown[];
+        hours?: unknown;
+        website?: string;
+        social_media?: unknown;
+        verified?: boolean;
+      };
+      return data.results?.map((place: Record<string, unknown>) => {
+        const p = place as FsqPlace;
+        return {
+        id: `fsq_${p.id || Math.random().toString(36).substr(2, 9)}`,
+        name: p.name,
+        address: p.address || p.formatted_address,
+        phone: p.phone || '',
         location: {
-          latitude: place.location?.latitude || place.geocodes?.main?.latitude,
-          longitude: place.location?.longitude || place.geocodes?.main?.longitude,
-          postcode: place.location?.postcode || place.location?.postal_code,
-          city: place.location?.area || place.location?.locality || 'London',
-          area: place.location?.area || place.location?.neighbourhood,
-          borough: place.location?.borough || place.location?.region
+          latitude: p.location?.latitude ?? p.geocodes?.main?.latitude ?? 0,
+          longitude: p.location?.longitude ?? p.geocodes?.main?.longitude ?? 0,
+          postcode: p.location?.postcode ?? p.location?.postal_code ?? '',
+          city: p.location?.area ?? p.location?.locality ?? 'London',
+          area: p.location?.area ?? p.location?.neighbourhood ?? '',
+          borough: p.location?.borough ?? p.location?.region ?? ''
         },
-        cuisine: this.extractFoursquareCuisine(place.categories || []),
-        rating: place.rating || this.estimateRatingFromCategories(place.categories),
-        reviewCount: place.stats?.total_ratings || Math.floor(Math.random() * 200) + 50,
-        priceRange: this.mapFoursquarePrice(place.price) || '££',
-        features: this.extractFoursquareFeatures(place.categories || []),
-        specialties: this.extractSpecialties(place.categories || []),
-        photos: (place.photos as Array<{ prefix?: string; suffix?: string }>)?.map((photo) => ({
-          url: `${photo.prefix}400x300${photo.suffix}`,
-          alt: `${place.name} - Foursquare photo`
-        })) || [],
+        cuisine: this.extractFoursquareCuisine(Array.isArray(p.categories) ? (p.categories as { name?: string }[]) : []),
+        rating: (p.rating as number | undefined) ?? this.estimateRatingFromCategories((p.categories ?? []) as { name?: string }[]),
+        reviewCount: p.stats?.total_ratings ?? Math.floor(Math.random() * 200) + 50,
+        priceRange: this.mapFoursquarePrice(p.price as number | undefined) || '££',
+        features: this.extractFoursquareFeatures((p.categories ?? []) as { name?: string }[]),
+        specialties: this.extractSpecialties((p.categories ?? []) as { name?: string }[]),
+        photos: (p.photos ?? [])?.map((photo: { prefix?: string; suffix?: string }) => ({
+          url: `${photo.prefix ?? ''}400x300${photo.suffix ?? ''}`,
+          alt: `${p.name ?? ''} - Foursquare photo`
+        })) ?? [],
         dataSources: {
           primary: 'foursquare',
           secondary: ['google_places'],
@@ -304,15 +326,16 @@ export class FreeRestaurantDataService {
         },
         // Enhanced Foursquare-specific data
         foursquareData: {
-          fsq_id: place.fsq_id,
-          categories: place.categories,
-          chains: place.chains || [],
-          hours: place.hours,
-          website: place.website,
-          social_media: place.social_media,
-          verified: place.verified || false
+          fsq_id: p.fsq_id,
+          categories: p.categories,
+          chains: p.chains ?? [],
+          hours: p.hours,
+          website: p.website,
+          social_media: p.social_media,
+          verified: p.verified ?? false
         }
-      })) || [];
+      };
+      }) ?? [];
     } catch (error) {
       console.error('❌ Foursquare enhancement failed:', error);
       return [];
@@ -449,7 +472,8 @@ export class FreeRestaurantDataService {
 
       console.log(`✅ Yelp returned ${uniqueRestaurants.length} unique enhanced restaurants`);
       
-      return uniqueRestaurants.map((business: Partial<ComprehensiveRestaurantData>) => ({
+      type YelpBusiness = Partial<ComprehensiveRestaurantData> & { imageUrl?: string; yelpData?: unknown; yelpUrl?: string; categories?: string[] };
+      return uniqueRestaurants.map((business: YelpBusiness) => ({
         id: business.id,
         name: business.name,
         address: business.address,
@@ -458,12 +482,12 @@ export class FreeRestaurantDataService {
         cuisine: business.cuisine,
         rating: business.rating || 4.0,
         reviewCount: business.reviewCount || 0,
-        priceRange: business.priceRange || '$$',
+        priceRange: (business.priceRange === '£' || business.priceRange === '££' || business.priceRange === '£££' || business.priceRange === '££££' ? business.priceRange : '££') as '£' | '££' | '£££' | '££££',
         features: ['yelp_verified'],
         photos: business.imageUrl ? [{
           id: `yelp_${business.id}_photo`,
           url: business.imageUrl,
-          alt: `${business.name} - Yelp photo`,
+          alt: `${business.name ?? ''} - Yelp photo`,
           source: 'yelp',
           type: 'exterior' as const
         }] : [],
@@ -474,12 +498,12 @@ export class FreeRestaurantDataService {
           reliability: 95 // Yelp has high reliability for reviews
         },
         // Enhanced Yelp-specific data
-        yelpData: business.yelpData || {
+        yelpData: business.yelpData ?? {
           yelp_id: business.id,
           yelp_url: business.yelpUrl,
           review_count: business.reviewCount,
           rating: business.rating,
-          categories: business.categories || []
+          categories: business.categories ?? []
         }
       })) || [];
       
@@ -527,30 +551,37 @@ export class FreeRestaurantDataService {
         return [];
       }
       
+      const norm = (t: Record<string, string | string[]> | undefined) => {
+        if (!t) return undefined;
+        const out: Record<string, string | undefined> = {};
+        for (const [k, v] of Object.entries(t)) out[k] = Array.isArray(v) ? v[0] : v;
+        return out;
+      };
+      const str = (v: string | string[] | undefined): string | undefined => (typeof v === 'string' ? v : Array.isArray(v) ? v[0] : undefined);
       return data.elements?.map((element: { id: number; lat?: number; lon?: number; center?: { lat: number; lon: number }; tags?: Record<string, string | string[]> }) => ({
         id: `osm_${element.id}`,
-        name: element.tags?.name,
-        address: this.buildOSMAddress(element.tags),
-        phone: element.tags?.phone,
-        website: element.tags?.website,
+        name: str(element.tags?.name),
+        address: this.buildOSMAddress(norm(element.tags)),
+        phone: str(element.tags?.phone),
+        website: str(element.tags?.website),
         location: {
-          latitude: element.lat || element.center?.lat,
-          longitude: element.lon || element.center?.lon,
-          postcode: element.tags?.['addr:postcode'],
-          city: element.tags?.['addr:city'] || 'London',
-          area: element.tags?.['addr:suburb'],
-          borough: element.tags?.['addr:district']
+          latitude: element.lat ?? element.center?.lat ?? 0,
+          longitude: element.lon ?? element.center?.lon ?? 0,
+          postcode: str(element.tags?.['addr:postcode']) ?? '',
+          city: str(element.tags?.['addr:city']) ?? 'London',
+          area: str(element.tags?.['addr:suburb']) ?? '',
+          borough: str(element.tags?.['addr:district']) ?? ''
         },
-        cuisine: element.tags?.cuisine?.split(';') || [],
-        openingHours: this.parseOSMOpeningHours(element.tags?.opening_hours),
-        features: this.extractOSMFeatures(element.tags),
+        cuisine: (str(element.tags?.cuisine) ?? '').split(';').filter(Boolean),
+        openingHours: this.parseOSMOpeningHours(str(element.tags?.opening_hours)),
+        features: this.extractOSMFeatures(norm(element.tags)),
         dataSources: {
           primary: 'openstreetmap',
           secondary: [],
           lastUpdated: new Date().toISOString(),
           reliability: 70
         }
-      })).filter((restaurant) => restaurant.name) || [];
+      })).filter((restaurant: { name?: string }) => restaurant.name) || [];
     } catch (error) {
       console.error('OpenStreetMap API error:', error);
       return [];

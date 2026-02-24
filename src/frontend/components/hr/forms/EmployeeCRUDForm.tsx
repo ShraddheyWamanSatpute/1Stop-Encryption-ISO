@@ -160,7 +160,7 @@ const EmployeeCRUDForm = forwardRef<EmployeeCRUDFormRef, EmployeeCRUDFormProps>(
       const employeeData: Omit<Employee, 'id'> | Partial<Employee> = {
         ...formData,
         hireDate: formData.hireDate instanceof Date ? formData.hireDate.getTime() : (formData.hireDate as number),
-        dateOfBirth: formData.dateOfBirth instanceof Date ? formData.dateOfBirth.getTime() : formData.dateOfBirth,
+        dateOfBirth: formData.dateOfBirth != null ? (formData.dateOfBirth instanceof Date ? formData.dateOfBirth.getTime() : formData.dateOfBirth) : undefined,
         dataConsentGiven: mode === 'create' ? dataConsentChecked : formData.dataConsentGiven,
         dataConsentDate: mode === 'create' && dataConsentChecked ? Date.now() : undefined,
         payslipEmailConsent: formData.payslipEmailConsent,
@@ -281,7 +281,7 @@ const EmployeeCRUDForm = forwardRef<EmployeeCRUDFormRef, EmployeeCRUDFormProps>(
         pensionContributionPercentage: employee.pensionContributionPercentage || 5,
         paymentFrequency: employee.paymentFrequency || 'monthly',
         troncParticipant: employee.troncParticipant || false,
-        troncType: (employee as Employee & { troncType?: string }).troncType || 'points',
+        troncType: ((employee as Employee & { troncType?: string }).troncType || 'points') as 'points' | 'percentage' | 'flat_rate',
         troncPoints: employee.troncPoints || 0,
         troncFlatRate: (employee as Employee & { troncFlatRate?: number }).troncFlatRate || 0,
         troncPercentage: (employee as Employee & { troncPercentage?: number }).troncPercentage || 0,
@@ -481,11 +481,10 @@ const EmployeeCRUDForm = forwardRef<EmployeeCRUDFormRef, EmployeeCRUDFormProps>(
                         onChange={(date) => handleChange('dateOfBirth', date)}
                         disabled={isReadOnly}
                         maxDate={new Date(new Date().setDate(new Date().getDate() - 1))}
-                        locale={enGB}
                         slotProps={{
                           textField: {
                             fullWidth: true,
-                            error: formData.dateOfBirth && formData.dateOfBirth >= new Date(new Date().setHours(0, 0, 0, 0)),
+                            error: !!(formData.dateOfBirth && formData.dateOfBirth >= new Date(new Date().setHours(0, 0, 0, 0))),
                             helperText: formData.dateOfBirth && formData.dateOfBirth >= new Date(new Date().setHours(0, 0, 0, 0)) 
                               ? "Date of birth cannot be today or in the future" 
                               : "DD/MM/YYYY format"
@@ -835,7 +834,6 @@ const EmployeeCRUDForm = forwardRef<EmployeeCRUDFormRef, EmployeeCRUDFormProps>(
                     value={formData.hireDate}
                     onChange={(date) => handleChange('hireDate', date || new Date())}
                     disabled={isReadOnly}
-                    locale={enGB}
                     slotProps={{
                       textField: {
                         fullWidth: true,

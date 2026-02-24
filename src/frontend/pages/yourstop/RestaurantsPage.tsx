@@ -294,8 +294,15 @@ export default function RestaurantsPage() {
                 {filteredRestaurants.map((restaurant) => (
                   <RestaurantCard
                     key={restaurant.id}
-                    restaurant={restaurant}
-                    onClick={() => navigate(`/YourStop/restaurants/${restaurant.id}`)}
+                    restaurant={(() => {
+                      const r = restaurant as unknown as { availability?: unknown; menu?: { analytics?: { dataSource?: string; reliability?: number; totalItems?: number; averagePrice?: number }; [k: string]: unknown }; [k: string]: unknown };
+                      const { availability: _av, ...rest } = r;
+                      const menu = r.menu;
+                      const a = menu?.analytics;
+                      const fullAnalytics: { dataSource: string; reliability: number; totalItems: number; averagePrice: number } = (a && typeof a.dataSource === 'string') ? { dataSource: a.dataSource, reliability: a.reliability ?? 80, totalItems: a.totalItems ?? 0, averagePrice: a.averagePrice ?? 0 } : { dataSource: 'api', reliability: 80, totalItems: 0, averagePrice: 0 };
+                      return { ...rest, menu: menu ? { ...menu, analytics: fullAnalytics } : undefined, availability: undefined } as Parameters<typeof RestaurantCard>[0]['restaurant'];
+                    })()}
+                    onViewMenu={() => navigate(`/YourStop/restaurants/${restaurant.id}`)}
                   />
                 ))}
               </div>

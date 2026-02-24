@@ -183,7 +183,7 @@ const ESSSchedule: React.FC = () => {
 
         {/* Week Days Grid - Auto-scroll to today */}
         <Box 
-          ref={(el) => {
+          ref={(el: HTMLDivElement | null) => {
             if (el) {
               // Auto-scroll to today's card on mount/update
               const today = new Date()
@@ -196,8 +196,8 @@ const ESSSchedule: React.FC = () => {
                   return dayDate.getTime() === today.getTime()
                 }
                 return false
-              })
-              if (todayCard) {
+              }) as HTMLElement | undefined
+              if (todayCard?.scrollIntoView) {
                 todayCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
               }
             }

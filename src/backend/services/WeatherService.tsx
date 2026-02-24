@@ -121,13 +121,19 @@ export const fetchWeatherForCity = async (
         const dd = `${d}`.padStart(2, '0');
         return `${y}-${mm}-${dd}`;
       };
+      type DayShape = {
+        displayDate?: { year?: number; month?: number; day?: number };
+        daytimeForecast?: { temperature?: { degrees?: number }; weatherCondition?: { description?: { text?: string }; type?: string; iconBaseUri?: string } };
+        maxTemperature?: { degrees?: number };
+      };
       daysArr.forEach((day: Record<string, unknown>) => {
-        const disp = day?.displayDate;
-        if (!disp) return;
+        const d = day as DayShape;
+        const disp = d?.displayDate;
+        if (!disp || disp.year == null || disp.month == null || disp.day == null) return;
         const date = toDateStr(disp.year, disp.month, disp.day);
-        const daytime = day?.daytimeForecast;
-        const maxTemp = day?.maxTemperature?.degrees ?? daytime?.temperature?.degrees;
-        const conditionText = daytime?.weatherCondition?.description?.text || day?.daytimeForecast?.weatherCondition?.type || 'Unknown';
+        const daytime = d?.daytimeForecast;
+        const maxTemp = d?.maxTemperature?.degrees ?? daytime?.temperature?.degrees;
+        const conditionText = daytime?.weatherCondition?.description?.text || daytime?.weatherCondition?.type || 'Unknown';
         const iconBase = daytime?.weatherCondition?.iconBaseUri || '';
         processedData[date] = {
           temperature: Math.round(Number(maxTemp ?? 0)),
@@ -177,11 +183,14 @@ export const getCompanyLocations = async (companyId: string): Promise<Array<{cit
     }
     
     const locations = snapshot.val();
-    return Object.entries(locations).map(([siteId, location]: [string, Record<string, unknown>]) => ({
-      city: location.city || "London",
-      country: location.country || "UK",
-      siteId
-    }));
+    return Object.entries(locations as Record<string, unknown>).map(([siteId, loc]: [string, unknown]) => {
+      const location = (loc && typeof loc === 'object' && loc !== null) ? loc as Record<string, unknown> : {};
+      return {
+        city: String(location.city ?? "London"),
+        country: String(location.country ?? "UK"),
+        siteId
+      };
+    });
   } catch (error) {
     console.error("Error fetching company locations:", error);
     return [];

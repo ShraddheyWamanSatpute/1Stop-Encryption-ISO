@@ -64,12 +64,12 @@ export function useContextSelectors<TContext extends ContextValue>(
   selectors: Record<string, (value: TContext) => unknown>
 ): Record<string, unknown> {
   const result: Record<string, unknown> = {};
-  
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  for (const [key, selector] of Object.entries(selectors)) {
+  const entries = Object.entries(selectors);
+  // Intentional: fixed set of selectors, same order every render (required for rules-of-hooks)
+  // eslint-disable-next-line react-hooks/rules-of-hooks -- selectors is a stable record, not a loop over dynamic list
+  for (const [key, selector] of entries) {
     result[key] = useContextSelector(contextValue, selector);
   }
-  
   return result;
 }
 

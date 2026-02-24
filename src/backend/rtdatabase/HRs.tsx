@@ -667,8 +667,10 @@ export const fetchWarnings = async (basePath: string): Promise<Warning[]> => {
     if (!snapshot.exists()) return []
     
     const warnings: Warning[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      warnings.push({ id: childSnapshot.key || '', ...(childSnapshot.val() as Warning) })
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<Warning, 'id'>
+      warnings.push({ ...data, id: childSnapshot.key || '' })
     })
     console.log("Found warnings:", warnings.length)
     return warnings
@@ -782,8 +784,10 @@ export const fetchJobs = async (basePath: string): Promise<JobPosting[]> => {
     if (!snapshot.exists()) return []
     
     const jobs: JobPosting[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      jobs.push({ id: childSnapshot.key || '', ...(childSnapshot.val() as JobPosting) })
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<JobPosting, 'id'>
+      jobs.push({ ...data, id: childSnapshot.key || '' })
     })
     console.log("Found jobs:", jobs.length)
     return jobs
@@ -819,7 +823,7 @@ export const updateJob = async (basePath: string, jobId: string, updates: Partia
     const updateData = sanitizeForFirebase({
       ...updates,
       updatedAt: Date.now()
-    })
+    }) as Record<string, unknown>
     await update(jobRef, updateData)
     console.log("Job updated successfully:", jobId)
   } catch (error) {
@@ -847,8 +851,10 @@ export const fetchCandidates = async (basePath: string): Promise<Candidate[]> =>
     if (!snapshot.exists()) return []
     
     const candidates: Candidate[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      candidates.push({ id: childSnapshot.key || '', ...(childSnapshot.val() as Candidate) })
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<Candidate, 'id'>
+      candidates.push({ ...data, id: childSnapshot.key || '' })
     })
     console.log("Found candidates:", candidates.length)
     return candidates
@@ -882,9 +888,9 @@ export const updateCandidate = async (basePath: string, candidateId: string, upd
   try {
     const candidateRef = ref(db, `${basePath}/candidates/${candidateId}`)
     const updateData = sanitizeForFirebase({
-      ...updates as any,
+      ...updates,
       updatedAt: Date.now()
-    })
+    }) as Record<string, unknown>
     await update(candidateRef, updateData)
     console.log("Candidate updated successfully:", candidateId)
   } catch (error) {
@@ -915,7 +921,7 @@ export const createInterview = async (basePath: string, interview: Omit<Intervie
       id: interviewId,
       createdAt: Date.now(),
       updatedAt: Date.now()
-    })
+    }) as Record<string, unknown>
     await set(newInterviewRef, interviewData)
     console.log("Interview created successfully:", interviewId)
     return interviewId
@@ -931,7 +937,7 @@ export const updateInterview = async (basePath: string, interviewId: string, upd
     const updateData = sanitizeForFirebase({
       ...updates,
       updatedAt: Date.now()
-    })
+    }) as Record<string, unknown>
     await update(interviewRef, updateData)
     console.log("Interview updated successfully:", interviewId)
   } catch (error) {
@@ -1131,8 +1137,10 @@ export const fetchAnnouncements = async (basePath: string): Promise<Announcement
     if (!snapshot.exists()) return []
     
     const announcements: Announcement[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      announcements.push({ id: childSnapshot.key || '', ...(childSnapshot.val() as Announcement) })
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<Announcement, 'id'>
+      announcements.push({ ...data, id: childSnapshot.key || '' })
     })
     return announcements
   } catch (error) {
@@ -1259,10 +1267,10 @@ export const fetchEmployees = async (basePath: string): Promise<Employee[]> => {
     }
 
     const employees: Employee[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      const employeeData = childSnapshot.val()
-      const employee = { id: childSnapshot.key || '', ...(employeeData as Employee) }
-      employees.push(employee)
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<Employee, 'id'>
+      employees.push({ ...data, id: childSnapshot.key || '' })
     })
 
     // Decrypt sensitive employee data if encryption service is initialized
@@ -1426,8 +1434,10 @@ export const fetchRoles = async (basePath: string): Promise<Role[]> => {
     if (!snapshot.exists()) return []
     
     const roles: Role[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      roles.push({ id: childSnapshot.key || '', ...(childSnapshot.val() as Role) })
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<Role, 'id'>
+      roles.push({ ...data, id: childSnapshot.key || '' })
     })
     return roles
   } catch (error) {
@@ -1444,8 +1454,10 @@ export const fetchDepartments = async (basePath: string): Promise<Department[]> 
     if (!snapshot.exists()) return []
     
     const departments: Department[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      departments.push({ id: childSnapshot.key || '', ...(childSnapshot.val() as Department) })
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<Department, 'id'>
+      departments.push({ ...data, id: childSnapshot.key || '' })
     })
     return departments
   } catch (error) {
@@ -1462,7 +1474,7 @@ export const fetchSchedules = async (basePath: string): Promise<Schedule[]> => {
     if (!snapshot.exists()) return []
     
     const schedules: Schedule[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
       const scheduleData = childSnapshot.val() as Record<string, unknown>
       
       // Normalize date to YYYY-MM-DD format
@@ -1486,24 +1498,23 @@ export const fetchSchedules = async (basePath: string): Promise<Schedule[]> => {
       
       // Map Firebase field names to our interface (match actual database structure)
       const mappedSchedule: Schedule = {
-        id: childSnapshot.key,
-        employeeId: scheduleData.employeeID || scheduleData.employeeId,
-        employeeName: scheduleData.employeeName || "",
+        id: childSnapshot.key ?? '',
+        employeeId: String(scheduleData.employeeID ?? scheduleData.employeeId ?? ''),
+        employeeName: String(scheduleData.employeeName ?? ''),
         date: normalizedDate,
-        startTime: scheduleData.startTime || "",
-        endTime: scheduleData.endTime || "",
-        department: scheduleData.department || "",
-        role: scheduleData.role || "", // Optional field
-        notes: scheduleData.notes || "", // Optional field
-        status: scheduleData.status || "scheduled",
-        shiftType: scheduleData.shiftType || "regular", // Default value
-        payType: scheduleData.payType || "hourly", // Default value
-        payRate: scheduleData.payRate, // Optional field
-        departmentID: scheduleData.departmentID || "", // Add departmentID mapping
-        createdAt: scheduleData.createdAt ? new Date(scheduleData.createdAt).toISOString() : new Date().toISOString(),
-        updatedAt: scheduleData.updatedAt ? new Date(scheduleData.updatedAt).toISOString() : undefined
+        startTime: String(scheduleData.startTime ?? ''),
+        endTime: String(scheduleData.endTime ?? ''),
+        department: String(scheduleData.department ?? ''),
+        role: String(scheduleData.role ?? ''),
+        notes: String(scheduleData.notes ?? ''),
+        status: (scheduleData.status as Schedule['status']) || 'scheduled',
+        shiftType: (scheduleData.shiftType as Schedule['shiftType']) || 'regular',
+        payType: (scheduleData.payType as Schedule['payType']) || 'hourly',
+        payRate: scheduleData.payRate != null ? Number(scheduleData.payRate) : undefined,
+        departmentID: String(scheduleData.departmentID ?? ''),
+        createdAt: scheduleData.createdAt != null ? new Date(scheduleData.createdAt as string | number).toISOString() : new Date().toISOString(),
+        updatedAt: scheduleData.updatedAt != null ? new Date(scheduleData.updatedAt as string | number).toISOString() : undefined
       }
-      
       schedules.push(mappedSchedule)
     })
     return schedules
@@ -1767,8 +1778,10 @@ export const fetchPayroll = async (basePath: string): Promise<PayrollData[]> => 
     if (!snapshot.exists()) return []
     
     const payroll: PayrollData[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      payroll.push({ id: childSnapshot.key || '', ...(childSnapshot.val() as PayrollData) })
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<PayrollData, 'id'>
+      payroll.push({ ...data, id: childSnapshot.key || '' })
     })
     return payroll
   } catch (error) {
@@ -1797,8 +1810,10 @@ export const fetchPerformanceReviews = async (basePath: string): Promise<Perform
     if (!snapshot.exists()) return []
     
     const reviews: PerformanceReview[] = []
-    snapshot.forEach((childSnapshot: { key: string | null; val: () => Record<string, unknown> }) => {
-      reviews.push({ id: childSnapshot.key || '', ...(childSnapshot.val() as PerformanceReview) })
+    snapshot.forEach((childSnapshot: { key: string | null; val: () => unknown }) => {
+      const raw = childSnapshot.val() as unknown
+      const data = raw as unknown as Omit<PerformanceReview, 'id'>
+      reviews.push({ ...data, id: childSnapshot.key || '' })
     })
     return reviews
   } catch (error) {

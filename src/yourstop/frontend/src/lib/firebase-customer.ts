@@ -112,8 +112,8 @@ export const customerAppleProvider = new OAuthProvider('apple.com');
 customerGoogleProvider.addScope('email');
 customerGoogleProvider.addScope('profile');
 customerGoogleProvider.setCustomParameters({
-  'hd': undefined // Allow any domain
-});
+  'hd': '', // Allow any domain
+} as Record<string, string>);
 customerFacebookProvider.addScope('email');
 customerAppleProvider.addScope('email');
 customerAppleProvider.addScope('name');

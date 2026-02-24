@@ -1,6 +1,5 @@
 import emailjs from '@emailjs/browser';
 import { consentService } from '../services/gdpr/ConsentService';
-import { useCompany } from '../context/CompanyContext';
 
 interface EmailResult {
   success: boolean;
@@ -159,7 +158,7 @@ See EMAILJS_SETUP.md for detailed instructions.`
         const hasConsent = await consentService.hasConsent(
           options.userId,
           options.companyId,
-          'marketing'
+          'marketing_communications'
         );
         
         if (!hasConsent) {

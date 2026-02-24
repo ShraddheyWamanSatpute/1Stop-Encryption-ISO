@@ -30,10 +30,11 @@ export const fetchProducts = async (basePath: string): Promise<Product[]> => {
     const snapshot = await get(productsRef)
 
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as Product),
-      }))
+      const val = snapshot.val() as Record<string, unknown>
+      return Object.entries(val).map(([id, data]) => {
+        const rest = data as unknown as Omit<Product, 'id'>
+        return { ...rest, id }
+      })
     }
     return []
   } catch (error) {
@@ -94,10 +95,11 @@ export const fetchProductCategories = async (basePath: string): Promise<ProductC
     const snapshot = await get(categoriesRef)
 
     if (snapshot.exists()) {
-      return Object.entries(snapshot.val()).map(([id, data]: [string, Record<string, unknown>]) => ({
-        id,
-        ...(data as ProductCategory),
-      }))
+      const val = snapshot.val() as Record<string, unknown>
+      return Object.entries(val).map(([id, data]) => {
+        const rest = data as unknown as Omit<ProductCategory, 'id'>
+        return { ...rest, id }
+      })
     }
     return []
   } catch (error) {

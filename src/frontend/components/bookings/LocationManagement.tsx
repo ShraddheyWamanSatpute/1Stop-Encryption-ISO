@@ -29,7 +29,9 @@ import DataHeader from "../reusable/DataHeader"
 
 const LocationManagement: React.FC = () => {
   const { state: companyState } = useCompany()
-  const { locations: posLocations, createLocation, updateLocation, deleteLocation, fetchLocations } = usePOS()
+  const { state: posState, createLocation, updateLocation, deleteLocation, refreshLocations } = usePOS()
+  const posLocations = posState.locations
+  const fetchLocations = refreshLocations
   
   const [locations, setLocations] = useState<Location[]>([])
   const [loading, setLoading] = useState(false)

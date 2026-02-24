@@ -136,7 +136,7 @@ const CreateCompanyInfo: React.FC = () => {
   const [description, setDescription] = useState("");
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }> | { target: { name?: string; value: unknown } },
     section?: "address" | "contact" | "business" | "branding" | "settings" | "registrationDetails" | "financialDetails" | "contactPersons" | "contractSettings"
   ) => {
     const name = e.target.name || "";
@@ -229,9 +229,6 @@ const CreateCompanyInfo: React.FC = () => {
         financialDetails: companySetup.financialDetails,
         contactPersons: companySetup.contactPersons,
         contractSettings: companySetup.contractSettings,
-        createdBy: settingsState.auth?.uid,
-        permissions: DEFAULT_PERMISSIONS,
-        createDefaultSite: createDefaultSite
       });
       
       // Save company setup data

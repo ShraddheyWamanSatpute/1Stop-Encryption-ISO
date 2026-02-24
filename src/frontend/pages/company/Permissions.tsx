@@ -704,20 +704,21 @@ const PERMISSION_KEYS = Object.entries(MODULE_GROUP_DEFINITIONS).flatMap(([modul
         name: newRoleName.toLowerCase(),
         label: newRoleName,
         description: `${newRoleName} role`,
-        permissions: ["*"],
+        permissions: DEFAULT_PERMISSIONS,
         active: true,
         createdAt: new Date().toISOString(),
-      })
+      } as Parameters<typeof addCompanyRole>[0])
 
       // Add to local permissions state
-      const defaultRolePermissions = permissions.roles.staff
-      setPermissions((prev) => ({
+      const defaultRolePermissions = (permissions.roles as Record<string, UserPermissions>).staff ?? (permissions.roles as Record<string, UserPermissions>).manager
+      const permissionsUpdate = (prev: CompanyPermissions): CompanyPermissions => ({
         ...prev,
         roles: {
           ...prev.roles,
           [newRoleName.toLowerCase()]: defaultRolePermissions,
         },
-      }))
+      })
+      setPermissions(permissionsUpdate as React.SetStateAction<CompanyPermissions>)
 
       setRoles((prev) => [...prev, newRoleName.toLowerCase()])
       setNewRoleName("")
@@ -766,9 +767,6 @@ const PERMISSION_KEYS = Object.entries(MODULE_GROUP_DEFINITIONS).flatMap(([modul
         name: newDepartmentName,
         description: `${newDepartmentName} department`,
         managerId: "",
-        employees: [],
-        roles: [],
-        createdAt: Date.now(),
       })
 
       setPermissions((prev) => ({

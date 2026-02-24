@@ -38,10 +38,10 @@ import { getAuth } from "firebase/auth"
 
 const GDPRPrivacyTab: React.FC = () => {
   const { state } = useSettings()
-  const { companyState } = useCompany()
+  const { state: companyState } = useCompany()
   const auth = getAuth()
   const userId = state.auth.uid
-  const companyId = companyState.selectedCompany?.id || companyState.companyID
+  const companyId = companyState.selectedCompany?.id ?? companyState.selectedCompanyID ?? ""
 
   const [exportLoading, setExportLoading] = useState(false)
   const [deletionStatus, setDeletionStatus] = useState<any>(null)

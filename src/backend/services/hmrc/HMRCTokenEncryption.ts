@@ -16,6 +16,7 @@ import { EncryptionService } from '../../utils/EncryptionService'
 
 // Fields that contain sensitive OAuth tokens (used for encryption)
 const _HMRC_TOKEN_FIELDS = ['hmrcAccessToken', 'hmrcRefreshToken'] as const
+void _HMRC_TOKEN_FIELDS
 
 /**
  * Interface for encrypted token storage

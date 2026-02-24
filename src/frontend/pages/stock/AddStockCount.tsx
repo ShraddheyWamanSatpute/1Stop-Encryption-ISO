@@ -146,7 +146,7 @@ const AddStockCount: React.FC = () => {
         
         // Fetch presets
         const presetData = await contextFetchPresetsFromDB()
-        setPresets(presetData)
+        setPresets((presetData ?? []) as unknown as StockPreset[])
 
         // If editing, load the stock count first
         if (id) {
@@ -189,7 +189,7 @@ const AddStockCount: React.FC = () => {
         // Fetch previous counts only if we have products and measures
         if (products.length > 0 && measures.length > 0) {
           const previousCounts = await contextFetchLatestCountsForProducts()
-          setLatestCounts(previousCounts)
+          setLatestCounts(previousCounts as { [productId: string]: { baseQuantity: number; baseUnit: string; date: string } })
         }
       } catch (error) {
         console.error("Error fetching data:", error)
@@ -210,7 +210,7 @@ const AddStockCount: React.FC = () => {
       try {
         // basePath is already available from context
         const previousCounts = await contextFetchLatestCountsForProducts()
-        setLatestCounts(previousCounts)
+        setLatestCounts(previousCounts as { [productId: string]: { baseQuantity: number; baseUnit: string; date: string } })
       } catch (error) {
         console.error("Error fetching previous counts:", error)
       }
@@ -302,7 +302,7 @@ const AddStockCount: React.FC = () => {
 
       // Refresh presets
       const updatedPresets = await contextFetchPresetsFromDB()
-      setPresets(updatedPresets)
+      setPresets((updatedPresets ?? []) as unknown as StockPreset[])
       setIsPresetSelected(false)
     } catch (error) {
       console.error("Error saving preset:", error)
@@ -337,7 +337,7 @@ const AddStockCount: React.FC = () => {
 
       // Refresh presets
       const updatedPresets = await contextFetchPresetsFromDB()
-      setPresets(updatedPresets)
+      setPresets((updatedPresets ?? []) as unknown as StockPreset[])
     } catch (error) {
       console.error("Error updating preset:", error)
       setErrorMessage("Failed to update preset. Please try again.")
@@ -668,16 +668,16 @@ const AddStockCount: React.FC = () => {
   // Group items by selected field
   const getGroupName = (item: StockCountItem, field: string): string => {
     if (field === "salesDivisionId") {
-      const sd = salesDivisions.find((sd) => sd.id === item.salesDivisionId)
-      return sd ? sd.name : "Unassigned"
+      const sd = salesDivisions.find((s: { id?: unknown }) => s.id === item.salesDivisionId) as { name?: string } | undefined
+      return sd ? String(sd.name ?? "Unassigned") : "Unassigned"
     }
     if (field === "categoryId") {
-      const cat = categories.find((c) => c.id === item.categoryId)
-      return cat ? cat.name : "Unassigned"
+      const cat = categories.find((c: { id?: unknown }) => c.id === item.categoryId) as { name?: string } | undefined
+      return cat ? String(cat.name ?? "Unassigned") : "Unassigned"
     }
     if (field === "subcategoryId") {
-      const sub = subcategories.find((sc) => sc.id === item.subcategoryId)
-      return sub ? sub.name : "Unassigned"
+      const sub = subcategories.find((sc: { id?: unknown }) => sc.id === item.subcategoryId) as { name?: string } | undefined
+      return sub ? String(sub.name ?? "Unassigned") : "Unassigned"
     }
     if (field === "type") {
       return item.type || "Unassigned"

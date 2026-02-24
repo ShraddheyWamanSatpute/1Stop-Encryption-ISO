@@ -740,33 +740,27 @@ export class DSARService {
             if (!siteId) return;
             
             const employeesRef = ref(db, `companies/${compId}/sites/${siteId}/data/hr/employees`);
-            get(employeesRef).then((empSnapshot) => {
-              if (empSnapshot.exists()) {
-                empSnapshot.forEach((empChild) => {
-                  const employee = empChild.val() as Record<string, unknown>;
-                  if (employee.userId === userId) {
-                    let empData = { id: empChild.key, ...employee };
-                    
-                    // Decrypt if encrypted
-                    if (sensitiveDataService.isInitialized()) {
-                      try {
-                        empData = sensitiveDataService.decryptEmployeeData(
-                          empData as Record<string, unknown>
-                        ) as Record<string, unknown>;
-                      } catch (err) {
-                        console.warn('[DSARService] Failed to decrypt employee data:', err);
-                      }
+            get(employeesRef).then(async (empSnapshot) => {
+              if (!empSnapshot.exists()) return;
+              const promises: Promise<void>[] = [];
+              empSnapshot.forEach((empChild) => {
+                const employee = empChild.val() as Record<string, unknown>;
+                if (employee.userId !== userId) return;
+                const run = async () => {
+                  let empData: Record<string, unknown> = { id: empChild.key, ...employee };
+                  if (sensitiveDataService.isInitialized()) {
+                    try {
+                      empData = (await sensitiveDataService.decryptEmployeeData(empData)) as Record<string, unknown>;
+                    } catch (err) {
+                      console.warn('[DSARService] Failed to decrypt employee data:', err);
                     }
-                    
-                    employeeRecords.push({
-                      id: empChild.key ?? '',
-                      companyId: compId,
-                      siteId,
-                      ...empData,
-                    });
                   }
-                });
-              }
+                  const { id: _empId, ...rest } = empData;
+                  employeeRecords.push({ id: empChild.key ?? '', companyId: compId, siteId, ...rest } as Record<string, unknown>);
+                };
+                promises.push(run());
+              });
+              await Promise.all(promises);
             }).catch(() => {});
           });
         }

@@ -503,27 +503,27 @@ const AddPurchase: React.FC = () => {
   // Group items by selected field
   const getGroupName = (item: PurchaseItem, field: string): string => {
     if (field === "supplierId") {
-      const supplier = suppliers.find((s) => s.id === item.supplierId)
-      return supplier ? supplier.name : "Unassigned"
+      const supplier = suppliers.find((s: { id?: unknown }) => s.id === item.supplierId) as { name?: string } | undefined
+      return supplier ? String(supplier.name ?? "Unassigned") : "Unassigned"
     }
     if (field === "salesDivisionId") {
-      const sd = salesDivisions.find((sd) => sd.id === item.salesDivisionId)
-      return sd ? sd.name : "Unassigned"
+      const sd = salesDivisions.find((s: { id?: unknown }) => s.id === item.salesDivisionId) as { name?: string } | undefined
+      return sd ? String(sd.name ?? "Unassigned") : "Unassigned"
     }
     if (field === "categoryId") {
-      const cat = categories.find((c) => c.id === item.categoryId)
-      return cat ? cat.name : "Unassigned"
+      const cat = categories.find((c: { id?: unknown }) => c.id === item.categoryId) as { name?: string } | undefined
+      return cat ? String(cat.name ?? "Unassigned") : "Unassigned"
     }
     if (field === "subcategoryId") {
-      const sub = subcategories.find((sc) => sc.id === item.subcategoryId)
-      return sub ? sub.name : "Unassigned"
+      const sub = subcategories.find((sc: { id?: unknown }) => sc.id === item.subcategoryId) as { name?: string } | undefined
+      return sub ? String(sub.name ?? "Unassigned") : "Unassigned"
     }
     if (field === "type") {
       return item.type || "Unassigned"
     }
     if (field === "itemID") {
-      const product = products.find((p) => p.id === item.itemID)
-      return product ? product.name : "Unassigned"
+      const product = products.find((p: { id?: string }) => p.id === item.itemID) as { name?: string } | undefined
+      return product ? String(product.name ?? "Unassigned") : "Unassigned"
     }
     return "Unassigned"
   }

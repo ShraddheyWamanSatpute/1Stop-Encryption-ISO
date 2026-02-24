@@ -12,11 +12,14 @@ export interface ContextReadiness {
   companyReady: boolean
 }
 
+/** State shape used by readiness checks (allows typed context state) */
+type SettingsStateLike = Record<string, unknown> | { auth?: unknown; loading?: boolean; user?: unknown }
+
 /**
  * Check if Settings context is ready
  * OPTIMIZED: Allow rendering with cached data for faster initial load
  */
-export const isSettingsReady = (settingsState: Record<string, unknown>): boolean => {
+export const isSettingsReady = (settingsState?: SettingsStateLike): boolean => {
   // Settings is ready when:
   // 1. Auth is initialized (logged in or confirmed not logged in)
   // 2. Not currently loading OR we have cached user data (for instant UI)
@@ -34,7 +37,10 @@ export const isSettingsReady = (settingsState: Record<string, unknown>): boolean
  * Check if Company context is ready
  * OPTIMIZED: Allow rendering with cached companyID for faster initial load
  */
-export const isCompanyReady = (companyState: Record<string, unknown>, settingsState?: Record<string, unknown>): boolean => {
+export const isCompanyReady = (
+  companyState: Record<string, unknown> | { companyID?: string; loading?: boolean },
+  settingsState?: SettingsStateLike
+): boolean => {
   // Company is ready when:
   // 1. Not currently loading OR we have cached companyID (for instant UI)
   // 2. If user is logged in, companyID should be set (or confirmed not needed)
@@ -60,8 +66,8 @@ export const isCompanyReady = (companyState: Record<string, unknown>, settingsSt
  * Check if all dependencies are ready
  */
 export const areDependenciesReady = (
-  settingsState: Record<string, unknown>,
-  companyState: Record<string, unknown>
+  settingsState: SettingsStateLike,
+  companyState: Record<string, unknown> | { companyID?: string; loading?: boolean }
 ): boolean => {
   return isSettingsReady(settingsState) && isCompanyReady(companyState, settingsState)
 }
@@ -70,8 +76,8 @@ export const areDependenciesReady = (
  * Wait for dependencies with timeout
  */
 export const waitForDependencies = async (
-  settingsState: Record<string, unknown>,
-  companyState: Record<string, unknown>,
+  settingsState: SettingsStateLike,
+  companyState: Record<string, unknown> | { companyID?: string; loading?: boolean },
   timeout: number = 5000
 ): Promise<boolean> => {
   const startTime = Date.now()

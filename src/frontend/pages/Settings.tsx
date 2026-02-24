@@ -591,19 +591,21 @@ const Settings = () => {
     type: "email" | "push" | "sms",
     checked: boolean
   ) => {
-    setPreferencesForm((prev) => ({
-      ...prev,
-      notificationPreferences: {
-        ...prev.notificationPreferences,
-        [section]: {
-          ...prev.notificationPreferences[section as keyof typeof prev.notificationPreferences],
-          [category]: {
-            ...prev.notificationPreferences[section as keyof typeof prev.notificationPreferences][category],
-            [type]: checked,
+    setPreferencesForm((prev) => {
+      const prefs = prev.notificationPreferences as Record<string, Record<string, Record<string, boolean>>>
+      const sectionPrefs = prefs[section] ?? {}
+      const categoryPrefs = (sectionPrefs[category] as Record<string, boolean>) ?? {}
+      return {
+        ...prev,
+        notificationPreferences: {
+          ...prefs,
+          [section]: {
+            ...sectionPrefs,
+            [category]: { ...categoryPrefs, [type]: checked },
           },
-        },
-      },
-    }))
+        } as typeof prev.notificationPreferences,
+      }
+    })
   }
 
   const handleLanguageChange = (event: SelectChangeEvent<string>) => {

@@ -135,6 +135,13 @@ interface CompanyState {
   dataManagement: DataManagementConfig
 }
 
+/** Context state view: adds derived selectedCompany/selectedSite/selectedCompanyID for component compatibility */
+export type CompanyStateView = CompanyState & {
+  selectedCompany: (Company & { id: string }) | null
+  selectedSite: { id: string; siteID: string; name: string } | null
+  selectedCompanyID: string
+}
+
 export type CompanyAction =
   | { type: "SET_LOADING"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null }
@@ -462,7 +469,7 @@ const companyReducer = (state: CompanyState, action: CompanyAction): CompanyStat
 }
 
 interface CompanyContextType {
-  state: CompanyState
+  state: CompanyStateView
   dispatch: React.Dispatch<CompanyAction>
   setCompanyID: (companyID: string | object) => void
   selectSite: (siteID: string, siteName: string) => void
@@ -583,7 +590,28 @@ export const CompanyProvider: React.FC<{ children: React.ReactNode }> = ({ child
   }
   
   const [state, dispatch] = useReducer(companyReducer, initialState)
-  
+
+  // Derived state for components that use selectedCompany/selectedSite/selectedCompanyID
+  const stateView: CompanyStateView = React.useMemo(() => {
+    const selectedCompany = state.company
+      ? { ...state.company, id: state.company.companyID }
+      : null
+    const selectedSite =
+      state.selectedSiteID != null
+        ? {
+            id: state.selectedSiteID,
+            siteID: state.selectedSiteID,
+            name: state.selectedSiteName ?? "",
+          }
+        : null
+    return {
+      ...state,
+      selectedCompany,
+      selectedSite,
+      selectedCompanyID: state.companyID,
+    }
+  }, [state])
+
   // Get user data from SettingsContext
   const { state: settingsState } = useSettings()
 
@@ -1938,7 +1966,7 @@ export const CompanyProvider: React.FC<{ children: React.ReactNode }> = ({ child
   return (
     <CompanyContext.Provider
       value={{
-        state,
+        state: stateView,
         dispatch,
         setCompanyID,
         selectSite,

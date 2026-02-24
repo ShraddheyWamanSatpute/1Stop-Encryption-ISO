@@ -442,10 +442,11 @@ const ParLevelsManagement: React.FC = () => {
         description: newProfileDescription.trim(),
         parType: "static",
         isDefault: newProfileIsDefault,
-        items: []
+        items: [],
+        parLevels: {}
       }
 
-      await saveParLevelProfile(newProfile)
+      await saveParLevelProfile(newProfile as import("../../../backend/interfaces/Stock").ParLevelProfileFromDB)
       showSnackbar("Profile created successfully", "success")
       
       // Reset form

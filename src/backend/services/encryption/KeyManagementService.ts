@@ -105,6 +105,7 @@ export class KeyManagementService {
 
     if (key) {
       this.keyCache.set(keyType, key)
+      this._keyMetadata.set(keyType, this._generateKeyMetadata(keyType, 'v1'))
     }
 
     return key

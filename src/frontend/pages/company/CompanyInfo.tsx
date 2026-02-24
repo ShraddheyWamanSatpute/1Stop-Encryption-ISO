@@ -77,28 +77,14 @@ const CompanyInfo: React.FC = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false)
   // Additional company info fields
   const [description, setDescription] = useState("")
-  const [originalSetup, setOriginalSetup] = useState<CompanySetup>({
+  const defaultCompanySetup = (): CompanySetup => ({
     id: "",
     name: "",
     legalName: "",
-    address: {
-      street: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      country: "",
-    },
-    contact: {
-      email: "",
-      phone: "",
-      website: "",
-    },
-    business: {
-      taxId: "",
-      registrationNumber: "",
-      industry: "",
-      businessType: "",
-    },
+    companyType: "hospitality",
+    address: { street: "", city: "", state: "", zipCode: "", country: "" },
+    contact: { email: "", phone: "", website: "" },
+    business: { taxId: "", registrationNumber: "", industry: "", businessType: "" },
     settings: {
       currency: "USD",
       timezone: "UTC",
@@ -107,18 +93,12 @@ const CompanyInfo: React.FC = () => {
       enableNotifications: true,
       enableMultiLocation: false,
       workingDays: ["1", "2", "3", "4", "5"],
-      workingHours: {
-        start: "09:00",
-        end: "17:00",
-      },
+      workingHours: { start: "09:00", end: "17:00" },
     },
-    branding: {
-      logo: "",
-      primaryColor: "#1976d2",
-      secondaryColor: "#f50057",
-    },
+    branding: { logo: "", primaryColor: "#1976d2", secondaryColor: "#f50057" },
     createdAt: Date.now(),
   })
+  const [originalSetup, setOriginalSetup] = useState<CompanySetup>(defaultCompanySetup)
 
   // (moved below companySetup to avoid TDZ)
   const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: "success" | "error" }>({
@@ -128,48 +108,7 @@ const CompanyInfo: React.FC = () => {
   })
 
   // Initialize with empty strings for all text fields to ensure they're always controlled
-  const [companySetup, setCompanySetup] = useState<CompanySetup>({
-    id: "",
-    name: "",
-    legalName: "",
-    address: {
-      street: "",
-      city: "",
-      state: "",
-      zipCode: "",
-      country: "",
-    },
-    contact: {
-      email: "",
-      phone: "",
-      website: "",
-    },
-    business: {
-      taxId: "",
-      registrationNumber: "",
-      industry: "",
-      businessType: "",
-    },
-    settings: {
-      currency: "USD",
-      timezone: "UTC",
-      dateFormat: "MM/DD/YYYY",
-      fiscalYearStart: "01/01",
-      enableNotifications: true,
-      enableMultiLocation: false,
-      workingDays: ["1", "2", "3", "4", "5"],
-      workingHours: {
-        start: "09:00",
-        end: "17:00",
-      },
-    },
-    branding: {
-      logo: "",
-      primaryColor: "#1976d2",
-      secondaryColor: "#f50057",
-    },
-    createdAt: Date.now(),
-  })
+  const [companySetup, setCompanySetup] = useState<CompanySetup>(defaultCompanySetup)
 
   // Keep a clean snapshot for cancel when not editing
   useEffect(() => {
@@ -208,60 +147,39 @@ const CompanyInfo: React.FC = () => {
             // Create a deep copy of the current state to ensure we don't lose any values
             const currentState = JSON.parse(JSON.stringify(companySetup));
             
-            // Ensure all nested objects exist before setting state
-            const safeData = {
+            // Ensure all nested objects exist before setting state (merge defaults, current, then data)
+            const defaultAddress = { street: "", city: "", state: "", zipCode: "", country: "" }
+            const defaultContact = { email: "", phone: "", website: "" }
+            const defaultBusiness = { taxId: "", registrationNumber: "", industry: "", businessType: "" }
+            const defaultBranding = { logo: "", primaryColor: "#1976d2", secondaryColor: "#f50057" }
+            const defaultWorkingHours = { start: "09:00", end: "17:00" }
+            const defaultSettings = {
+              currency: "USD",
+              timezone: "UTC",
+              dateFormat: "MM/DD/YYYY",
+              fiscalYearStart: "01/01",
+              enableNotifications: true,
+              enableMultiLocation: false,
+              workingDays: ["1", "2", "3", "4", "5"],
+              workingHours: defaultWorkingHours,
+            }
+            const safeData: CompanySetup = {
               ...currentState,
               ...data,
-              // Always ensure these objects exist with default values
-              address: {
-                street: "",
-                city: "",
-                state: "",
-                zipCode: "",
-                country: "",
-                // Spread current values first, then data values to ensure we keep any existing values
-                ...(currentState.address || {}),
-                ...(data.address || {})
-              },
-              contact: {
-                email: "",
-                phone: "",
-                website: "",
-                ...(currentState.contact || {}),
-                ...(data.contact || {})
-              },
-              business: {
-                taxId: "",
-                registrationNumber: "",
-                industry: "",
-                businessType: "",
-                ...(currentState.business || {}),
-                ...(data.business || {})
-              },
-              branding: {
-                logo: "",
-                primaryColor: "#1976d2",
-                secondaryColor: "#f50057",
-                ...(currentState.branding || {}),
-                ...(data.branding || {})
-              },
+              address: { ...defaultAddress, ...(currentState.address || {}), ...(data.address || {}) },
+              contact: { ...defaultContact, ...(currentState.contact || {}), ...(data.contact || {}) },
+              business: { ...defaultBusiness, ...(currentState.business || {}), ...(data.business || {}) },
+              branding: { ...defaultBranding, ...(currentState.branding || {}), ...(data.branding || {}) },
               settings: {
-                currency: "USD",
-                timezone: "UTC",
-                dateFormat: "MM/DD/YYYY",
-                fiscalYearStart: "01/01",
-                enableNotifications: true,
-                enableMultiLocation: false,
-                workingDays: ["1", "2", "3", "4", "5"],
-                workingHours: {
-                  start: "09:00",
-                  end: "17:00",
-                  ...(currentState.settings?.workingHours || {}),
-                  ...(data.settings?.workingHours || {})
-                },
+                ...defaultSettings,
                 ...(currentState.settings || {}),
-                ...(data.settings || {})
-              }
+                ...(data.settings || {}),
+                workingHours: {
+                  ...defaultWorkingHours,
+                  ...(currentState.settings?.workingHours || {}),
+                  ...(data.settings?.workingHours || {}),
+                },
+              },
             }
             setCompanySetup(safeData)
             

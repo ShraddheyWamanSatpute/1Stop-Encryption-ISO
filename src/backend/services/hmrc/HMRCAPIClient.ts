@@ -131,6 +131,7 @@ function isRetryableError(error: unknown, httpStatus?: number, config: RetryConf
 
 export class HMRCAPIClient {
   private _authService: HMRCAuthService
+  get authService(): HMRCAuthService { return this._authService }
   private fraudPreventionService: FraudPreventionService
   private xmlGenerator: RTIXMLGenerator
   private retryConfig: RetryConfig
@@ -282,7 +283,7 @@ export class HMRCAPIClient {
         environment: hmrcSettings.hmrcEnvironment || 'sandbox',
         xmlPayload: xml,
         accessToken: hmrcSettings.hmrcAccessToken,
-        fraudPreventionHeaders: fraudHeaders as Record<string, string>,
+        fraudPreventionHeaders: fraudHeaders as unknown as Record<string, string>,
         firebaseIdToken,
       })
 
@@ -360,7 +361,7 @@ export class HMRCAPIClient {
         environment: hmrcSettings.hmrcEnvironment || 'sandbox',
         xmlPayload: xml,
         accessToken: hmrcSettings.hmrcAccessToken,
-        fraudPreventionHeaders: fraudHeaders as Record<string, string>,
+        fraudPreventionHeaders: fraudHeaders as unknown as Record<string, string>,
         firebaseIdToken,
       })
 
@@ -438,7 +439,7 @@ export class HMRCAPIClient {
         environment: hmrcSettings.hmrcEnvironment || 'sandbox',
         xmlPayload: xml,
         accessToken: hmrcSettings.hmrcAccessToken,
-        fraudPreventionHeaders: fraudHeaders as Record<string, string>,
+        fraudPreventionHeaders: fraudHeaders as unknown as Record<string, string>,
         firebaseIdToken,
       })
 

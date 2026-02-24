@@ -75,13 +75,14 @@ import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import { CalendarIcon, Clock, CreditCard, Loader2, Users, CheckCircle, ArrowRight, ArrowLeft, MapPin, Phone, Mail, MessageSquare, User } from 'lucide-react';
 import { useAuth } from '@/hooks/use-auth';
+import { useCustomerAuth } from '@/hooks/use-customer-auth';
 import { Link } from 'react-router-dom';
 
 const bookingFinderSchema = z.object({
   partySize: z
     .string()
     .min(1, { message: 'Please select the number of guests.' }),
-  date: z.date({ required_error: 'A date is required.' }),
+  date: z.date({ message: 'A date is required.' }),
   time: z.string().min(1, { message: 'Please select a time.' }),
 });
 

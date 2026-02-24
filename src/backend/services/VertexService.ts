@@ -36,12 +36,13 @@ function buildSystemPreface(systemContext?: string, structuredData?: unknown): s
     let contextInfo = '';
     if (hasContext && (structuredData as Record<string, unknown>).context) {
       const ctx = (structuredData as { context?: Record<string, unknown> }).context;
+      const c = ctx ?? {};
       contextInfo = `
 CURRENT BUSINESS CONTEXT:
-- Company: ${ctx.companyName || 'Unknown'} (ID: ${ctx.companyId || 'N/A'})
-- Site: ${ctx.siteName || 'No Site Selected'} (ID: ${ctx.siteId || 'N/A'})
-- Subsite: ${ctx.subsiteName || 'No Subsite Selected'} (ID: ${ctx.subsiteId || 'N/A'})
-- User: ${ctx.userName || 'Unknown User'} (${ctx.userEmail || 'No Email'})
+- Company: ${(c as Record<string, unknown>).companyName || 'Unknown'} (ID: ${(c as Record<string, unknown>).companyId || 'N/A'})
+- Site: ${(c as Record<string, unknown>).siteName || 'No Site Selected'} (ID: ${(c as Record<string, unknown>).siteId || 'N/A'})
+- Subsite: ${(c as Record<string, unknown>).subsiteName || 'No Subsite Selected'} (ID: ${(c as Record<string, unknown>).subsiteId || 'N/A'})
+- User: ${(c as Record<string, unknown>).userName || 'Unknown User'} (${(c as Record<string, unknown>).userEmail || 'No Email'})
 - Data Scope: ${((structuredData as { metadata?: { dataScope?: string } }).metadata?.dataScope) || 'Unknown'} level analysis
 - Hierarchy Level: ${((structuredData as { metadata?: { hierarchyLevel?: string } }).metadata?.hierarchyLevel) || 'Unknown'}`;
     }
@@ -49,12 +50,15 @@ CURRENT BUSINESS CONTEXT:
     // Extract organizational structure if available
     let orgInfo = '';
     if (hasOrgStructure && (structuredData as Record<string, unknown>).organizationStructure) {
-      const org = (structuredData as { organizationStructure?: Record<string, unknown> }).organizationStructure;
+      const org = (structuredData as { organizationStructure?: Record<string, unknown> }).organizationStructure as Record<string, unknown> | undefined;
+      const allSites = org?.allSites as unknown[] | undefined;
+      const site = org?.site as { description?: string } | undefined;
+      const subsite = org?.subsite as { name?: string } | undefined;
       orgInfo = `
 ORGANIZATIONAL STRUCTURE:
-- Total Sites: ${org.allSites?.length || 0}
-- Current Site Location: ${org.site?.description || 'Not specified'}
-- Current Subsite: ${org.subsite?.name || 'None selected'}
+- Total Sites: ${allSites?.length ?? 0}
+- Current Site Location: ${site?.description || 'Not specified'}
+- Current Subsite: ${subsite?.name || 'None selected'}
 - Available Modules: ${((structuredData as { metadata?: { modulesWithData?: string[] } }).metadata?.modulesWithData?.join(', ')) || 'None'}`;
     }
     
@@ -111,14 +115,14 @@ async function generateText(prompt: string, options?: GenerationOptions): Promis
     try {
       const model = getModel(m)
       const response = await model.generateContent({
-        contents: [{ role: 'user', parts: [{ text: prompt }]}],
+        contents: [{ role: 'user' as const, parts: [{ text: prompt }]}],
         generationConfig: {
           temperature: options?.temperature ?? defaultGenOptions.temperature,
           maxOutputTokens: options?.maxOutputTokens ?? defaultGenOptions.maxOutputTokens,
           topP: options?.topP ?? defaultGenOptions.topP,
           topK: options?.topK ?? defaultGenOptions.topK,
         },
-      } as { contents: Array<{ role: string; parts: Array<{ text: string }> }>; generationConfig: Record<string, unknown> })
+      })
       const text = response.response?.text?.()
       if (text && String(text).trim().length > 0) return text
     } catch (e) {

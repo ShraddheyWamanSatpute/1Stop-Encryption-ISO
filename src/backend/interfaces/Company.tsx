@@ -257,14 +257,31 @@ export interface ChecklistSection {
   order: number
 }
 
+/** Validation rules for checklist items */
+export interface ChecklistItemValidation {
+  requireExplanationWhenNo?: boolean
+  requireExplanationWhenOutOfRange?: boolean
+}
+
+/** Options for number/text checklist items (min, max, thresholds, unit, etc.) */
+export interface ChecklistItemOptions {
+  minValue?: number
+  maxValue?: number
+  criticalThreshold?: number
+  warningThreshold?: number
+  unit?: string
+  multiline?: boolean
+  placeholder?: string
+}
+
 export interface ChecklistItem {
-  validation?: unknown
+  validation?: ChecklistItemValidation
   id: string
   title: string
   description?: string
   type: "checkbox" | "text" | "number" | "date" | "file" | "signature" | "multiple_entry" | "yesno" | "photo"
   required: boolean
-  options?: unknown
+  options?: ChecklistItemOptions
 }
 
 export interface EntryField {
@@ -288,6 +305,8 @@ export interface ItemResponse {
 
 export interface MultipleEntryResponse {
   id: string
+  timestamp?: number
+  fields?: Record<string, unknown>
   [key: string]: unknown
 }
 

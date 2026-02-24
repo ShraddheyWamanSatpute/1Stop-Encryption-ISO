@@ -3,6 +3,8 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import {
   Box,
+  Button,
+  Checkbox,
   TextField,
   Grid,
   Typography,
@@ -20,9 +22,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  ListItemText,
 } from '@mui/material'
 import {
   Delete as DeleteIcon,
+  ExpandLess as ExpandLessIcon,
+  ExpandMore as ExpandMoreIcon,
 } from '@mui/icons-material'
 import { useStock } from '../../../../backend/context/StockContext'
 

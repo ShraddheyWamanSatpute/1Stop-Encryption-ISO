@@ -60,7 +60,7 @@ const BookingTypeForm: React.FC<BookingTypeFormProps> = ({
     const loadPreorderProfiles = async () => {
       try {
         const profiles = await fetchPreorderProfiles()
-        setPreorderProfiles(profiles || [])
+        setPreorderProfiles((profiles || []).map(p => ({ id: p.id ?? '', name: p.name ?? '' })))
       } catch (error) {
         console.error('Error loading preorder profiles:', error)
       }

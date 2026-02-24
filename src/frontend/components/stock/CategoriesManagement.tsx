@@ -67,12 +67,14 @@ const CategoriesManagement: React.FC = () => {
     return isActive !== false ? "#4caf50" : "#9e9e9e"
   }
 
+  // Combined option type so all items have optional name, description, id, color, active
+  type CategoryOption = { kind: 'SaleDivision' | 'Category' | 'Subcategory'; name?: string; description?: string; id?: string; color?: string; active?: boolean }
   // Combine all category types (sales divisions, categories, subcategories)
-  const allCategoryTypes = useMemo(() => {
-    const combined = [
-      ...(salesDivisions || []).map(item => ({ ...item, kind: 'SaleDivision' as const })),
-      ...(categories || []).map(item => ({ ...item, kind: 'Category' as const })),
-      ...(subcategories || []).map(item => ({ ...item, kind: 'Subcategory' as const }))
+  const allCategoryTypes = useMemo((): CategoryOption[] => {
+    const combined: CategoryOption[] = [
+      ...(salesDivisions || []).map((item: Record<string, unknown>) => ({ ...item, kind: 'SaleDivision' as const } as CategoryOption)),
+      ...(categories || []).map((item: Record<string, unknown>) => ({ ...item, kind: 'Category' as const } as CategoryOption)),
+      ...(subcategories || []).map((item: Record<string, unknown>) => ({ ...item, kind: 'Subcategory' as const } as CategoryOption))
     ]
     return combined
   }, [salesDivisions, categories, subcategories, dataVersion])
@@ -303,7 +305,7 @@ const CategoriesManagement: React.FC = () => {
                     color="error"
                     onClick={(e) => {
                       e.stopPropagation()
-                      handleDeleteCategory(category.id)
+                      if (category.id) handleDeleteCategory(category.id)
                     }}
                     sx={{ 
                       width: 28, 

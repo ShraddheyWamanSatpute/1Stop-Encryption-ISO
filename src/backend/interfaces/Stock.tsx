@@ -257,6 +257,12 @@ export interface Measure {
   conversionFactor?: number
   active?: boolean
   isDefault?: boolean
+  /** Display unit (e.g. "g", "kg", "ml"); used in par levels and conversions */
+  unit?: string
+  /** Base quantity for conversion (e.g. 1 kg = 1000 g) */
+  quantity?: number | string
+  /** Total quantity (used by some helpers) */
+  totalQuantity?: number
 }
 
 

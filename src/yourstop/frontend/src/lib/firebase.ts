@@ -87,8 +87,8 @@ const appleProvider = new OAuthProvider('apple.com');
 googleProvider.addScope('email');
 googleProvider.addScope('profile');
 googleProvider.setCustomParameters({
-  'hd': undefined // Allow any domain
-});
+  'hd': '', // Allow any domain
+} as Record<string, string>);
 facebookProvider.addScope('email');
 appleProvider.addScope('email');
 appleProvider.addScope('name');

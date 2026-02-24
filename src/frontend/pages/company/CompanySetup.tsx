@@ -102,6 +102,7 @@ const CompanySetup = () => {
   })
 
   const [companyData, setCompanyData] = useState<Omit<CompanySetupType, "id">>({
+    companyType: "hospitality",
     name: "",
     legalName: "",
     address: {

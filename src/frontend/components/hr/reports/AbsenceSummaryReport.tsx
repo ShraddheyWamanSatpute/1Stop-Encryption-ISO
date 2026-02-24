@@ -208,7 +208,7 @@ const AbsenceSummaryReport: React.FC = () => {
       
       if (absence.status === "approved") groups[key].approved += 1
       if (absence.status === "pending") groups[key].pending += 1
-      if (absence.status === "rejected") groups[key].rejected += 1
+      if (safeString(absence.status) === "rejected") groups[key].rejected += 1
     })
 
     return Object.values(groups).sort((a: GroupedDataItem, b: GroupedDataItem) => b.days - a.days)
@@ -445,7 +445,7 @@ const AbsenceSummaryReport: React.FC = () => {
                     <Chip 
                       label={absence.status || "pending"} 
                       size="small" 
-                      color={absence.status === "approved" ? "success" : absence.status === "rejected" ? "error" : "warning"}
+                      color={absence.status === "approved" ? "success" : safeString(absence.status) === "rejected" ? "error" : "warning"}
                     />
                   </TableCell>
                 </TableRow>

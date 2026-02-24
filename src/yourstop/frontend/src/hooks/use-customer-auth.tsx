@@ -130,7 +130,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     try {
       const validation = validateLogin(data);
       if (!validation.success) {
-        const error = validation.error.errors[0]?.message || 'Invalid input';
+        const error = (validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? 'Invalid input';
         return { success: false, error };
       }
 
@@ -168,7 +168,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     try {
       const validation = validateSignup(data);
       if (!validation.success) {
-        const error = validation.error.errors[0]?.message || 'Invalid input';
+        const error = (validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? 'Invalid input';
         return { success: false, error };
       }
 
@@ -211,7 +211,7 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
     try {
       const validation = validatePasswordReset(data);
       if (!validation.success) {
-        const error = validation.error.errors[0]?.message || 'Invalid input';
+        const error = (validation.error as { issues?: { message?: string }[] }).issues?.[0]?.message ?? (validation.error as { errors?: { message?: string }[] }).errors?.[0]?.message ?? 'Invalid input';
         return { success: false, error };
       }
 

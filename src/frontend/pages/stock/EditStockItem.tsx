@@ -134,8 +134,8 @@ const EditStockItem: React.FC = () => {
     const firstMeasure = measures.find((m) => m.id === firstUnitMeasureId)
     if (!firstMeasure) return measures // If measure not found, show all
     
-    const conversionGroup = getConversionGroup(firstMeasure.unit)
-    const compatibleMeasures = measures.filter((m) => getConversionGroup(m.unit) === conversionGroup)
+    const conversionGroup = getConversionGroup(firstMeasure.unit ?? "")
+    const compatibleMeasures = measures.filter((m) => getConversionGroup(m.unit ?? "") === conversionGroup)
     
     // Always return at least the current unit's measure if it exists
     return compatibleMeasures.length > 0 ? compatibleMeasures : measures
@@ -162,8 +162,8 @@ const EditStockItem: React.FC = () => {
     const firstMeasure = measures.find((m) => m.id === firstUnitMeasureId)
     if (!firstMeasure) return measures // If measure not found, show all
     
-    const conversionGroup = getConversionGroup(firstMeasure.unit)
-    const compatibleMeasures = measures.filter((m) => getConversionGroup(m.unit) === conversionGroup)
+    const conversionGroup = getConversionGroup(firstMeasure.unit ?? "")
+    const compatibleMeasures = measures.filter((m) => getConversionGroup(m.unit ?? "") === conversionGroup)
     
     // Always return at least the current unit's measure if it exists
     return compatibleMeasures.length > 0 ? compatibleMeasures : measures
@@ -174,7 +174,7 @@ const EditStockItem: React.FC = () => {
     if (!measure) return ""
 
     // Normalize units to base units
-    const unit = measure.unit.toLowerCase()
+    const unit = (measure.unit ?? "").toLowerCase()
     if (unit === "kg") return "g"
     if (unit === "l") return "ml"
     return unit
@@ -368,7 +368,7 @@ const EditStockItem: React.FC = () => {
   useEffect(() => {
     if (product.finalMeasure) {
       contextFetchMeasureData(product.finalMeasure)
-        .then((conv) => setFinalMeasureUnit(conv.unit))
+        .then((conv) => setFinalMeasureUnit(conv?.unit ?? ""))
         .catch((error) => console.error("Final measure fetch error:", error))
     }
   }, [product.finalMeasure])
@@ -383,12 +383,12 @@ const EditStockItem: React.FC = () => {
       (async () => {
         try {
           const finalConv = await contextFetchMeasureData(product.finalMeasure!)
-          const finalBase = finalQuantity * finalConv.totalQuantity
+          const finalBase = finalQuantity * (finalConv?.totalQuantity ?? 1)
           let totalIngredientsBase = 0
           for (const ing of product.ingredients!) {
             if (ing.measure) {
               const conv = await contextFetchMeasureData(ing.measure!)
-              totalIngredientsBase += conv.totalQuantity * Number(ing.quantity)
+              totalIngredientsBase += (conv?.totalQuantity ?? 1) * Number(ing.quantity)
             }
           }
           const newYield = totalIngredientsBase ? finalBase / totalIngredientsBase : 0
@@ -622,10 +622,10 @@ const EditStockItem: React.FC = () => {
       )
 
       // Calculate cost per base unit for purchase
-      const purchaseCostPerBaseUnit = defaultPurchaseUnit.price / purchaseMeasureData.totalQuantity
+      const purchaseCostPerBaseUnit = defaultPurchaseUnit.price / (purchaseMeasureData?.totalQuantity ?? 1)
 
       // Calculate price per base unit for sales
-      const salesPricePerBaseUnit = defaultSalesUnit.price / salesMeasureData.totalQuantity
+      const salesPricePerBaseUnit = defaultSalesUnit.price / (salesMeasureData?.totalQuantity ?? 1)
 
       // Return profit per base unit
       return salesPricePerBaseUnit - purchaseCostPerBaseUnit
@@ -653,10 +653,10 @@ const EditStockItem: React.FC = () => {
       )
 
       // Calculate cost per base unit for purchase
-      const purchaseCostPerBaseUnit = defaultPurchaseUnit.price / purchaseMeasureData.totalQuantity
+      const purchaseCostPerBaseUnit = defaultPurchaseUnit.price / (purchaseMeasureData?.totalQuantity ?? 1)
 
       // Calculate price per base unit for sales
-      const salesPricePerBaseUnit = defaultSalesUnit.price / salesMeasureData.totalQuantity
+      const salesPricePerBaseUnit = defaultSalesUnit.price / (salesMeasureData?.totalQuantity ?? 1)
 
       if (salesPricePerBaseUnit === 0) return 0
 
@@ -673,7 +673,7 @@ const EditStockItem: React.FC = () => {
 
     try {
       const measureData = await contextFetchMeasureData(defaultPurchaseUnit.measure)
-      return defaultPurchaseUnit.price / measureData.totalQuantity
+      return defaultPurchaseUnit.price / (measureData?.totalQuantity ?? 1)
     } catch (error) {
       console.error("Error calculating cost per base unit:", error)
       return 0
@@ -947,12 +947,12 @@ const EditStockItem: React.FC = () => {
                   <Grid item xs={12} md={4}>
                     <Autocomplete
                       options={salesDivisions}
-                      getOptionLabel={(option: any) => option.name || ""}
-                      value={salesDivisions.find((sd) => sd.id === product.salesDivisionId) || null}
-                      onChange={(_, newValue) => {
+                      getOptionLabel={(option: { id?: string; name?: string }) => option.name || ""}
+                      value={salesDivisions.find((sd: { id?: string }) => sd.id === product.salesDivisionId) || null}
+                      onChange={(_, newValue: { id?: string; name?: string } | null) => {
                         setProduct({
                           ...product,
-                          salesDivisionId: newValue?.id || "",
+                          salesDivisionId: newValue?.id ?? "",
                           // Clear category and subcategory if sales division changes
                           categoryId: "",
                           subcategoryId: "",
@@ -965,16 +965,16 @@ const EditStockItem: React.FC = () => {
                   <Grid item xs={12} md={4}>
                     <Autocomplete
                       options={filteredCategories}
-                      getOptionLabel={(option: any) => option.name || ""}
-                      value={categories.find((c) => c.id === product.categoryId) || null}
-                      onChange={(_, newValue) => {
+                      getOptionLabel={(option: { id?: string; name?: string; parentDivisionId?: string }) => option.name || ""}
+                      value={categories.find((c: { id?: string }) => c.id === product.categoryId) || null}
+                      onChange={(_, newValue: { id?: string; parentDivisionId?: string } | null) => {
                         setProduct({
                           ...product,
-                          categoryId: newValue?.id || "",
+                          categoryId: newValue?.id ?? "",
                           // Clear subcategory if category changes
                           subcategoryId: "",
                           // Auto-fill sales division if available
-                          salesDivisionId: newValue?.parentDivisionId || product.salesDivisionId,
+                          salesDivisionId: newValue?.parentDivisionId ?? product.salesDivisionId,
                         })
                       }}
                       renderInput={(params) => <TextField {...params} label="Category" fullWidth />}
@@ -984,19 +984,19 @@ const EditStockItem: React.FC = () => {
                   <Grid item xs={12} md={4}>
                     <Autocomplete
                       options={subcategories}
-                      getOptionLabel={(option: any) => option.name || ""}
-                      value={subcategories.find((sc) => sc.id === product.subcategoryId) || null}
-                      onChange={(_, newValue) => {
+                      getOptionLabel={(option: { id?: string; name?: string; parentCategoryId?: string }) => option.name || ""}
+                      value={subcategories.find((sc: { id?: string }) => sc.id === product.subcategoryId) || null}
+                      onChange={(_, newValue: { id?: string; parentCategoryId?: string } | null) => {
                         // Find the parent category
-                        const parentCategory = categories.find((c) => c.id === newValue?.parentCategoryId)
+                        const parentCategory = categories.find((c: { id?: string; parentDivisionId?: string }) => c.id === newValue?.parentCategoryId)
 
                         setProduct({
                           ...product,
-                          subcategoryId: newValue?.id || "",
+                          subcategoryId: newValue?.id ?? "",
                           // Auto-fill category if available
-                          categoryId: newValue?.parentCategoryId || product.categoryId,
+                          categoryId: newValue?.parentCategoryId ?? product.categoryId,
                           // Auto-fill sales division if available
-                          salesDivisionId: parentCategory?.parentDivisionId || product.salesDivisionId,
+                          salesDivisionId: (parentCategory?.parentDivisionId ?? product.salesDivisionId) as string,
                         })
                       }}
                       renderInput={(params) => <TextField {...params} label="Subcategory" fullWidth />}

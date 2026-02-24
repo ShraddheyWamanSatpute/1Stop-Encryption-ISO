@@ -585,7 +585,7 @@ const HR = () => {
       component: <ScheduleManager 
         dateRange={dateRange} 
         bookingsData={bookings} 
-        businessHours={bookingSettings?.businessHours} 
+        businessHours={bookingSettings?.businessHours as Record<string, unknown> | undefined} 
       />,
       permission: hasPermission("hr", "scheduling", "view"),
       subTabs: [
@@ -595,7 +595,7 @@ const HR = () => {
           component: <ScheduleManager 
             dateRange={dateRange} 
             bookingsData={bookings} 
-            businessHours={bookingSettings?.businessHours} 
+            businessHours={bookingSettings?.businessHours as Record<string, unknown> | undefined} 
           />,
           permission: hasPermission("hr", "scheduling", "view"),
         },

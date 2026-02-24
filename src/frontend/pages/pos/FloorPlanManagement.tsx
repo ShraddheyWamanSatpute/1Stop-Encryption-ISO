@@ -280,12 +280,13 @@ const FloorPlanManagement: React.FC = () => {
       
       // If no form data from window, try to get it from selected floor plan
       if (!floorPlanData && selectedFloorPlanForForm) {
+        const layout = selectedFloorPlanForForm.layout
         floorPlanData = {
           name: selectedFloorPlanForForm.name,
           description: selectedFloorPlanForForm.description || '',
-          width: selectedFloorPlanForForm.width || selectedFloorPlanForForm.layout?.width || 1000,
-          height: selectedFloorPlanForForm.height || selectedFloorPlanForForm.layout?.height || 800,
-          tables: selectedFloorPlanForForm.tables || selectedFloorPlanForForm.layout?.tables || [],
+          width: layout?.width ?? 1000,
+          height: layout?.height ?? 800,
+          tables: layout?.tables ?? [],
           isDefault: selectedFloorPlanForForm.isDefault || false
         }
       }
@@ -317,10 +318,10 @@ const FloorPlanManagement: React.FC = () => {
           name: floorPlanData.name,
           description: floorPlanData.description || selectedFloorPlanForForm.description || '',
           layout: {
-            width: floorPlanData.width || existingLayout.width || selectedFloorPlanForForm.width || 1000,
-            height: floorPlanData.height || existingLayout.height || selectedFloorPlanForForm.height || 800,
+            width: floorPlanData.width ?? existingLayout.width ?? 1000,
+            height: floorPlanData.height ?? existingLayout.height ?? 800,
             obstacles: existingLayout.obstacles || [],
-            tables: floorPlanData.tables || existingLayout.tables || selectedFloorPlanForForm.tables || []
+            tables: floorPlanData.tables ?? existingLayout.tables ?? []
           },
           isActive: selectedFloorPlanForForm.isActive !== false,
           isDefault: floorPlanData.isDefault !== undefined ? floorPlanData.isDefault : selectedFloorPlanForForm.isDefault || false

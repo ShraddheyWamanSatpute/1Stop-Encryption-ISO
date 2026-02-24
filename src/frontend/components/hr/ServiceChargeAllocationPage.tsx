@@ -66,7 +66,14 @@ import type {
   ServiceChargeRoleRule,
   Employee,
   Schedule,
+  Role,
 } from '../../../backend/interfaces/HRs'
+
+/** Normalize Employee.role (Role | string) to string for allocation/display */
+function roleToString(role: Role | string | undefined): string {
+  if (role == null) return ''
+  return typeof role === 'string' ? role : (role.name ?? role.id ?? '')
+}
 import { ref, get, set, update } from 'firebase/database'
 import { db } from '../../../backend/services/Firebase'
 
@@ -231,8 +238,9 @@ const ServiceChargeAllocationPage: React.FC = () => {
     // Step 1: Apply role-based allocations
     if (allocationForm.allocationMethod === "role_based" && allocationForm.roleBasedRules.length > 0) {
       hrState.employees?.forEach((employee: Employee) => {
+        const employeeRoleStr = roleToString(employee.role)
         const rule = allocationForm.roleBasedRules.find(
-          r => r.role === employee.role && (!r.department || r.department === employee.department)
+          r => r.role === employeeRoleStr && (!r.department || r.department === employee.department)
         )
         
         if (rule) {
@@ -260,7 +268,7 @@ const ServiceChargeAllocationPage: React.FC = () => {
               employeeId: employee.id,
               employeeName: `${employee.firstName} ${employee.lastName}`,
               department: employee.department || '',
-              role: employee.role || '',
+              role: employeeRoleStr,
               allocatedAmount,
               baseSalary: 0,
               grossPay: 0,
@@ -285,8 +293,8 @@ const ServiceChargeAllocationPage: React.FC = () => {
             employeeId: employee.id,
             employeeName: `${employee.firstName} ${employee.lastName}`,
             department: employee.department || '',
-            role: employee.role || '',
-            allocatedAmount: allocationForm.flatRateAmount,
+              role: roleToString(employee.role),
+              allocatedAmount: allocationForm.flatRateAmount,
             baseSalary: 0,
             grossPay: 0,
             deductions: { tax: 0, nationalInsurance: 0, pension: 0, insurance: 0, other: 0 },
@@ -343,7 +351,7 @@ const ServiceChargeAllocationPage: React.FC = () => {
               employeeId: employee.id,
               employeeName: `${employee.firstName} ${employee.lastName}`,
               department: employee.department || '',
-              role: employee.role || '',
+              role: roleToString(employee.role),
               allocatedAmount,
               baseSalary: 0,
               grossPay: 0,
@@ -457,7 +465,8 @@ const ServiceChargeAllocationPage: React.FC = () => {
   const availableRoles = useMemo(() => {
     const roles = new Set<string>()
     hrState.employees?.forEach((emp: Employee) => {
-      if (emp.role) roles.add(emp.role)
+      const r = roleToString(emp.role)
+      if (r) roles.add(r)
     })
     return Array.from(roles)
   }, [hrState.employees])

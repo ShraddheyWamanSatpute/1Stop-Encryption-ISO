@@ -267,7 +267,7 @@ const EmployeeList: React.FC = () => {
       const employeeWithRole = employee as Employee & { roleID?: string; departmentID?: string; isActive?: boolean }
       const employeeRoleId = employeeWithRole.roleID || employee.roleId || employee.role
       const matchesRole = filterRole.length === 0 || 
-        (employeeRoleId && filterRole.includes(employeeRoleId))
+        (employeeRoleId != null && filterRole.includes(String(employeeRoleId)))
       
       // Status filter - be more lenient, include employees without status if no filter applied
       // Default to "active" if status is missing and isActive is true
@@ -513,7 +513,7 @@ const EmployeeList: React.FC = () => {
   const handleSaveEmployeeCRUD = useCallback(async (employeeData: Omit<Employee, "id"> | Partial<Employee>) => {
     try {
       if (crudMode === 'create') {
-        await addEmployee(employeeData)
+        await addEmployee(employeeData as Omit<Employee, "id">)
         setNotification({
           open: true,
           message: "Employee created successfully!",
@@ -1348,7 +1348,7 @@ const EmployeeList: React.FC = () => {
         }
         mode={crudMode}
         maxWidth="lg"
-        onSave={crudMode !== 'view' ? handleSaveEmployeeCRUD : undefined}
+        onSave={crudMode !== 'view' ? (data: unknown) => handleSaveEmployeeCRUD(data as Omit<Employee, "id"> | Partial<Employee>) : undefined}
         cancelButtonText={crudMode === 'create' ? undefined : 'Cancel'}
         formRef={employeeFormRef}
       >

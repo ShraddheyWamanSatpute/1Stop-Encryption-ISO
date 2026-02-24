@@ -95,7 +95,7 @@ const columns: Column[] = [
     filterable: false,
     minWidth: 150,
     align: "right",
-    format: (value: number) => `£${value.toFixed(2)}`,
+    format: (value: unknown) => `£${Number(value).toFixed(2)}`,
   },
   {
     id: "costPerUnit",
@@ -105,7 +105,7 @@ const columns: Column[] = [
     filterable: false,
     minWidth: 120,
     align: "right",
-    format: (value: number) => `£${value.toFixed(2)}`,
+    format: (value: unknown) => `£${Number(value).toFixed(2)}`,
   },
   { id: "purchaseSupplier", label: "Purchase Supplier", visible: false, sortable: true, filterable: false, minWidth: 140 },
   { id: "purchaseMeasure", label: "Purchase Measure", visible: false, sortable: true, filterable: false, minWidth: 140 },
@@ -119,7 +119,7 @@ const columns: Column[] = [
     filterable: false,
     minWidth: 140,
     align: "right",
-    format: (value: number) => `£${value.toFixed(2)}`,
+    format: (value: unknown) => `£${Number(value).toFixed(2)}`,
   },
   {
     id: "profit",
@@ -129,7 +129,7 @@ const columns: Column[] = [
     filterable: false,
     minWidth: 100,
     align: "right",
-    format: (value: number) => `£${value.toFixed(2)}`,
+    format: (value: unknown) => `£${Number(value).toFixed(2)}`,
   },
   { id: "salesMeasure", label: "Sales Measure", visible: false, sortable: true, filterable: false, minWidth: 120 },
 ]
@@ -295,7 +295,8 @@ const ParLevelsTable: React.FC = (): ReactElement => {
     
     try {
       const measureData = await contextFetchMeasureData(measureId)
-      return quantity * measureData.totalQuantity
+      const totalQty = measureData?.totalQuantity ?? (measureData as { totalQuantity?: number })?.totalQuantity ?? 1
+      return quantity * totalQty
     } catch (error) {
       // Only warn in development mode
       if (process.env.NODE_ENV === 'development') {
@@ -568,16 +569,15 @@ const ParLevelsTable: React.FC = (): ReactElement => {
           let purchaseBaseQuantity = 0
 
           for (const purchase of productPurchases) {
-            if (purchase.items) {
-              for (const item of purchase.items) {
-                if (item.itemID === product.id) {
-                  totalPurchaseQuantity += item.quantity || 0
-                  totalPurchaseCost += item.totalPrice || 0
-
-                  // Convert to base units
-                  const baseQty = await convertToBaseUnits(item.quantity || 0, item.measureId)
-                  purchaseBaseQuantity += baseQty
-                }
+            const items = Array.isArray(purchase.items) ? purchase.items : []
+            for (const item of items) {
+              const it = item as { itemID?: string; quantity?: number; measureId?: string; totalPrice?: number }
+              if (it.itemID === product.id) {
+                const qty = Number(it.quantity) || 0
+                totalPurchaseQuantity += qty
+                totalPurchaseCost += Number(it.totalPrice) || 0
+                const baseQty = await convertToBaseUnits(qty, it.measureId ?? '')
+                purchaseBaseQuantity += baseQty
               }
             }
           }
@@ -589,11 +589,10 @@ const ParLevelsTable: React.FC = (): ReactElement => {
           let salesBaseQuantity = 0
 
           for (const sale of productSales) {
-            totalSoldQuantity += sale.quantity || 0
-            totalSoldValue += sale.salePrice || 0
-
-            // Convert to base units
-            const baseQty = await convertToBaseUnits(sale.quantity || 0, sale.measureId)
+            const s = sale as { quantity?: number; salePrice?: number; measureId?: string }
+            totalSoldQuantity += Number(s.quantity) || 0
+            totalSoldValue += Number(s.salePrice) || 0
+            const baseQty = await convertToBaseUnits(Number(s.quantity) || 0, s.measureId ?? '')
             salesBaseQuantity += baseQty
           }
 
@@ -661,9 +660,9 @@ const ParLevelsTable: React.FC = (): ReactElement => {
           parLevelRows.push({
             productId: product.id,
             productName: product.name || "Unknown Product",
-            category: categoryName,
-            subcategory: subcategoryName,
-            salesDivision: salesDivisionName,
+            category: String(categoryName ?? ""),
+            subcategory: String(subcategoryName ?? ""),
+            salesDivision: String(salesDivisionName ?? ""),
             type: product.type || "Unknown",
 
             // Stock data with units
@@ -678,7 +677,7 @@ const ParLevelsTable: React.FC = (): ReactElement => {
             totalPurchaseQuantityValue: totalPurchaseQuantity,
             totalPurchaseCost: totalPurchaseCost,
             purchaseSupplier: "", // TODO: Get supplier name if needed
-            purchaseMeasure: purchaseMeasure?.name || "",
+            purchaseMeasure: (purchaseMeasure?.name != null ? String(purchaseMeasure.name) : "") as string,
 
             // Sales data
             salesBaseQuantity: salesBaseQuantity.toString(),
@@ -686,7 +685,7 @@ const ParLevelsTable: React.FC = (): ReactElement => {
             totalSoldQuantity: totalSoldQuantity.toString(),
             totalSoldQuantityValue: totalSoldQuantity,
             totalSoldValue: totalSoldValue,
-            salesMeasure: salesMeasure?.name || "",
+            salesMeasure: (salesMeasure?.name != null ? String(salesMeasure.name) : "") as string,
 
             // Par level data
             parLevel: parLevelValue,
@@ -699,7 +698,7 @@ const ParLevelsTable: React.FC = (): ReactElement => {
             // Order quantity data
             orderQuantity: orderQuantityInMeasure,
             orderQuantityWithUnit: orderQuantityInMeasure > 0 ? `${orderQuantityInMeasure.toFixed(2)} ${primaryMeasure?.name || "unit"}` : "0",
-            orderQuantityBaseUnit: primaryMeasure?.unit || "unit",
+            orderQuantityBaseUnit: (primaryMeasure && 'unit' in primaryMeasure ? primaryMeasure.unit : undefined) || "unit",
             orderQuantityBaseValue: orderQuantityBase,
 
             // Required properties for ParLevelRow interface
@@ -1120,7 +1119,8 @@ const ParLevelsTable: React.FC = (): ReactElement => {
 
   const handleSaveParLevel = async (parLevelData: UIParLevelProfile) => {
     try {
-      await contextSaveParLevelProfile(parLevelData)
+      const asProfile = parLevelData as unknown as ParLevelProfile
+      await contextSaveParLevelProfile(convertToBackendFormat(asProfile))
       showNotification('Par Level Profile saved successfully', 'success')
       handleCloseParLevelForm()
       // Refresh data
@@ -1739,7 +1739,7 @@ const ParLevelsTable: React.FC = (): ReactElement => {
         onClose={handleCloseParLevelForm}
         title={parLevelFormMode === 'create' ? 'Create Par Level Profile' : parLevelFormMode === 'edit' ? 'Edit Par Level Profile' : 'View Par Level Profile'}
         mode={parLevelFormMode}
-        onSave={handleSaveParLevel}
+        onSave={(data: unknown) => handleSaveParLevel(data as UIParLevelProfile)}
       >
         <ParLevelForm
           parLevel={selectedParLevelForForm}

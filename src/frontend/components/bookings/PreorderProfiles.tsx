@@ -3,7 +3,7 @@
 import type React from "react"
 import { useEffect, useState, useMemo } from "react"
 import { Box, Typography, Grid, Card, CardContent, IconButton, Alert, CircularProgress, Tooltip } from "@mui/material"
-import { Delete as DeleteIcon, Edit as EditIcon, Visibility as VisibilityIcon, Restaurant as RestaurantIcon } from "@mui/icons-material"
+import { Delete as DeleteIcon, Edit as EditIcon, Restaurant as RestaurantIcon } from "@mui/icons-material"
 import { useBookings as useBookingsContext } from "../../../backend/context/BookingsContext"
 import CRUDModal from "../reusable/CRUDModal"
 import PreorderProfileForm from "./forms/PreorderProfileForm"
