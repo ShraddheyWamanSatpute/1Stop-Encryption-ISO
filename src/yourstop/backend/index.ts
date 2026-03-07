@@ -11,6 +11,7 @@ import restaurantsRouter from './routes/restaurants';
 import bookingsRouter from './routes/bookings';
 import paymentsRouter from './routes/payments';
 import aiRouter from './routes/ai';
+import webhooksRouter from './routes/webhooks';
 
 // Load environment variables FIRST (before any imports that need them)
 dotenv.config();
@@ -47,7 +48,10 @@ const authLimiter = rateLimit({
 });
 app.use('/api/auth', authLimiter);
 
-// Body parsing middleware
+// Stripe webhooks need raw body for signature verification — mount before JSON parser
+app.use('/api/webhooks', express.raw({ type: 'application/json' }), webhooksRouter);
+
+// Body parsing middleware (all other routes use JSON)
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
