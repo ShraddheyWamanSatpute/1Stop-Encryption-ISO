@@ -273,8 +273,15 @@ class AuthService {
   private generateToken(userId: string): string {
     // Use RS256 algorithm with private key for signing
     const algorithm = this.JWT_PRIVATE_KEY.includes('BEGIN PRIVATE KEY') ? 'RS256' : 'HS256';
-    const signingKey = algorithm === 'RS256' ? this.JWT_PRIVATE_KEY : this.JWT_PRIVATE_KEY;
-    
+    const isProduction = process.env['NODE_ENV'] === 'production';
+    if (isProduction && algorithm !== 'RS256') {
+      throw new Error(
+        'RS256 is required in production. Set JWT_PRIVATE_KEY and JWT_PUBLIC_KEY (PEM format). ' +
+        'HS256 must not be used in production for compliance.'
+      );
+    }
+    const signingKey = this.JWT_PRIVATE_KEY;
+
     return jwt.sign(
       { userId },
       signingKey,

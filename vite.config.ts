@@ -5,8 +5,8 @@ import path from "path"
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
-    // Map process.env.NODE_ENV for backward compatibility
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || import.meta.env.MODE || 'development'),
+    // Map process.env.NODE_ENV for backward compatibility without relying on import.meta in Node context
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
   },
   plugins: [
     react(),
@@ -56,6 +56,8 @@ export default defineConfig({
       { find: "@", replacement: path.resolve(__dirname, "./src") },
       { find: "@frontend", replacement: path.resolve(__dirname, "./src/frontend") },
       { find: "@yourstop", replacement: path.resolve(__dirname, "./src/yourstop/frontend/src") },
+      // Force d3-array to use the bundled dist build to avoid missing src/* files
+      { find: "d3-array", replacement: path.resolve(__dirname, "./node_modules/d3-array/dist/d3-array.js") },
     ],
   },
   build: {

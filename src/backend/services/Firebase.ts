@@ -18,25 +18,36 @@ import { getAI, getGenerativeModel, VertexAIBackend } from 'firebase/ai';
 import { APP_KEYS } from '../../config/keys';
 const firebaseConfig = APP_KEYS.firebase;
 
-// Initialize Firebase - check if app already exists to prevent duplicate initialization
-const app = !getApps().length ? initializeApp(firebaseConfig as unknown as Record<string, unknown>) : getApp();
+// Only initialize when we have a non-empty API key and project ID (avoids auth/invalid-api-key white screen)
+const hasFirebaseConfig =
+  !!firebaseConfig?.apiKey?.trim() &&
+  !!firebaseConfig?.projectId?.trim();
 
-export const storage = getStorage(app);
-export const auth = getAuth(app);
-export const dbs = getFirestore(app);
+let app: ReturnType<typeof initializeApp> | ReturnType<typeof getApp> | null = null;
+if (hasFirebaseConfig) {
+  try {
+    app = !getApps().length
+      ? initializeApp(firebaseConfig as unknown as Record<string, unknown>)
+      : getApp();
+  } catch (err) {
+    console.error('[Firebase] initializeApp failed. Check VITE_FIREBASE_* in .env.local and restart dev server.', err);
+    app = null;
+  }
+} else {
+  console.warn('[Firebase] Missing VITE_FIREBASE_API_KEY or VITE_FIREBASE_PROJECT_ID in .env.local. Running without Firebase.');
+}
+
+export const storage = app ? getStorage(app) : (null as unknown as ReturnType<typeof getStorage>);
+export const auth = app ? getAuth(app) : (null as unknown as ReturnType<typeof getAuth>);
+export const dbs = app ? getFirestore(app) : (null as unknown as ReturnType<typeof getFirestore>);
 
 // OPTIMIZED: Initialize database with connection pooling
-// Firebase Realtime Database automatically manages connections, but we can optimize
-export const db = getDatabase(app);
+export const db = app ? getDatabase(app) : (null as unknown as ReturnType<typeof getDatabase>);
 
-// Enable offline persistence for better performance (caching)
-// Note: This is handled automatically by Firebase SDK v9+
-// The SDK caches data locally and syncs when online
+export const functionsApp = app ? getFunctions(app) : (null as unknown as ReturnType<typeof getFunctions>);
 
-export const functionsApp = getFunctions(app);
-
-// Initialize Vertex AI
-export const ai = getAI(app, { backend: new VertexAIBackend() });
+// Initialize Vertex AI only when app exists
+export const ai = app ? getAI(app, { backend: new VertexAIBackend() }) : (null as unknown as ReturnType<typeof getAI>);
 
 export { ref, child, set, ref1, storageRef, orderByChild,
   equalTo,
