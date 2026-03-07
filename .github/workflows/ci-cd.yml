@@ -68,7 +68,7 @@ jobs:
         run: npm run build:main
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: build-output
           path: dist/
@@ -99,7 +99,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: test-results
@@ -163,7 +163,7 @@ jobs:
             --enableRetired
 
       - name: Upload security reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: security-reports
@@ -221,7 +221,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload accessibility reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: accessibility-reports
@@ -273,7 +273,7 @@ jobs:
           echo "API change check completed"
 
       - name: Upload sandbox test results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: sandbox-test-results
