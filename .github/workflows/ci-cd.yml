@@ -120,6 +120,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Gitleaks (secrets scanning)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -130,9 +137,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run npm audit
+      - name: Run npm audit (root)
         run: npm audit --audit-level=high
-        continue-on-error: true
+
+      - name: Run npm audit (functions)
+        run: cd functions && npm ci && npm audit --audit-level=high
 
       - name: Run Snyk security scan
         uses: snyk/actions/node@master

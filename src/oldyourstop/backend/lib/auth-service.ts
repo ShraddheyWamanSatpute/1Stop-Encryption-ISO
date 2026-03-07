@@ -1,5 +1,11 @@
 /**
  * Authentication service with JWT and Prisma integration
+ *
+ * Token signing: HS256 (symmetric key via JWT_SECRET).
+ * For ISO 27001 / SOC 2 compliance, RS256 is recommended. See YourStop backend
+ * (auth-service.ts + jwt-keys.ts) and JWT_RS256_MIGRATION_GUIDE in yourstop/backend
+ * for migration. This codebase is documented as legacy HS256; production should use
+ * a strong JWT_SECRET (≥32 chars) until migrated to RS256.
  */
 
 import jwt from 'jsonwebtoken';
