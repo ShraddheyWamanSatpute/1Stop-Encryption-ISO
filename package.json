@@ -100,7 +100,7 @@
     "nodemailer": "^7.0.10",
     "papaparse": "^5.5.3",
     "pdf-parse": "^1.1.1",
-    "pdfjs-dist": "^4.8.69",
+    "pdfjs-dist": "^5.5.207",
     "qrcode.react": "^4.2.0",
     "react": "^18.2.0",
     "react-animated-weather": "^4.0.1",
