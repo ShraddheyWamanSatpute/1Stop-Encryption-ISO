@@ -1,0 +1,65 @@
+# Dependabot configuration for automated dependency updates
+# SOC 2 CC8, ISO 27001 A.14: Vendor SDK pinning and monitoring
+# See: https://docs.github.com/en/code-security/dependabot
+
+version: 2
+updates:
+  # Root package (main 1Stop app)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "security"
+    reviewers:
+      - "ShraddheyWamanSatpute"
+    commit-message:
+      prefix: "deps"
+    # Group minor and patch updates to reduce PR noise
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Firebase Cloud Functions
+  - package-ecosystem: "npm"
+    directory: "/functions"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "security"
+      - "functions"
+    commit-message:
+      prefix: "deps(functions)"
+
+  # YourStop backend
+  - package-ecosystem: "npm"
+    directory: "/src/yourstop/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "security"
+      - "yourstop"
+    commit-message:
+      prefix: "deps(yourstop)"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "ci"
+    commit-message:
+      prefix: "ci"

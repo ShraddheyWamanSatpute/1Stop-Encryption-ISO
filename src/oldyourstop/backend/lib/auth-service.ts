@@ -1,17 +1,19 @@
 /**
  * Authentication service with JWT and Prisma integration
  *
- * Token signing: HS256 (symmetric key via JWT_SECRET).
- * For ISO 27001 / SOC 2 compliance, RS256 is recommended. See YourStop backend
- * (auth-service.ts + jwt-keys.ts) and JWT_RS256_MIGRATION_GUIDE in yourstop/backend
- * for migration. This codebase is documented as legacy HS256; production should use
- * a strong JWT_SECRET (≥32 chars) until migrated to RS256.
+ * Token signing: RS256 (asymmetric RSA keys) in production.
+ * Requires JWT_PRIVATE_KEY and JWT_PUBLIC_KEY environment variables for RS256.
+ * Falls back to HS256 (JWT_SECRET) in development only.
+ *
+ * ISO 27001 / SOC 2 compliance: RS256 required in production.
+ * See jwt-keys.ts for RSA key management.
  */
 
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import prisma from './prisma';
 import { createLogger } from './logger';
+import { getRSAKeys } from './jwt-keys';
 
 const logger = createLogger();
 
@@ -43,38 +45,47 @@ export interface RegisterData {
 }
 
 class AuthService {
-  private readonly JWT_SECRET: string;
+  private readonly JWT_PRIVATE_KEY: string;
+  private readonly JWT_PUBLIC_KEY: string;
   private readonly JWT_EXPIRES_IN: string = process.env['JWT_EXPIRES_IN'] || '7d';
   private readonly BCRYPT_ROUNDS = parseInt(process.env['BCRYPT_ROUNDS'] || '12');
 
   constructor() {
-    // SECURITY: JWT_SECRET must be set via environment variable
-    // Throw error in production if not set to prevent using default/weak secrets
-    const secret = process.env['JWT_SECRET'];
-    if (!secret) {
+    // SECURITY: Use RS256 (RSA) algorithm for JWT signing
+    try {
+      const keys = getRSAKeys();
+      this.JWT_PRIVATE_KEY = keys.privateKey;
+      this.JWT_PUBLIC_KEY = keys.publicKey;
+
+      logger.info('JWT RSA keys loaded successfully (RS256 algorithm)');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       const isProduction = process.env['NODE_ENV'] === 'production';
+
       if (isProduction) {
         throw new Error(
-          'JWT_SECRET environment variable is required in production. ' +
-          'Set it via: export JWT_SECRET=your-secure-random-secret'
+          'JWT RSA keys are required in production. ' +
+          'Set JWT_PRIVATE_KEY and JWT_PUBLIC_KEY environment variables, ' +
+          'or store them in Firebase Secrets. ' +
+          'Error: ' + errorMessage
         );
       }
-      // Development fallback with warning
-      const logger = createLogger();
-      logger.warn(
-        '⚠️  JWT_SECRET not set. Using development fallback. ' +
-        'Set JWT_SECRET environment variable for production.'
-      );
-      this.JWT_SECRET = 'dev-secret-key-change-in-production';
-    } else {
-      // Validate secret strength in production
-      if (process.env['NODE_ENV'] === 'production' && secret.length < 32) {
+
+      // Development fallback: try legacy JWT_SECRET for backward compatibility
+      const legacySecret = process.env['JWT_SECRET'];
+      if (legacySecret) {
+        logger.warn(
+          'Using legacy JWT_SECRET (HS256). ' +
+          'Generate RSA keys for RS256: tsx scripts/generate-jwt-keys.ts'
+        );
+        this.JWT_PRIVATE_KEY = legacySecret;
+        this.JWT_PUBLIC_KEY = legacySecret;
+      } else {
         throw new Error(
-          'JWT_SECRET must be at least 32 characters long in production. ' +
-          'Current length: ' + secret.length
+          'JWT keys not found. Set JWT_PRIVATE_KEY and JWT_PUBLIC_KEY, ' +
+          'or run: tsx scripts/generate-jwt-keys.ts'
         );
       }
-      this.JWT_SECRET = secret;
     }
   }
 
@@ -167,7 +178,11 @@ class AuthService {
 
   async verifyToken(token: string): Promise<User | null> {
     try {
-      const decoded = jwt.verify(token, this.JWT_SECRET) as { userId: string };
+      // SECURITY: In production, only accept RS256 tokens to prevent algorithm downgrade attacks.
+      const isProduction = process.env['NODE_ENV'] === 'production';
+      const isRSA = this.JWT_PRIVATE_KEY.includes('BEGIN PRIVATE KEY');
+      const allowedAlgorithms: jwt.Algorithm[] = isProduction ? ['RS256'] : (isRSA ? ['RS256'] : ['HS256']);
+      const decoded = jwt.verify(token, this.JWT_PUBLIC_KEY, { algorithms: allowedAlgorithms }) as { userId: string };
       
       const user = await prisma.user.findUnique({
         where: { id: decoded.userId }
@@ -260,10 +275,23 @@ class AuthService {
   }
 
   private generateToken(userId: string): string {
+    // Use RS256 algorithm with private key for signing
+    const algorithm = this.JWT_PRIVATE_KEY.includes('BEGIN PRIVATE KEY') ? 'RS256' : 'HS256';
+    const isProduction = process.env['NODE_ENV'] === 'production';
+    if (isProduction && algorithm !== 'RS256') {
+      throw new Error(
+        'RS256 is required in production. Set JWT_PRIVATE_KEY and JWT_PUBLIC_KEY (PEM format). ' +
+        'HS256 must not be used in production for compliance.'
+      );
+    }
+
     return jwt.sign(
       { userId },
-      this.JWT_SECRET,
-      { expiresIn: this.JWT_EXPIRES_IN } as jwt.SignOptions
+      this.JWT_PRIVATE_KEY,
+      {
+        algorithm,
+        expiresIn: this.JWT_EXPIRES_IN
+      } as jwt.SignOptions
     );
   }
 }

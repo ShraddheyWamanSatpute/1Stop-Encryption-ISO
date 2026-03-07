@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { useSettings } from "../../backend/context/SettingsContext";
 import { logLoginFailure } from "../../backend/services/audit/authAuditClient";
+import { isLoginAllowed, getRemainingLockoutSeconds } from "../../backend/utils/loginRateLimiter";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -34,6 +35,15 @@ const Login: React.FC = () => {
     try {
       if (!email || !password) {
         throw new Error("Email and Password are required.");
+      }
+
+      // Brute-force protection: rate limit login attempts (ISO 27001 A.9, SOC 2 CC6)
+      if (!isLoginAllowed(email)) {
+        const remaining = getRemainingLockoutSeconds(email);
+        const minutes = Math.ceil(remaining / 60);
+        throw new Error(
+          `Too many login attempts. Please try again in ${minutes} minute${minutes !== 1 ? 's' : ''}.`
+        );
       }
 
       await login(email, password);

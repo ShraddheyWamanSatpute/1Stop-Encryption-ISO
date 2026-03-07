@@ -176,9 +176,12 @@ class AuthService {
 
   async verifyToken(token: string): Promise<User | null> {
     try {
-      // Use RS256 algorithm with public key for verification
-      const algorithm = this.JWT_PRIVATE_KEY.includes('BEGIN PRIVATE KEY') ? 'RS256' : 'HS256';
-      const decoded = jwt.verify(token, this.JWT_PUBLIC_KEY, { algorithms: [algorithm] }) as { userId: string };
+      // SECURITY: In production, only accept RS256 tokens to prevent algorithm downgrade attacks.
+      // In development, allow HS256 fallback for backward compatibility.
+      const isProduction = process.env['NODE_ENV'] === 'production';
+      const isRSA = this.JWT_PRIVATE_KEY.includes('BEGIN PRIVATE KEY');
+      const allowedAlgorithms: jwt.Algorithm[] = isProduction ? ['RS256'] : (isRSA ? ['RS256'] : ['HS256']);
+      const decoded = jwt.verify(token, this.JWT_PUBLIC_KEY, { algorithms: allowedAlgorithms }) as { userId: string };
       
       const user = await prisma.user.findUnique({
         where: { id: decoded.userId }
