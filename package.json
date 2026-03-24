@@ -53,7 +53,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@iconify/react": "^6.0.0",
     "@microsoft/microsoft-graph-client": "^3.0.7",
-    "@mui/icons-material": "^5.17.1",
+    "@mui/icons-material": "^7.3.9",
     "@mui/lab": "^5.0.0-alpha.125",
     "@mui/material": "^5.14.19",
     "@mui/x-data-grid": "^7.28.3",
