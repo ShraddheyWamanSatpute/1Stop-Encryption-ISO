@@ -94,7 +94,7 @@
     "embla-carousel-react": "^8.6.0",
     "emoji-picker-react": "^4.12.2",
     "firebase": "^12.1.0",
-    "jspdf": "^3.0.1",
+    "jspdf": "^4.2.0",
     "jspdf-autotable": "^5.0.2",
     "lucide-react": "^0.562.0",
     "nodemailer": "^7.0.10",
@@ -122,7 +122,7 @@
     "tailwind-merge": "^3.4.0",
     "tesseract.js": "^6.0.1",
     "uuid": "^11.1.0",
-    "xlsx": "^0.18.5",
+    "xlsx": "npm:@e965/xlsx@^0.20.3",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -144,5 +144,8 @@
     "eslint-plugin-react-refresh": "^0.4.4",
     "typescript": "^5.2.2",
     "vite": "^5.0.0"
+  },
+  "overrides": {
+    "minimatch": "^9.0.7"
   }
 }
