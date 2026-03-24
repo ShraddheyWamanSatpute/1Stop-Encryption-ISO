@@ -120,7 +120,7 @@
     "recharts": "^2.15.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
-    "tesseract.js": "^6.0.1",
+    "tesseract.js": "^7.0.0",
     "uuid": "^11.1.0",
     "xlsx": "npm:@e965/xlsx@^0.20.3",
     "zod": "^4.3.6"
