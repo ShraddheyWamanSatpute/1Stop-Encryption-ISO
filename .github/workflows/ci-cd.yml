@@ -282,7 +282,7 @@ jobs:
 
       - name: Notify on failure
         if: failure()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             github.rest.issues.create({
@@ -372,7 +372,7 @@ jobs:
           projectId: ${{ secrets.FIREBASE_PROJECT_ID_PRODUCTION }}
 
       - name: Create deployment record
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             github.rest.repos.createDeployment({
